@@ -7,6 +7,8 @@ let urlJsonParam = null; // 从URL参数中获取的json（API模式）
 let urlAuthorParam = null; // 从URL参数中获取的author
 let urlKeywordsParam = null; // 从URL参数中获取的keywords
 let paperData = {};
+/** 当日各分区汇总（与 data/{date}_category_meta_{lang}.json 一致） */
+let categoryMeta = null;
 let flatpickrInstance = null;
 let isRangeMode = false;
 let activeKeywords = []; // 存储激活的关键词
@@ -387,6 +389,18 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchAvailableDates().then(() => {
     if (availableDates.length > 0) {
       loadPapersByDate(availableDates[0]);
+    } else {
+      const dateEl = document.getElementById('currentDate');
+      if (dateEl) dateEl.textContent = '—';
+      const container = document.getElementById('paperContainer');
+      if (container) {
+        container.innerHTML = `
+          <div class="loading-container">
+            <p>暂无论文数据（data 分支中无可用 JSONL）。配置 Actions 并运行工作流后将显示内容。</p>
+          </div>
+        `;
+      }
+      renderCategoryFilter({ sortedCategories: [], categoryCounts: {} });
     }
   });
 });
@@ -705,7 +719,7 @@ async function fetchAvailableDates() {
       return [];
     }
     const text = await response.text();
-    const files = text.trim().split('\n');
+    const files = text.trim().split('\n').filter(line => line.trim().length > 0);
 
     const dateRegex = /(\d{4}-\d{2}-\d{2})_AI_enhanced_(English|Chinese)\.jsonl/;
     const dateLanguageMap = new Map(); // Store date -> available languages
@@ -858,6 +872,17 @@ async function loadPapersByDate(date) {
     }
     
     paperData = parseJsonlData(text, date);
+
+    categoryMeta = null;
+    try {
+      const metaUrl = DATA_CONFIG.getDataUrl(`data/${date}_category_meta_${selectedLanguage}.json`);
+      const metaRes = await fetch(metaUrl);
+      if (metaRes.ok) {
+        categoryMeta = await metaRes.json();
+      }
+    } catch (e) {
+      console.warn('加载分类汇总失败:', e);
+    }
 
     const categories = getAllCategories(paperData);
 
@@ -1092,6 +1117,117 @@ function formatAuthorsForCard(authorsString, authorTerms = []) {
   });
   
   return result.join(', ');
+}
+
+function paperPrimaryCategory(paper) {
+  if (Array.isArray(paper.category) && paper.category.length) {
+    return paper.category[0];
+  }
+  if (typeof paper.category === 'string') {
+    return paper.category;
+  }
+  return '';
+}
+
+function partitionFilteredByCategory(filteredPapers, sortedCategories) {
+  const byCat = {};
+  sortedCategories.forEach(c => {
+    byCat[c] = [];
+  });
+  filteredPapers.forEach(p => {
+    const c = paperPrimaryCategory(p);
+    if (!byCat[c]) {
+      byCat[c] = [];
+    }
+    byCat[c].push(p);
+  });
+  return byCat;
+}
+
+function appendCategorySummarySection(container, cat, summaryText) {
+  if (!summaryText) {
+    return;
+  }
+  const wrap = document.createElement('div');
+  wrap.className = 'category-block';
+  const h = document.createElement('h3');
+  h.className = 'category-section-title';
+  h.textContent = cat;
+  const body = document.createElement('div');
+  body.className = 'category-daily-summary';
+  const p = document.createElement('div');
+  p.className = 'category-summary-body';
+  p.textContent = summaryText;
+  body.appendChild(p);
+  wrap.appendChild(h);
+  wrap.appendChild(body);
+  container.appendChild(wrap);
+}
+
+function buildPaperCardElement(paper, index) {
+  const paperCard = document.createElement('div');
+  paperCard.className = `paper-card ${paper.isMatched ? 'matched-paper' : ''}`;
+  paperCard.dataset.id = paper.id || paper.url;
+
+  if (paper.isMatched && paper.matchReason) {
+    const reasonStr = Array.isArray(paper.matchReason)
+      ? paper.matchReason.join(' | ')
+      : String(paper.matchReason);
+    paperCard.title = `匹配: ${reasonStr}`;
+  }
+
+  const categoryTags = paper.allCategories
+    ? paper.allCategories.map(cat => `<span class="category-tag">${cat}</span>`).join('')
+    : `<span class="category-tag">${paper.category}</span>`;
+
+  const titleSummaryTerms = [];
+  if (activeKeywords.length > 0) {
+    titleSummaryTerms.push(...activeKeywords);
+  }
+  if (textSearchQuery && textSearchQuery.trim().length > 0) {
+    titleSummaryTerms.push(textSearchQuery.trim());
+  }
+
+  const highlightedTitle = titleSummaryTerms.length > 0
+    ? highlightMatches(paper.title, titleSummaryTerms, 'keyword-highlight')
+    : paper.title;
+  const highlightedSummary = titleSummaryTerms.length > 0
+    ? highlightMatches(paper.summary, titleSummaryTerms, 'keyword-highlight')
+    : paper.summary;
+
+  const authorTerms = [];
+  if (activeAuthors.length > 0) authorTerms.push(...activeAuthors);
+  if (textSearchQuery && textSearchQuery.trim().length > 0) authorTerms.push(textSearchQuery.trim());
+
+  const formattedAuthors = formatAuthorsForCard(paper.authors, authorTerms);
+
+  paperCard.innerHTML = `
+      <div class="paper-card-index">${index + 1}</div>
+      ${paper.isMatched ? '<div class="match-badge" title="匹配您的搜索条件"></div>' : ''}
+      <div class="paper-card-header">
+        <h3 class="paper-card-title">${highlightedTitle}</h3>
+        <p class="paper-card-authors">${formattedAuthors}</p>
+        <div class="paper-card-categories">
+          ${categoryTags}
+        </div>
+      </div>
+      <div class="paper-card-body">
+        <p class="paper-card-summary">${highlightedSummary}</p>
+        <div class="paper-card-footer">
+          <div class="footer-left">
+            <span class="paper-card-date">${formatDate(paper.date)}</span>
+          </div>
+          <span class="paper-card-link">Details</span>
+        </div>
+      </div>
+    `;
+
+  paperCard.addEventListener('click', () => {
+    currentPaperIndex = index;
+    showPaperDetails(paper, index + 1);
+  });
+
+  return paperCard;
 }
 
 function renderPapers() {
@@ -1332,7 +1468,7 @@ function renderPapers() {
   
   // 存储当前过滤后的论文列表，用于箭头键导航
   currentFilteredPapers = [...filteredPapers];
-  
+
   if (filteredPapers.length === 0) {
     container.innerHTML = `
       <div class="loading-container">
@@ -1341,91 +1477,60 @@ function renderPapers() {
     `;
     return;
   }
-  
-  filteredPapers.forEach((paper, index) => {
-    const paperCard = document.createElement('div');
-    // 添加匹配高亮类
-    paperCard.className = `paper-card ${paper.isMatched ? 'matched-paper' : ''}`;
-    paperCard.dataset.id = paper.id || paper.url;
-    
-    if (paper.isMatched) {
-      // 添加匹配原因提示
-      paperCard.title = `匹配: ${paper.matchReason.join(' | ')}`;
-    }
-    
-    const categoryTags = paper.allCategories ? 
-      paper.allCategories.map(cat => `<span class="category-tag">${cat}</span>`).join('') : 
-      `<span class="category-tag">${paper.category}</span>`;
-    
-    // 组合需要高亮的词：关键词 + 文本搜索
-    const titleSummaryTerms = [];
-    if (activeKeywords.length > 0) {
-      titleSummaryTerms.push(...activeKeywords);
-    }
-    if (textSearchQuery && textSearchQuery.trim().length > 0) {
-      titleSummaryTerms.push(textSearchQuery.trim());
-    }
 
-    // 高亮标题和摘要（关键词与文本搜索）
-    const highlightedTitle = titleSummaryTerms.length > 0 
-      ? highlightMatches(paper.title, titleSummaryTerms, 'keyword-highlight') 
-      : paper.title;
-    const highlightedSummary = titleSummaryTerms.length > 0 
-      ? highlightMatches(paper.summary, titleSummaryTerms, 'keyword-highlight') 
-      : paper.summary;
+  const isRangeDate = String(currentDate).includes(' to ');
+  const useSectionedAll =
+    currentCategory === 'all' &&
+    categoryMeta &&
+    categoryMeta.categories &&
+    !isRangeDate;
 
-    // 高亮作者（作者过滤 + 文本搜索）
-    const authorTerms = [];
-    if (activeAuthors.length > 0) authorTerms.push(...activeAuthors);
-    if (textSearchQuery && textSearchQuery.trim().length > 0) authorTerms.push(textSearchQuery.trim());
-    
-    // 格式化作者列表（应用截断规则和高亮）
-    const formattedAuthors = formatAuthorsForCard(paper.authors, authorTerms);
-    
-    // 构建 GitHub 按钮 HTML
-    // let githubHtml = '';
-    // if (paper.code_url) {
-    //   const stars = paper.code_stars ? `<span class="github-stars">★ ${paper.code_stars}</span>` : '';
-    //   const isHot = paper.code_stars > 100;
-      
-    //   githubHtml = `
-    //     <a href="${paper.code_url}" target="_blank" class="github-link" title="View Code" onclick="event.stopPropagation()">
-    //       <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: text-bottom; margin-right: 4px;">
-    //         <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-    //       </svg>
-    //       Code ${stars}
-    //       ${isHot ? '<span class="hot-icon">🔥</span>' : ''}
-    //     </a>
-    //   `;
-    // }
-
-    paperCard.innerHTML = `
-      <div class="paper-card-index">${index + 1}</div>
-      ${paper.isMatched ? '<div class="match-badge" title="匹配您的搜索条件"></div>' : ''}
-      <div class="paper-card-header">
-        <h3 class="paper-card-title">${highlightedTitle}</h3>
-        <p class="paper-card-authors">${formattedAuthors}</p>
-        <div class="paper-card-categories">
-          ${categoryTags}
-        </div>
-      </div>
-      <div class="paper-card-body">
-        <p class="paper-card-summary">${highlightedSummary}</p>
-        <div class="paper-card-footer">
-          <div class="footer-left">
-            <span class="paper-card-date">${formatDate(paper.date)}</span>
-          </div>
-          <span class="paper-card-link">Details</span>
-        </div>
-      </div>
-    `;
-    
-    paperCard.addEventListener('click', () => {
-      currentPaperIndex = index; // 记录当前点击的论文索引
-      showPaperDetails(paper, index + 1);
+  if (useSectionedAll) {
+    const { sortedCategories } = getAllCategories(paperData);
+    const byCat = partitionFilteredByCategory(filteredPapers, sortedCategories);
+    const flatOrdered = [];
+    sortedCategories.forEach(cat => {
+      const list = byCat[cat] || [];
+      list.forEach(p => flatOrdered.push(p));
     });
-    
-    container.appendChild(paperCard);
+    currentFilteredPapers = flatOrdered;
+
+    let idx = 0;
+    sortedCategories.forEach(cat => {
+      const catPapers = byCat[cat] || [];
+      if (catPapers.length === 0) {
+        return;
+      }
+      const s = categoryMeta.categories[cat] && categoryMeta.categories[cat].summary;
+      if (s) {
+        appendCategorySummarySection(container, cat, s);
+      }
+      catPapers.forEach(paper => {
+        container.appendChild(buildPaperCardElement(paper, idx));
+        idx += 1;
+      });
+    });
+    return;
+  }
+
+  if (
+    !useSectionedAll &&
+    currentCategory !== 'all' &&
+    categoryMeta &&
+    categoryMeta.categories &&
+    categoryMeta.categories[currentCategory] &&
+    categoryMeta.categories[currentCategory].summary &&
+    !isRangeDate
+  ) {
+    appendCategorySummarySection(
+      container,
+      currentCategory,
+      categoryMeta.categories[currentCategory].summary
+    );
+  }
+
+  filteredPapers.forEach((paper, index) => {
+    container.appendChild(buildPaperCardElement(paper, index));
   });
 }
 
@@ -1723,6 +1828,8 @@ async function loadPapersByDateRange(startDate, endDate) {
     }
     
     paperData = allPaperData;
+
+    categoryMeta = null;
 
     const categories = getAllCategories(paperData);
 

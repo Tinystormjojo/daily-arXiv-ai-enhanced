@@ -118,6 +118,25 @@ jobs:
             exit 1
         fi
         echo "AI增强处理完成 / AI enhancement processing completed"
+
+    - name: Keyword filter and category summaries
+      if: steps.dedup_check.outputs.has_new_content == 'true'
+      run: |
+        source .venv/bin/activate
+        today=${{ steps.crawl_step.outputs.crawl_date }}
+        echo "关键词筛选与分类汇总... / Keyword filter and per-category summaries..."
+        cd ai
+        export OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+        export OPENAI_BASE_URL=${{ secrets.OPENAI_BASE_URL }}
+        export LANGUAGE="${{ vars.LANGUAGE }}"
+        export MODEL_NAME="${{ vars.MODEL_NAME }}"
+        export KEYWORDS="${{ vars.KEYWORDS }}"
+        python aggregate_keywords.py --data "../data/${today}_AI_enhanced_${LANGUAGE}.jsonl"
+        if [ $? -ne 0 ]; then
+          echo "关键词聚合失败 / aggregate_keywords failed"
+          exit 1
+        fi
+        echo "关键词聚合完成 / aggregate_keywords completed"
         
     - name: Convert to Markdown
       if: steps.dedup_check.outputs.has_new_content == 'true'

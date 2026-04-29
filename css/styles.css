@@ -609,6 +609,36 @@ main {
   gap: 20px;
 }
 
+/* 按分区展示的当日关键词汇总 */
+.category-block {
+  grid-column: 1 / -1;
+  margin-bottom: 8px;
+}
+
+.category-section-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--border-accent);
+}
+
+.category-daily-summary {
+  background: var(--gradient-light);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  margin-bottom: 24px;
+}
+
+.category-summary-body {
+  white-space: pre-wrap;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
 /* 论文卡片 - 网格视图 */
 .paper-card {
   background-color: var(--card-bg-color);
