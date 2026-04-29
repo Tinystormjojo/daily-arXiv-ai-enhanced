@@ -100,6 +100,41 @@ jobs:
                 ;;
         esac
         
+    # 必须指向本仓库的 data 分支；原先 sed 替换 PLACEHOLDER 与文件内容不一致会导致一直拉 dw-dengwei 的公开数据
+    - name: Inject repository info into data-config.js
+      if: steps.dedup_check.outcome == 'success'
+      run: |
+        REPO_OWNER="${{ github.repository_owner }}"
+        REPO_NAME="${{ github.event.repository.name }}"
+        echo "注入 data-config: owner=$REPO_OWNER name=$REPO_NAME"
+        sed -i "s/PLACEHOLDER_REPO_OWNER/$REPO_OWNER/g" js/data-config.js
+        sed -i "s/PLACEHOLDER_REPO_NAME/$REPO_NAME/g" js/data-config.js
+        sed -i "s/dw-dengwei/$REPO_OWNER/g" js/data-config.js
+
+    - name: Commit and push data-config.js if changed
+      if: steps.dedup_check.outcome == 'success'
+      run: |
+        git config --global user.email "${{ vars.EMAIL }}"
+        git config --global user.name "${{ vars.NAME }}"
+        git add js/data-config.js
+        if git diff --staged --quiet; then
+          echo "data-config.js 无需提交 / No data-config change"
+          exit 0
+        fi
+        git commit -m "chore: point data-config at this repository (GitHub Pages data source)"
+        git config pull.rebase true
+        for i in 1 2 3; do
+          if git push origin main; then
+            echo "data-config 已推送 / data-config push ok"
+            break
+          fi
+          git pull origin main --no-edit || true
+          if [ "$i" -eq 3 ]; then
+            echo "推送 data-config 失败 / data-config push failed"
+            exit 1
+          fi
+        done
+
     - name: AI Enhancement Processing
       if: steps.dedup_check.outputs.has_new_content == 'true'
       run: |
@@ -234,28 +269,6 @@ jobs:
           esac
         fi
         
-    - name: Inject repository info into data-config.js
-      if: steps.dedup_check.outputs.has_new_content == 'true'
-      run: |
-        echo "注入仓库信息到 data-config.js... / Injecting repository info into data-config.js..."
-        
-        # 获取仓库信息 / Get repository information
-        REPO_OWNER="${{ github.repository_owner }}"
-        REPO_NAME="${{ github.event.repository.name }}"
-        
-        echo "仓库所有者: $REPO_OWNER / Repository owner: $REPO_OWNER"
-        echo "仓库名称: $REPO_NAME / Repository name: $REPO_NAME"
-        
-        # 注入仓库信息到 data-config.js / Inject repository info into data-config.js
-        if [ -f "js/data-config.js" ]; then
-          sed -i "s/PLACEHOLDER_REPO_OWNER/$REPO_OWNER/g" js/data-config.js
-          sed -i "s/PLACEHOLDER_REPO_NAME/$REPO_NAME/g" js/data-config.js
-          echo "✅ 仓库信息已注入到 js/data-config.js / Repository info injected into js/data-config.js"
-        else
-          echo "❌ ERROR: js/data-config.js not found!"
-          exit 1
-        fi
-
     - name: Commit code changes to main branch
       if: steps.dedup_check.outputs.has_new_content == 'true'
       run: |
