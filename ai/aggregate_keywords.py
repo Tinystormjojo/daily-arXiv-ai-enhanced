@@ -36,9 +36,16 @@ def parse_keywords(raw: str | None) -> List[str]:
 
 
 def paper_search_blob(item: Dict[str, Any]) -> str:
-    title = (item.get("title") or "").lower()
-    summary = (item.get("summary") or "").lower()
-    return f"{title} {summary}"
+    """用于关键词匹配：含原文 + AI 字段，避免仅看英/中摘要时漏匹配。"""
+    parts = [
+        str(item.get("title") or ""),
+        str(item.get("summary") or ""),
+    ]
+    ai = item.get("AI")
+    if isinstance(ai, dict):
+        for k in ("tldr", "motivation", "method", "result", "conclusion"):
+            parts.append(str(ai.get(k) or ""))
+    return " ".join(parts).lower()
 
 
 def _phrase_tokens(phrase: str) -> List[str]:
@@ -109,6 +116,54 @@ def primary_category(item: Dict[str, Any]) -> str | None:
     if isinstance(cats, str):
         return cats
     return None
+
+
+def target_arxiv_categories_from_env() -> Optional[set[str]]:
+    """与爬虫 CATEGORIES 一致；未设置时不限制 meta 分桶（使用论文全部 arXiv 标签）。"""
+    raw = (os.environ.get("CATEGORIES") or "").strip()
+    if not raw:
+        return None
+    return {c.strip() for c in raw.split(",") if c.strip()}
+
+
+def meta_category_buckets(
+    item: Dict[str, Any], target: Optional[set[str]]
+) -> List[str]:
+    """
+    生成分区 meta 时：论文可落入多个桶（与 CATEGORIES 的交集）。
+    仅主分区时跨区论文只会出现在 cs.CL 桶，导致 meta 与顶部分区筛选不一致。
+    """
+    cats = item.get("categories")
+    if isinstance(cats, str):
+        cats_list = [cats] if cats.strip() else []
+    elif isinstance(cats, list):
+        cats_list = [c for c in cats if isinstance(c, str) and c.strip()]
+    else:
+        cats_list = []
+    if not cats_list:
+        p = primary_category(item)
+        return [p] if p else []
+    if not target:
+        return list(cats_list)
+    found = [c for c in cats_list if c in target]
+    if found:
+        return found
+    p = primary_category(item)
+    if p and p in target:
+        return [p]
+    return []
+
+
+def dedupe_papers_preserve_order(papers: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    seen: set[str] = set()
+    out: List[Dict[str, Any]] = []
+    for p in papers:
+        pid = str(p.get("id", ""))
+        if not pid or pid in seen:
+            continue
+        seen.add(pid)
+        out.append(p)
+    return out
 
 
 def _is_substantive_summary(text: str) -> bool:
@@ -186,7 +241,7 @@ def summarize_category(
         else "These are all papers in this category in today's batch."
     )
     human = f"""Repository keywords (comma-separated): {kw_desc}
-arXiv primary category: {category}
+arXiv category label: {category} (this bucket may include cross-listed papers that carry this tag).
 Target language for your answer: {language}
 
 {scope}
@@ -250,34 +305,43 @@ def main() -> None:
                 continue
             items.append(json.loads(line))
 
-    by_cat: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+    target_cats = target_arxiv_categories_from_env()
+
+    by_cat_primary: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+    by_cat_meta: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     for item in items:
-        cat = primary_category(item)
-        if not cat:
-            continue
-        by_cat[cat].append(item)
+        p = primary_category(item)
+        if p:
+            by_cat_primary[p].append(item)
+        for c in meta_category_buckets(item, target_cats):
+            by_cat_meta[c].append(item)
+
+    for ck in list(by_cat_meta.keys()):
+        by_cat_meta[ck] = dedupe_papers_preserve_order(by_cat_meta[ck])
 
     out_lines: List[Dict[str, Any]] = []
     meta_categories: Dict[str, Any] = {}
 
     llm: ChatOpenAI | None = None
-    # 与爬虫一致：设置了 KEYWORDS 时论文已在检索阶段限定，此处不再按标题/摘要二次过滤
     crawl_prefiltered_by_keywords = bool(keywords)
 
-    for cat in sorted(by_cat.keys()):
-        papers = by_cat[cat]
+    # JSONL：仍按主分区各取 top-K（与首页按主分区列表一致）
+    for cat in sorted(by_cat_primary.keys()):
+        papers = by_cat_primary[cat]
         if crawl_prefiltered_by_keywords:
             matched = list(papers)
         else:
             matched = [p for p in papers if matches_keywords(p, keywords, match_mode)]
 
+        if keywords and not matched and papers:
+            print(
+                "aggregate_keywords: 关键词文本匹配在本分区为 0 条，但爬取结果非空；"
+                "按「检索阶段已筛选」处理。",
+                file=sys.stderr,
+            )
+            matched = list(papers)
+
         if keywords and not matched:
-            meta_categories[cat] = {
-                "summary": "当日该分区无与关键词匹配的论文。",
-                "matched_count": 0,
-                "titles_in_category": [p.get("title", "") for p in papers],
-                "continuity_from_date": None,
-            }
             continue
 
         pool = matched if keywords else papers
@@ -295,11 +359,33 @@ def main() -> None:
         top = ranked[:TOP_K]
         out_lines.extend(top)
 
+    # meta：按 CATEGORIES ∩ 论文 arXiv 标签 分桶（跨区论文可出现在多个分区）
+    for cat in sorted(by_cat_meta.keys()):
+        papers = by_cat_meta[cat]
+        if crawl_prefiltered_by_keywords:
+            matched = list(papers)
+        else:
+            matched = [p for p in papers if matches_keywords(p, keywords, match_mode)]
+
+        if keywords and not matched and papers:
+            matched = list(papers)
+
+        if keywords and not matched:
+            meta_categories[cat] = {
+                "summary": "当日该分区无与关键词匹配的论文。",
+                "matched_count": 0,
+                "paper_count_in_bucket": len(papers),
+                "titles_in_category": [p.get("title", "") for p in papers],
+                "continuity_from_date": None,
+            }
+            continue
+
         to_summarize = matched if keywords else papers
         if not to_summarize:
             meta_categories[cat] = {
                 "summary": "",
                 "matched_count": 0,
+                "paper_count_in_bucket": len(papers),
                 "titles_in_category": [p.get("title", "") for p in papers],
                 "continuity_from_date": None,
             }
@@ -331,6 +417,8 @@ def main() -> None:
         meta_categories[cat] = {
             "summary": summary_text,
             "matched_count": len(matched) if keywords else len(papers),
+            # 本分区内当日批次的全部论文（与最终 JSONL 条数无关；JSONL 按主分区每区最多 TOP_K）
+            "paper_count_in_bucket": len(papers),
             "titles_in_category": [p.get("title", "") for p in papers],
             "continuity_from_date": prior_dt,
         }
@@ -363,6 +451,20 @@ def main() -> None:
             "any_word=短语内任一词出现"
         ),
         "language": language,
+        "categories_meta_buckets": (
+            "论文按 arXiv 标签与 CATEGORIES 环境变量的交集分桶；"
+            "JSONL 列表仍仅按主标签 (categories[0]) 各取 top-K。"
+        ),
+        "categories_env": sorted(target_cats) if target_cats else None,
+        "stats_note": (
+            "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。"
+            "jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 "
+            f"{TOP_K} 篇）。"
+            "各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；"
+            "同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。"
+        ),
+        "unique_papers_in_input": len(items),
+        "jsonl_output_line_count": len(out_lines),
         "total_papers_before_filter": len(items),
         "all_papers_inventory": inventory,
         "categories": meta_categories,
