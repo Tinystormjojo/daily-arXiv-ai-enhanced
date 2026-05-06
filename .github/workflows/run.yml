@@ -344,12 +344,10 @@ jobs:
         echo "设置 data 分支... / Setting up data branch..."
         today=${{ steps.crawl_step.outputs.crawl_date }}
         
-        # 在切换分支前，清理工作目录中可能冲突的未跟踪文件
-        # Before switching branches, clean untracked files that might conflict
-        # 这些文件已经保存到临时目录，所以可以安全删除
-        # These files are already saved to temporary directory, so safe to remove
-        rm -rf data/*.jsonl 2>/dev/null || true
-        rm -f data/*.md 2>/dev/null || true
+        # 在切换分支前清空 data/：未跟踪文件（如 *_category_meta_*.json）会导致
+        # “would be overwritten by checkout”。内容已备份到 /tmp/data_files，可安全删除。
+        rm -rf data
+        mkdir -p data
         rm -f assets/file-list.txt 2>/dev/null || true
         
         # 检查 data 分支是否存在 / Check if data branch exists
