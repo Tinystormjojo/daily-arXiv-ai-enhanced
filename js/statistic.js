@@ -44,7 +44,7 @@ async function fetchGitHubStats() {
   const apiUrl =
     typeof DATA_CONFIG !== 'undefined' && DATA_CONFIG.getGithubRepoApiUrl
       ? DATA_CONFIG.getGithubRepoApiUrl()
-      : 'https://api.github.com/repos/dw-dengwei/daily-arXiv-ai-enhanced';
+      : 'https://api.github.com/repos/Tinystormjojo/daily-arXiv-ai-enhanced';
   try {
     const response = await fetch(apiUrl);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
