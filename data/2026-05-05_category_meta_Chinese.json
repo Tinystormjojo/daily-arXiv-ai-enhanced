@@ -22,23 +22,80 @@
   ],
   "aggregate_revision": 2,
   "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 5 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
-  "unique_papers_in_input": 1,
-  "jsonl_output_line_count": 1,
-  "total_papers_before_filter": 1,
+  "unique_papers_in_input": 6,
+  "jsonl_output_line_count": 6,
+  "total_papers_before_filter": 6,
   "all_papers_inventory": [
+    {
+      "id": "2605.04003",
+      "title": "Physics-Grounded Multi-Agent Architecture for Traceable, Risk-Aware Human-AI Decision Support in Manufacturing",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2605.03861",
+      "title": "Aspect-Aware Content-Based Recommendations for Mathematical Research Papers",
+      "primary_category": "cs.IR"
+    },
     {
       "id": "2605.03275",
       "title": "Beyond Similarity Search: A Unified Data Layer for Production RAG Systems",
       "primary_category": "cs.IR"
+    },
+    {
+      "id": "2605.03916",
+      "title": "Atomic Fact-Checking Increases Clinician Trust in Large Language Model Recommendations for Oncology Decision Support: A Randomized Controlled Trial",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03237",
+      "title": "TeamUp: Semantic Project Matching and Team Formation for Learning at Scale",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03395",
+      "title": "APEX: Large-scale Multi-task Aesthetic-Informed Popularity Prediction for AI-Generated Music",
+      "primary_category": "cs.LG"
     }
   ],
   "categories": {
+    "cs.AI": {
+      "summary": "当前cs.AI领域围绕生成式推荐与AI辅助决策支持的落地需求，已形成覆盖工业制造、医疗临床、生成内容服务多场景的研究脉络，核心聚焦解决不同场景下AI决策推荐的可靠性、可信性痛点。针对航空高精度自由曲面零件CNC加工的风险约束多步补偿决策需求，有研究提出物理知识支撑的人在回路多智能体知识分析架构MAKA，可输出可追溯、风险感知的决策推荐，在加工测试床与基准测试中验证了效果，不仅能降低加工表面偏差，还支持决策方案的预部署风险验证，适配工业场景对决策安全性的严格要求。\n\n在临床肿瘤决策支持场景，大语言模型生成的治疗推荐普遍面临临床用户信任度不足的问题，相关研究通过随机对照试验对比了不同可信增强方案的实际效果，发现相较于传统可解释性方法，原子事实核查方法可大幅提升临床医生对AI生成推荐的信任度，为医疗领域生成式决策推荐的可信落地提供了关键实证依据。\n\n在AI生成内容服务场景，针对AI生成音乐的偏好推荐需求，现有研究提出了首个融合审美信息的大规模多任务学习框架APEX，可同时完成AI生成音乐的流行度预测与感知审美质量评估，在跨生成模型的分布外测试中，该框架显著提升了人类偏好预测的准确性，为AI生成内容场景的生成式推荐提供了新的技术路径。",
+      "matched_count": 3,
+      "paper_count_in_bucket": 3,
+      "titles_in_category": [
+        "Physics-Grounded Multi-Agent Architecture for Traceable, Risk-Aware Human-AI Decision Support in Manufacturing",
+        "Atomic Fact-Checking Increases Clinician Trust in Large Language Model Recommendations for Oncology Decision Support: A Randomized Controlled Trial",
+        "APEX: Large-scale Multi-task Aesthetic-Informed Popularity Prediction for AI-Generated Music"
+      ],
+      "continuity_from_date": null
+    },
+    "cs.CL": {
+      "summary": "当前cs.CL领域下的这两篇生成式推荐相关研究，分别聚焦医疗临床决策与教育场景匹配两大垂直领域的实际需求，围绕生成式推荐方案的效用落地展开探索。其中针对肿瘤学决策支持场景的研究，聚焦大语言模型生成的临床治疗推荐的信任度问题，通过随机对照试验对比了原子事实核查与传统可解释性方法对临床医生信任的影响，证实原子事实核查方案能够大幅提升临床医生对大模型生成推荐的接受度与信任度，为生成式医疗推荐的临床落地解决了核心的信任障碍。\n\n另一项研究面向大规模项目式学习场景，针对传统组队与匹配方法无法在大规模场景下同时满足项目难度对齐、团队认知多样性的痛点，提出了基于语义理解的生成式匹配与组队系统TeamUp，实现了学生与项目的精准匹配，同时完成认知多元团队的构建。实验结果显示，该系统在匹配质量、难度对齐、团队多样性与运行效率成本多项指标上均优于传统方法，为大规模教育场景的个性化推荐组队提供了可行方案。\n\n整体来看，这两项研究体现了当前生成式推荐研究的清晰趋势：研究重心逐渐从通用方法设计转向垂直场景的实际问题解决，既关注专业领域应用中落地必需的信任类问题，也面向大众教育场景解决大规模个性化匹配的实际需求，普遍依托严格的实证试验验证方法效用，凸显了生成式推荐技术赋能各领域实际决策的应用价值。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Atomic Fact-Checking Increases Clinician Trust in Large Language Model Recommendations for Oncology Decision Support: A Randomized Controlled Trial",
+        "TeamUp: Semantic Project Matching and Team Formation for Learning at Scale"
+      ],
+      "continuity_from_date": null
+    },
     "cs.IR": {
-      "summary": "当前cs.IR（信息检索）领域中，生成式推荐类生成式信息应用的落地推进，带动了对支撑其运行的检索增强生成（RAG）系统生产化部署的研究关注。现有相关工作大多聚焦RAG原型的效果优化，较少关注生产环境下的可靠性适配问题，原型性能到落地效果的差距是该方向待解决的痛点。\n\n本次收录的研究针对上述痛点展开分析，明确了生产RAG系统性能与可靠性差距的核心根源，提出了基于带pgvector扩展的PostgreSQL构建统一数据层的解决方案，替代原有的分散式数据架构，为RAG的检索流程提供统一的存储与计算支撑。\n\n该方案经过标准基准测试验证，证实了其在性能和可靠性上的优势，能够为生成式推荐场景下生产级RAG系统的部署提供可行的落地方案参考，也为相关生成式信息检索应用的基础设施建设提供了新思路。",
+      "summary": "本次梳理的cs.IR分类下3篇生成式推荐相关研究，覆盖垂直行业决策支撑、学术内容推荐、生成式AI应用底层基础设施三大方向，展现出该领域技术一方面向细分垂直场景渗透落地、一方面为生成式推荐类应用提供底层架构支撑的整体发展趋势。\n\n在垂直场景应用层面，针对航空自由曲面零件高精度CNC加工的风险约束多步补偿决策需求，已有研究提出人在回路的多智能体知识分析架构MAKA，该基于物理知识约束设计的架构可实现可追溯、风险感知的人机协同决策，在加工测试床与基准测试中均验证了有效性，可有效降低加工表面偏差。面向学术领域的内容推荐需求，也有研究探索面向数学研究论文的分面感知内容推荐方案，试图匹配研究者的差异化细分需求。\n\n在生成式推荐相关的底层技术支撑层面，当前检索增强生成（RAG）技术被广泛应用于生成式推荐系统构建中，针对生产环境下RAG系统性能远低于原型的落地痛点，已有研究提出基于PostgreSQL+pgvector+HNSW索引的统一数据层方案，解决了传统分体式数据层存在的三类核心问题，实验验证了该方案的性能与安全性优势，同时给出了可落地的混合分层架构参考方案。",
+      "matched_count": 3,
+      "paper_count_in_bucket": 3,
+      "titles_in_category": [
+        "Physics-Grounded Multi-Agent Architecture for Traceable, Risk-Aware Human-AI Decision Support in Manufacturing",
+        "Aspect-Aware Content-Based Recommendations for Mathematical Research Papers",
+        "Beyond Similarity Search: A Unified Data Layer for Production RAG Systems"
+      ],
+      "continuity_from_date": null
+    },
+    "cs.LG": {
+      "summary": "当前生成式推荐领域围绕AI生成内容的排序与筛选需求，本次cs.LG分类下的相关研究聚焦AI生成音乐场景的偏好预测任务，填补了该场景下大规模联合预测框架的研究空白。\n\n方法层面，该研究提出名为APEX的大规模多任务学习框架，创新性地将音乐流行度预测与感知审美质量预测两个任务联合建模，可同时捕捉AI生成音乐本身的审美属性与面向受众的传播接受度特征。\n\n实验结果显示，APEX在跨生成模型的分布外测试中，实现了人类音乐偏好预测效果的明显提升，能够为AI生成音乐的生成式推荐环节提供更精准的内容评估支撑，也为其他类型AI生成内容的推荐偏好建模提供了可借鉴的多任务设计思路。",
       "matched_count": 1,
       "paper_count_in_bucket": 1,
       "titles_in_category": [
-        "Beyond Similarity Search: A Unified Data Layer for Production RAG Systems"
+        "APEX: Large-scale Multi-task Aesthetic-Informed Popularity Prediction for AI-Generated Music"
       ],
       "continuity_from_date": null
     }
