@@ -118,12 +118,50 @@ def primary_category(item: Dict[str, Any]) -> str | None:
     return None
 
 
-def target_arxiv_categories_from_env() -> Optional[set[str]]:
-    """与爬虫 CATEGORIES 一致；未设置时不限制 meta 分桶（使用论文全部 arXiv 标签）。"""
+def ordered_categories_from_env() -> List[str]:
+    """与爬虫 CATEGORIES 顺序一致，用于选「列表主分区」。"""
     raw = (os.environ.get("CATEGORIES") or "").strip()
     if not raw:
+        return []
+    return [c.strip() for c in raw.split(",") if c.strip()]
+
+
+def item_with_listing_primary(
+    item: Dict[str, Any], ordered_targets: List[str]
+) -> Dict[str, Any]:
+    """
+    将 categories[0] 设为「CATEGORIES 中第一个在论文标签里出现的分区」，
+    与多标签论文在 arXiv 上的声明顺序解耦；未配置 CATEGORIES 时保持原顺序。
+    """
+    out = dict(item)
+    cats = item.get("categories")
+    if isinstance(cats, str):
+        cat_list = [cats] if cats.strip() else []
+    elif isinstance(cats, list):
+        cat_list = [c for c in cats if isinstance(c, str) and c.strip()]
+    else:
+        return out
+    if not cat_list:
+        return out
+    pref: Optional[str] = None
+    if ordered_targets:
+        cat_set = set(cat_list)
+        for t in ordered_targets:
+            if t in cat_set:
+                pref = t
+                break
+    if pref is None:
+        pref = cat_list[0]
+    out["categories"] = [pref] + [c for c in cat_list if c != pref]
+    return out
+
+
+def target_arxiv_categories_from_env() -> Optional[set[str]]:
+    """与爬虫 CATEGORIES 一致；未设置时不限制 meta 分桶（使用论文全部 arXiv 标签）。"""
+    ordered = ordered_categories_from_env()
+    if not ordered:
         return None
-    return {c.strip() for c in raw.split(",") if c.strip()}
+    return set(ordered)
 
 
 def meta_category_buckets(
@@ -306,10 +344,15 @@ def main() -> None:
             items.append(json.loads(line))
 
     target_cats = target_arxiv_categories_from_env()
+    cat_order = ordered_categories_from_env()
+
+    items_norm: List[Dict[str, Any]] = [
+        item_with_listing_primary(it, cat_order) for it in items
+    ]
 
     by_cat_primary: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     by_cat_meta: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
-    for item in items:
+    for item in items_norm:
         p = primary_category(item)
         if p:
             by_cat_primary[p].append(item)
@@ -432,7 +475,7 @@ def main() -> None:
     meta_path = os.path.join(out_dir, meta_name)
 
     inventory = []
-    for item in items:
+    for item in items_norm:
         cat = primary_category(item)
         inventory.append(
             {
@@ -452,10 +495,13 @@ def main() -> None:
         ),
         "language": language,
         "categories_meta_buckets": (
-            "论文按 arXiv 标签与 CATEGORIES 环境变量的交集分桶；"
-            "JSONL 列表仍仅按主标签 (categories[0]) 各取 top-K。"
+            "论文按 arXiv 标签与 CATEGORIES 的交集分桶；"
+            "JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；"
+            f"每主分区最多保留 {TOP_K} 条。"
         ),
+        "categories_env_order": ordered_categories_from_env() or None,
         "categories_env": sorted(target_cats) if target_cats else None,
+        "aggregate_revision": 2,
         "stats_note": (
             "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。"
             "jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 "
