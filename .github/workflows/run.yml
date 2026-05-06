@@ -169,6 +169,7 @@ jobs:
         export LANGUAGE="${{ vars.LANGUAGE }}"
         export MODEL_NAME="${{ vars.MODEL_NAME }}"
         export KEYWORDS="${{ vars.KEYWORDS }}"
+        export KEYWORD_MATCH_MODE="${{ vars.KEYWORD_MATCH_MODE }}"
         python aggregate_keywords.py --data "../data/${today}_AI_enhanced_${LANGUAGE}.jsonl"
         if [ $? -ne 0 ]; then
           echo "关键词聚合失败 / aggregate_keywords failed"

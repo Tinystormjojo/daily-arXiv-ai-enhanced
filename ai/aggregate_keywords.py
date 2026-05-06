@@ -34,22 +34,62 @@ def paper_search_blob(item: Dict[str, Any]) -> str:
     return f"{title} {summary}"
 
 
-def matches_keywords(item: Dict[str, Any], keywords: List[str]) -> bool:
+def _phrase_tokens(phrase: str) -> List[str]:
+    """拆成非空词（用于 all_words / any_word）。"""
+    return [t for t in phrase.lower().split() if t]
+
+
+def phrase_matches_blob(blob: str, phrase: str, mode: str) -> bool:
+    """
+    mode:
+      - phrase: 整段短语必须连续出现在 title+摘要 中（最严，易零命中）
+      - all_words: 短语中的每个词都要出现（默认，适合英文「generative recommendation」）
+      - any_word: 短语中任一词出现即可（较松）
+    """
+    phrase = phrase.strip()
+    if not phrase:
+        return False
+    pl = phrase.lower()
+    blob_l = blob.lower()
+    words = _phrase_tokens(phrase)
+    if len(words) <= 1:
+        return words[0] in blob_l if words else False
+    if mode == "phrase":
+        return pl in blob_l
+    if mode == "any_word":
+        return any(w in blob_l for w in words)
+    # all_words
+    return all(w in blob_l for w in words)
+
+
+def matches_keywords(
+    item: Dict[str, Any], keywords: List[str], mode: str
+) -> bool:
+    """逗号分隔的多个短语之间为 OR：任一短语命中即匹配。"""
     if not keywords:
         return True
     blob = paper_search_blob(item)
-    return any(k.lower() in blob for k in keywords)
+    return any(phrase_matches_blob(blob, k, mode) for k in keywords)
 
 
-def relevance_score(item: Dict[str, Any], keywords: List[str]) -> int:
+def relevance_score(
+    item: Dict[str, Any], keywords: List[str], mode: str
+) -> int:
     if not keywords:
         return 0
     title = (item.get("title") or "").lower()
     summary = (item.get("summary") or "").lower()
     score = 0
-    for kw in keywords:
-        k = kw.lower()
-        score += title.count(k) * 3 + summary.count(k)
+    for phrase in keywords:
+        pl = phrase.strip().lower()
+        if not pl:
+            continue
+        words = _phrase_tokens(phrase)
+        if mode == "phrase" or len(words) <= 1:
+            score += title.count(pl) * 3 + summary.count(pl)
+        else:
+            for w in words:
+                score += title.count(w) * 3 + summary.count(w)
     return score
 
 
@@ -107,8 +147,17 @@ def main() -> None:
     args = parser.parse_args()
 
     path = args.data
-    language = os.environ.get("LANGUAGE", "Chinese")
+    language = (os.environ.get("LANGUAGE") or "").strip() or "Chinese"
     keywords = parse_keywords(os.environ.get("KEYWORDS"))
+    match_mode = (
+        (os.environ.get("KEYWORD_MATCH_MODE") or "all_words").strip().lower()
+    )
+    if match_mode not in ("phrase", "all_words", "any_word"):
+        print(
+            f"Unknown KEYWORD_MATCH_MODE={match_mode}, using all_words",
+            file=sys.stderr,
+        )
+        match_mode = "all_words"
     model_name = os.environ.get("MODEL_NAME", "deepseek-chat")
 
     if not os.path.isfile(path):
@@ -137,12 +186,13 @@ def main() -> None:
 
     for cat in sorted(by_cat.keys()):
         papers = by_cat[cat]
-        matched = [p for p in papers if matches_keywords(p, keywords)]
+        matched = [p for p in papers if matches_keywords(p, keywords, match_mode)]
 
         if keywords and not matched:
             meta_categories[cat] = {
                 "summary": "当日该分区无与关键词匹配的论文。",
                 "matched_count": 0,
+                "titles_in_category": [p.get("title", "") for p in papers],
             }
             continue
 
@@ -150,7 +200,10 @@ def main() -> None:
         if keywords:
             ranked = sorted(
                 pool,
-                key=lambda p: (relevance_score(p, keywords), p.get("id", "")),
+                key=lambda p: (
+                    relevance_score(p, keywords, match_mode),
+                    p.get("id", ""),
+                ),
                 reverse=True,
             )
         else:
@@ -160,7 +213,11 @@ def main() -> None:
 
         to_summarize = matched if keywords else papers
         if not to_summarize:
-            meta_categories[cat] = {"summary": "", "matched_count": 0}
+            meta_categories[cat] = {
+                "summary": "",
+                "matched_count": 0,
+                "titles_in_category": [p.get("title", "") for p in papers],
+            }
             continue
 
         if len(to_summarize) > MAX_PAPERS_PER_CATEGORY_SUMMARY:
@@ -177,6 +234,7 @@ def main() -> None:
         meta_categories[cat] = {
             "summary": summary_text,
             "matched_count": len(matched) if keywords else len(papers),
+            "titles_in_category": [p.get("title", "") for p in papers],
         }
 
     stem = os.path.basename(path)
@@ -191,9 +249,28 @@ def main() -> None:
     out_dir = os.path.dirname(path) or "."
     meta_path = os.path.join(out_dir, meta_name)
 
+    inventory = []
+    for item in items:
+        cat = primary_category(item)
+        inventory.append(
+            {
+                "id": item.get("id"),
+                "title": item.get("title"),
+                "primary_category": cat,
+            }
+        )
+
     meta_doc = {
         "keywords": keywords,
+        "keyword_match_mode": match_mode,
+        "keyword_match_mode_note": (
+            "phrase=整句连续子串(最严); "
+            "all_words=短语内每个词都出现(默认); "
+            "any_word=短语内任一词出现"
+        ),
         "language": language,
+        "total_papers_before_filter": len(items),
+        "all_papers_inventory": inventory,
         "categories": meta_categories,
     }
     with open(meta_path, "w", encoding="utf-8") as f:
