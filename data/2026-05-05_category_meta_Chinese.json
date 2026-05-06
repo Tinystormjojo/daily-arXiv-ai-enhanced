@@ -2,15 +2,60 @@
   "keywords": [
     "generative recommendation"
   ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
   "language": "Chinese",
+  "total_papers_before_filter": 4,
+  "all_papers_inventory": [
+    {
+      "id": "2605.03275",
+      "title": "Beyond Similarity Search: A Unified Data Layer for Production RAG Systems",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2605.03916",
+      "title": "Atomic Fact-Checking Increases Clinician Trust in Large Language Model Recommendations for Oncology Decision Support: A Randomized Controlled Trial",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03237",
+      "title": "TeamUp: Semantic Project Matching and Team Formation for Learning at Scale",
+      "primary_category": "cs.SE"
+    },
+    {
+      "id": "2605.03395",
+      "title": "APEX: Large-scale Multi-task Aesthetic-Informed Popularity Prediction for AI-Generated Music",
+      "primary_category": "cs.SD"
+    }
+  ],
   "categories": {
     "cs.CL": {
       "summary": "当日该分区无与关键词匹配的论文。",
-      "matched_count": 0
+      "matched_count": 0,
+      "titles_in_category": [
+        "Atomic Fact-Checking Increases Clinician Trust in Large Language Model Recommendations for Oncology Decision Support: A Randomized Controlled Trial"
+      ]
     },
-    "cs.CV": {
+    "cs.IR": {
       "summary": "当日该分区无与关键词匹配的论文。",
-      "matched_count": 0
+      "matched_count": 0,
+      "titles_in_category": [
+        "Beyond Similarity Search: A Unified Data Layer for Production RAG Systems"
+      ]
+    },
+    "cs.SD": {
+      "summary": "",
+      "matched_count": 1,
+      "titles_in_category": [
+        "APEX: Large-scale Multi-task Aesthetic-Informed Popularity Prediction for AI-Generated Music"
+      ]
+    },
+    "cs.SE": {
+      "summary": "当日该分区无与关键词匹配的论文。",
+      "matched_count": 0,
+      "titles_in_category": [
+        "TeamUp: Semantic Project Matching and Team Formation for Learning at Scale"
+      ]
     }
   }
 }
