@@ -120,19 +120,49 @@ class ArxivSpider(scrapy.Spider):
         return scrapy.Request(
             url,
             callback=self.parse_api_atom,
+            errback=self._api_errback,
             meta={
                 "category": category,
                 "search_query": search_query,
                 "start": start,
                 "dont_obey_robotstxt": True,
+                # 默认 HttpError 会丢弃 429，导致既不回调也无法链式下一分区
+                "handle_httpstatus_list": [429, 500, 502, 503, 504],
             },
             dont_filter=True,
         )
+
+    def _api_errback(self, failure):
+        """网络层失败时仍继续下一分区，避免整次爬取卡死在第一个分区。"""
+        req = failure.request
+        cat = req.meta.get("category", "?")
+        start = req.meta.get("start", -1)
+        self.logger.error(
+            "API 请求失败 category=%s start=%s: %s",
+            cat,
+            start,
+            failure.getErrorMessage(),
+        )
+        nxt = self._next_category_request(cat)
+        if nxt:
+            yield nxt
 
     def parse_api_atom(self, response):
         cat = response.meta["category"]
         sq = response.meta["search_query"]
         start = response.meta["start"]
+
+        if response.status != 200:
+            self.logger.warning(
+                "API HTTP %s category=%s start=%s，放弃本请求并继续下一分区（若仍有）",
+                response.status,
+                cat,
+                start,
+            )
+            nxt = self._next_category_request(cat)
+            if nxt:
+                yield nxt
+            return
 
         total = response.xpath(
             '//*[local-name()="totalResults"]/text()'

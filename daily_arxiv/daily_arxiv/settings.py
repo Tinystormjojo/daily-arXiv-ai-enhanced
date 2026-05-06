@@ -23,10 +23,14 @@ ROBOTSTXT_OBEY = True
 # CONCURRENT_REQUESTS = 32
 
 # arxiv.org 列表页请求放慢，与 export.arxiv.org API 限流配合
-DOWNLOAD_DELAY = 2
+DOWNLOAD_DELAY = 3
 # export.arxiv.org 易 429/500；关键词 API 路径下蜘蛛已串行分区，此处仍略收紧并发
 CONCURRENT_REQUESTS_PER_DOMAIN = 1
 RANDOMIZE_DOWNLOAD_DELAY = True
+
+# export API 在 Actions 共享 IP 上易 429；多给几次退避重试
+RETRY_TIMES = 6
+RETRY_HTTP_CODES = [500, 502, 503, 504, 522, 524, 408, 429]
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # CONCURRENT_REQUESTS_PER_IP = 16
