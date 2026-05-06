@@ -49,6 +49,9 @@ jobs:
         export MODEL_NAME="${{ vars.MODEL_NAME }}"
         export ARXIV_API_DELAY_SECONDS="${{ vars.ARXIV_API_DELAY_SECONDS }}"
         export ARXIV_API_429_RETRIES="${{ vars.ARXIV_API_429_RETRIES }}"
+        export KEYWORDS="${{ vars.KEYWORDS }}"
+        export KEYWORD_MATCH_MODE="${{ vars.KEYWORD_MATCH_MODE }}"
+        export ARXIV_CRAWL_DATE="$today"
         # Use Scrapy to crawl
         scrapy crawl arxiv -o ../data/${today}.jsonl
         

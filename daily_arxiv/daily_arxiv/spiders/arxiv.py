@@ -1,76 +1,231 @@
-import scrapy
 import os
 import re
+from urllib.parse import urlencode
+
+import scrapy
+
+from daily_arxiv.arxiv_search_query import (
+    build_search_query_for_category,
+    parse_keywords,
+)
+
+
+def _normalize_arxiv_id_from_abs_url(abs_url: str) -> str:
+    """http://arxiv.org/abs/2401.12345v2 -> 2401.12345"""
+    if not abs_url:
+        return ""
+    tail = abs_url.strip().split("/abs/")[-1]
+    return re.sub(r"v\d+$", "", tail, flags=re.IGNORECASE)
 
 
 class ArxivSpider(scrapy.Spider):
+    name = "arxiv"
+    allowed_domains = ["arxiv.org", "export.arxiv.org"]
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         categories = os.environ.get("CATEGORIES", "cs.CV")
         categories = categories.split(",")
-        # 保存目标分类列表，用于后续验证
-        self.target_categories = set(map(str.strip, categories))
-        self.start_urls = [
-            f"https://arxiv.org/list/{cat}/new" for cat in self.target_categories
-        ]  # 起始URL（计算机科学领域的最新论文）
+        self.target_categories = [c.strip() for c in categories if c.strip()]
+        self.target_categories_set = set(self.target_categories)
 
-    name = "arxiv"  # 爬虫名称
-    allowed_domains = ["arxiv.org"]  # 允许爬取的域名
+        self.keywords = parse_keywords(os.environ.get("KEYWORDS"))
+        self.keyword_match_mode = (
+            os.environ.get("KEYWORD_MATCH_MODE") or "all_words"
+        ).strip().lower()
+        if self.keyword_match_mode not in ("phrase", "all_words", "any_word"):
+            self.keyword_match_mode = "all_words"
 
-    def parse(self, response):
-        # 提取每篇论文的信息
+        self.crawl_date = (os.environ.get("ARXIV_CRAWL_DATE") or "").strip()
+        self.use_api_keyword_search = len(self.keywords) > 0
+
+        self.seen_ids: set[str] = set()
+        self.max_results = int(os.environ.get("ARXIV_API_MAX_RESULTS", "200"))
+        self.max_start = int(os.environ.get("ARXIV_API_MAX_START", "2000"))
+
+        if self.use_api_keyword_search:
+            self.logger.info(
+                "Using export.arxiv.org API search (KEYWORDS set); "
+                "keywords=%s mode=%s date=%s",
+                self.keywords,
+                self.keyword_match_mode,
+                self.crawl_date or "(no submittedDate filter)",
+            )
+            self.start_urls = []
+        else:
+            self.start_urls = [
+                f"https://arxiv.org/list/{cat}/new" for cat in self.target_categories
+            ]
+
+    def start_requests(self):
+        if self.use_api_keyword_search:
+            if not self.crawl_date:
+                self.logger.warning(
+                    "KEYWORDS set but ARXIV_CRAWL_DATE empty — "
+                    "submittedDate filter omitted (broader results)."
+                )
+            for cat in self.target_categories:
+                sq = build_search_query_for_category(
+                    cat,
+                    self.keywords,
+                    self.keyword_match_mode,
+                    self.crawl_date or None,
+                )
+                self.logger.info("API search_query[%s]: %s", cat, sq)
+                yield self._api_request(cat, sq, start=0)
+            return
+
+        for url in self.start_urls:
+            yield scrapy.Request(url, callback=self.parse_list_html)
+
+    def _api_request(self, category: str, search_query: str, start: int):
+        params = {
+            "search_query": search_query,
+            "sortBy": "submittedDate",
+            "sortOrder": "descending",
+            "start": str(start),
+            "max_results": str(self.max_results),
+        }
+        url = "https://export.arxiv.org/api/query?" + urlencode(params)
+        return scrapy.Request(
+            url,
+            callback=self.parse_api_atom,
+            meta={"category": category, "search_query": search_query, "start": start},
+            dont_filter=True,
+        )
+
+    def parse_api_atom(self, response):
+        cat = response.meta["category"]
+        sq = response.meta["search_query"]
+        start = response.meta["start"]
+
+        total = response.xpath(
+            '//*[local-name()="totalResults"]/text()'
+        ).get()
+        try:
+            total_int = int(total.strip()) if total else 0
+        except ValueError:
+            total_int = 0
+
+        entries = response.xpath('//*[local-name()="entry"]')
+        self.logger.info(
+            "API atom[%s] start=%s entries=%s totalResults=%s",
+            cat,
+            start,
+            len(entries),
+            total_int,
+        )
+
+        for entry in entries:
+            abs_url = entry.xpath(
+                './/*[local-name()="id"]/text()'
+            ).get()
+            if not abs_url:
+                continue
+            aid = _normalize_arxiv_id_from_abs_url(abs_url.strip())
+            if not aid or aid in self.seen_ids:
+                continue
+            self.seen_ids.add(aid)
+
+            title = entry.xpath(
+                './/*[local-name()="title"]/text()'
+            ).get()
+            title = title.strip() if title else ""
+            summary = "".join(
+                entry.xpath('.//*[local-name()="summary"]//text()').getall()
+            ).strip()
+
+            authors = entry.xpath(
+                './/*[local-name()="author"]//*[local-name()="name"]/text()'
+            ).getall()
+            authors = [a.strip() for a in authors if a.strip()]
+
+            terms = entry.xpath('.//*[local-name()="category"]/@term').getall()
+            primary = entry.xpath(
+                './/*[local-name()="primary_category"]/@term'
+            ).get()
+            if primary:
+                cats = [primary] + [t for t in terms if t != primary]
+            else:
+                cats = terms or []
+
+            comment_texts = entry.xpath(
+                './/*[local-name()="comment"]//text()'
+            ).getall()
+            comment = " ".join(t.strip() for t in comment_texts if t.strip()) or None
+
+            yield {
+                "id": aid,
+                "categories": cats,
+                "title": title,
+                "summary": summary,
+                "authors": authors,
+                "comment": comment,
+                "_from_api_atom": True,
+            }
+
+        next_start = start + len(entries)
+        if (
+            len(entries) == self.max_results
+            and next_start < self.max_start
+            and (total_int == 0 or next_start < total_int)
+        ):
+            yield self._api_request(cat, sq, next_start)
+
+    def parse_list_html(self, response):
         anchors = []
         for li in response.css("div[id=dlpage] ul li"):
             href = li.css("a::attr(href)").get()
             if href and "item" in href:
                 anchors.append(int(href.split("item")[-1]))
 
-        # 遍历每篇论文的详细信息
         for paper in response.css("dl dt"):
             paper_anchor = paper.css("a[name^='item']::attr(name)").get()
             if not paper_anchor:
                 continue
-                
+
             paper_id = int(paper_anchor.split("item")[-1])
             if anchors and paper_id >= anchors[-1]:
                 continue
 
-            # 获取论文ID
             abstract_link = paper.css("a[title='Abstract']::attr(href)").get()
             if not abstract_link:
                 continue
-                
+
             arxiv_id = abstract_link.split("/")[-1]
-            
-            # 获取对应的论文描述部分 (dd元素)
+
             paper_dd = paper.xpath("following-sibling::dd[1]")
             if not paper_dd:
                 continue
-            
-            # 提取论文分类信息 - 在subjects部分
+
             subjects_text = paper_dd.css(".list-subjects .primary-subject::text").get()
             if not subjects_text:
-                # 如果找不到主分类，尝试其他方式获取分类
                 subjects_text = paper_dd.css(".list-subjects::text").get()
-            
+
             if subjects_text:
-                # 解析分类信息，通常格式如 "Computer Vision and Pattern Recognition (cs.CV)"
-                # 提取括号中的分类代码
-                categories_in_paper = re.findall(r'\(([^)]+)\)', subjects_text)
-                
-                # 检查论文分类是否与目标分类有交集
+                categories_in_paper = re.findall(r"\(([^)]+)\)", subjects_text)
                 paper_categories = set(categories_in_paper)
-                if paper_categories.intersection(self.target_categories):
+                if paper_categories.intersection(self.target_categories_set):
                     yield {
                         "id": arxiv_id,
-                        "categories": list(paper_categories),  # 添加分类信息用于调试
+                        "categories": list(paper_categories),
                     }
-                    self.logger.info(f"Found paper {arxiv_id} with categories {paper_categories}")
+                    self.logger.info(
+                        "Found paper %s with categories %s",
+                        arxiv_id,
+                        paper_categories,
+                    )
                 else:
-                    self.logger.debug(f"Skipped paper {arxiv_id} with categories {paper_categories} (not in target {self.target_categories})")
+                    self.logger.debug(
+                        "Skipped paper %s with categories %s",
+                        arxiv_id,
+                        paper_categories,
+                    )
             else:
-                # 如果无法获取分类信息，记录警告但仍然返回论文（保持向后兼容）
-                self.logger.warning(f"Could not extract categories for paper {arxiv_id}, including anyway")
+                self.logger.warning(
+                    "Could not extract categories for paper %s, including anyway",
+                    arxiv_id,
+                )
                 yield {
                     "id": arxiv_id,
                     "categories": [],

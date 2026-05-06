@@ -58,7 +58,7 @@ Otherwise, you can directly use this repo in https://dw-dengwei.github.io/daily-
    1. `CATEGORIES`: separate the categories with ",", such as "cs.CL, cs.CV"
    2. `LANGUAGE`: such as "Chinese" or "English"
    3. `MODEL_NAME`: such as "deepseek-chat"
-   4. `KEYWORDS`: comma-separated keyword **phrases** (English or Chinese). Matching is controlled by `KEYWORD_MATCH_MODE` (see below). The site shows up to **5** most relevant papers per arXiv category, and a **per-category summary** of matched papers. Leave `KEYWORDS` empty to use all papers in each category (still capped at 5) for display.
+   4. `KEYWORDS`: comma-separated keyword **phrases**. When **non-empty**, the crawler uses **[arXiv API](https://info.arxiv.org/help/api/user-manual.html)** (`export.arxiv.org/api/query`) with `cat:` + your phrases + **UTC `submittedDate` for the workflow day** (`ARXIV_CRAWL_DATE`), instead of scraping every paper from `/list/{cat}/new` — this avoids fetching unrelated papers and skips most per-paper API calls in the pipeline (Atom feed already contains title/abstract). Leave empty to keep the original HTML list crawl for **all** new submissions in `CATEGORIES`.
    5. `KEYWORD_MATCH_MODE` (optional): `phrase` | `all_words` | `any_word`. Default **`all_words`**: for a phrase like `generative recommendation`, the paper matches if **both** words appear somewhere in title or abstract (not necessarily adjacent — fixes strict contiguous substring). Use `phrase` only if you need the exact phrase as a substring; use `any_word` for broader recall.
    6. `EMAIL`: your email for push to GitHub
    7. `NAME`: your name for push to GitHub

@@ -32,6 +32,21 @@ class DailyArxivPipeline:
     def process_item(self, item: dict, spider):
         item["pdf"] = f"https://arxiv.org/pdf/{item['id']}"
         item["abs"] = f"https://arxiv.org/abs/{item['id']}"
+
+        # API Atom 搜索已在爬虫阶段填入元数据，无需再按篇请求 export API（避免 429）
+        if item.get("_from_api_atom") and item.get("title") and item.get("summary"):
+            authors = item.get("authors")
+            if isinstance(authors, list) and authors:
+                if isinstance(authors[0], str):
+                    item["authors"] = authors
+                else:
+                    item["authors"] = [str(a) for a in authors]
+            elif not authors:
+                item["authors"] = []
+            item["comment"] = item.get("comment") or ""
+            item.pop("_from_api_atom", None)
+            return item
+
         search = arxiv.Search(
             id_list=[item["id"]],
         )

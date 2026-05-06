@@ -72,6 +72,8 @@ else
     echo "📝 今日文件不存在，准备新建... / Today's file doesn't exist, ready to create new one..."
 fi
 
+export ARXIV_CRAWL_DATE="$today"
+
 cd daily_arxiv
 scrapy crawl arxiv -o ../data/${today}.jsonl
 
