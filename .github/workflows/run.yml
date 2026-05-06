@@ -47,8 +47,8 @@ jobs:
         export LANGUAGE="${{ vars.LANGUAGE }}"
         export CATEGORIES="${{ vars.CATEGORIES }}"
         export MODEL_NAME="${{ vars.MODEL_NAME }}"
-        
-        # 使用Scrapy爬取
+        export ARXIV_API_DELAY_SECONDS="${{ vars.ARXIV_API_DELAY_SECONDS }}"
+        export ARXIV_API_429_RETRIES="${{ vars.ARXIV_API_429_RETRIES }}"
         # Use Scrapy to crawl
         scrapy crawl arxiv -o ../data/${today}.jsonl
         
