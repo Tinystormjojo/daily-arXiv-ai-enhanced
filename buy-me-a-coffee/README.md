@@ -1,5 +1,13 @@
-如果您觉得这个项目有帮助你，可以考虑给dw-dengwei打赏
+# 请维护者喝杯咖啡
 
-注意：如果您希望打赏其它Fork仓库而不是[dw-dengwei/daily-arXiv-ai-enhanced](https://github.com/dw-dengwei/daily-arXiv-ai-enhanced/tree/main) 请不要扫码
+这个项目现在是一套可自托管的 arXiv 阅读工作流：
 
-![code](./code.jpg)
+- 使用 GitHub Actions 自动抓取与处理论文数据
+- 支持 `CATEGORIES`、`KEYWORDS` 等自定义筛选
+- 按日期聚合并生成前端展示所需数据
+- 部署到 GitHub Pages，开箱即用
+
+如果这套流程帮你节省了时间、提升了追踪论文的效率，欢迎自愿赞助维护者。你的支持会用于持续维护、问题修复和体验优化。
+
+![赞助二维码](./code.jpg)
+

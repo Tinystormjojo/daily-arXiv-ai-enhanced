@@ -41,6 +41,22 @@ const DATA_CONFIG = {
      */
     getDataUrl: function(filePath) {
         return `${this.getDataBaseUrl()}/${filePath}`;
+    },
+
+    getGithubRepoUrl: function() {
+        return `https://github.com/${this.repoOwner}/${this.repoName}`;
+    },
+
+    getGithubRepoApiUrl: function() {
+        return `https://api.github.com/repos/${this.repoOwner}/${this.repoName}`;
+    },
+
+    /** 将页面上 .github-button、.footer-repo-link 指向当前配置的仓库 */
+    syncGithubDomLinks: function() {
+        const url = this.getGithubRepoUrl();
+        document.querySelectorAll('a.github-button, a.footer-repo-link').forEach((a) => {
+            a.href = url;
+        });
     }
 };
 

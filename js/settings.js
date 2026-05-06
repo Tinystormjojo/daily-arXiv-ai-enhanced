@@ -482,12 +482,20 @@ function showNotification(message, type = 'success') {
 
 // 获取GitHub统计数据
 async function fetchGitHubStats() {
+  if (typeof DATA_CONFIG !== 'undefined') {
+    DATA_CONFIG.syncGithubDomLinks();
+  }
+  const apiUrl =
+    typeof DATA_CONFIG !== 'undefined' && DATA_CONFIG.getGithubRepoApiUrl
+      ? DATA_CONFIG.getGithubRepoApiUrl()
+      : 'https://api.github.com/repos/dw-dengwei/daily-arXiv-ai-enhanced';
   try {
-    const response = await fetch('https://api.github.com/repos/dw-dengwei/daily-arXiv-ai-enhanced');
+    const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
     const starCount = data.stargazers_count;
     const forkCount = data.forks_count;
-    
+
     document.getElementById('starCount').textContent = starCount;
     document.getElementById('forkCount').textContent = forkCount;
   } catch (error) {
@@ -495,4 +503,4 @@ async function fetchGitHubStats() {
     document.getElementById('starCount').textContent = '?';
     document.getElementById('forkCount').textContent = '?';
   }
-} 
+}
