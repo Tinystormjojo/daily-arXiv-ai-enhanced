@@ -5,7 +5,14 @@
   "keyword_match_mode": "all_words",
   "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
   "language": "Chinese",
-  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 环境变量的交集分桶；JSONL 列表仍仅按主标签 (categories[0]) 各取 top-K。",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 5 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
   "categories_env": [
     "cs.AI",
     "cs.CL",
@@ -13,68 +20,25 @@
     "cs.LG",
     "cs.SI"
   ],
+  "aggregate_revision": 2,
   "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 5 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
-  "unique_papers_in_input": 4,
-  "jsonl_output_line_count": 4,
-  "total_papers_before_filter": 4,
+  "unique_papers_in_input": 1,
+  "jsonl_output_line_count": 1,
+  "total_papers_before_filter": 1,
   "all_papers_inventory": [
     {
       "id": "2605.03275",
       "title": "Beyond Similarity Search: A Unified Data Layer for Production RAG Systems",
       "primary_category": "cs.IR"
-    },
-    {
-      "id": "2605.03916",
-      "title": "Atomic Fact-Checking Increases Clinician Trust in Large Language Model Recommendations for Oncology Decision Support: A Randomized Controlled Trial",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03237",
-      "title": "TeamUp: Semantic Project Matching and Team Formation for Learning at Scale",
-      "primary_category": "cs.SE"
-    },
-    {
-      "id": "2605.03395",
-      "title": "APEX: Large-scale Multi-task Aesthetic-Informed Popularity Prediction for AI-Generated Music",
-      "primary_category": "cs.SD"
     }
   ],
   "categories": {
-    "cs.AI": {
-      "summary": "本次cs.AI领域纳入生成式推荐主题的两篇研究，分别覆盖医疗临床决策支持与AI生成内容推荐两大落地场景，拓展了生成式推荐技术在垂直领域的应用与优化路径。\n\n在肿瘤临床决策的生成式诊疗推荐场景中，大语言模型生成的治疗建议目前面临临床医生信任度不足的落地瓶颈，过往提升信任的方案多围绕传统可解释性方法展开。一项随机对照试验针对该问题提出了原子事实核查优化方案，将大模型输出的治疗推荐拆解为可独立验证、且链接权威临床指南来源的单独主张，对比试验结果证实，该方法相比传统可解释性方法可大幅提升临床医生对AI生成诊疗建议的信任度，为医疗场景生成式决策推荐的可信化落地提供了扎实的实证支撑。\n\n在AI生成音乐的内容推荐场景中，流行度预测是音乐推荐排序的核心基础任务，但AI生成音乐领域既缺少大规模流行度标注数据，也鲜有研究探索美学质量对流行度的影响。该研究提出了领域首个大规模多任务学习框架APEX，将美学信息融入流行度预测任务，实验结果验证了该设计的有效性：融入美学质量信息不仅能显著提升流行度预测的性能，还能增强模型在不同AI音乐生成模型产出内容上的泛化能力，为AI生成音乐的生成式推荐系统构建提供了新的方法基础。",
-      "matched_count": 2,
-      "paper_count_in_bucket": 2,
-      "titles_in_category": [
-        "Atomic Fact-Checking Increases Clinician Trust in Large Language Model Recommendations for Oncology Decision Support: A Randomized Controlled Trial",
-        "APEX: Large-scale Multi-task Aesthetic-Informed Popularity Prediction for AI-Generated Music"
-      ],
-      "continuity_from_date": null
-    },
-    "cs.CL": {
-      "summary": "本次纳入的两篇cs.CL领域的生成式推荐方向交叉研究，分别面向医疗临床决策支持与大规模教育场景展开探索，聚焦领域推荐落地的实际痛点提出针对性方案，拓展了生成推荐技术的应用边界。\n\n针对肿瘤临床决策中大语言模型生成的治疗推荐信任度不足的落地难题，第一项研究通过随机对照试验开展方法效果验证，提出原子事实核查优化方案：将大模型输出的推荐内容拆解为单个独立主张，每个主张均可单独验证并关联权威临床指南来源。研究结果显示，与传统可解释性方法相比，原子事实核查可大幅提升临床医生对AI推荐结果的信任度，为生成式医疗推荐的可信性优化提供了高质量实证依据。\n\n面向大规模项目式学习中的项目匹配与团队组建推荐需求，第二项研究提出语义推荐系统TeamUp，解决了传统方法难以同时实现项目难度与学生能力适配、构建认知多样性团队的核心问题。经实验验证，该基于语义匹配的推荐方案在匹配质量、难度对齐、团队多样性和运行效率多个维度均取得显著提升，为规模化学习场景的智能化推荐提供了可行的技术路径。",
-      "matched_count": 2,
-      "paper_count_in_bucket": 2,
-      "titles_in_category": [
-        "Atomic Fact-Checking Increases Clinician Trust in Large Language Model Recommendations for Oncology Decision Support: A Randomized Controlled Trial",
-        "TeamUp: Semantic Project Matching and Team Formation for Learning at Scale"
-      ],
-      "continuity_from_date": null
-    },
     "cs.IR": {
-      "summary": "当前cs.IR领域中，检索增强生成（RAG）是支撑生成式推荐等应用落地的核心技术方向，已有研究多聚焦模型层面的性能优化，对生产环节的数据层架构痛点关注较少。本次梳理的研究指出，现有RAG系统普遍存在原型测试性能优异、实际生产落地可靠性不足的差距，这一问题会直接影响生成式推荐等依赖精准高效检索的生成类应用的落地效果。\n\n该研究提出基于搭载原生向量搜索扩展pgvector的PostgreSQL，结合HNSW索引构建生产RAG系统的统一数据层方案，还给出了适配生产场景的混合分层架构推荐，通过基准测试验证了该架构在检索性能与系统稳定性上的优势，为生成式推荐场景下RAG系统的工程落地提供了可行的参考方案。",
+      "summary": "当前cs.IR（信息检索）领域中，生成式推荐类生成式信息应用的落地推进，带动了对支撑其运行的检索增强生成（RAG）系统生产化部署的研究关注。现有相关工作大多聚焦RAG原型的效果优化，较少关注生产环境下的可靠性适配问题，原型性能到落地效果的差距是该方向待解决的痛点。\n\n本次收录的研究针对上述痛点展开分析，明确了生产RAG系统性能与可靠性差距的核心根源，提出了基于带pgvector扩展的PostgreSQL构建统一数据层的解决方案，替代原有的分散式数据架构，为RAG的检索流程提供统一的存储与计算支撑。\n\n该方案经过标准基准测试验证，证实了其在性能和可靠性上的优势，能够为生成式推荐场景下生产级RAG系统的部署提供可行的落地方案参考，也为相关生成式信息检索应用的基础设施建设提供了新思路。",
       "matched_count": 1,
       "paper_count_in_bucket": 1,
       "titles_in_category": [
         "Beyond Similarity Search: A Unified Data Layer for Production RAG Systems"
-      ],
-      "continuity_from_date": null
-    },
-    "cs.LG": {
-      "summary": "在生成式推荐领域，AI生成音乐的排序与推荐任务面临着独特的现实挑战：不同于传统存量音乐，新产出的AI生成音乐普遍缺少已积累的用户流行度标注，现有研究也尚未探索美学质量在AI生成音乐受欢迎程度预测中的作用。\n\n针对上述研究空白，该工作提出了首个面向AI生成音乐场景的大规模多任务学习框架APEX，核心设计思路是将美学质量建模融入流行度预测任务，实现审美信息增强的流行度预判。\n\n实验结果验证了该研究设计的有效性，结合美学质量信息不仅能有效提升AI生成音乐流行度预测的性能，还让该框架具备了出色的跨不同AI音乐生成模型的泛化能力，为生成式音乐推荐的下游应用提供了可靠的技术基础。",
-      "matched_count": 1,
-      "paper_count_in_bucket": 1,
-      "titles_in_category": [
-        "APEX: Large-scale Multi-task Aesthetic-Informed Popularity Prediction for AI-Generated Music"
       ],
       "continuity_from_date": null
     }
