@@ -87,10 +87,16 @@ class ArxivSpider(scrapy.Spider):
             "max_results": str(self.max_results),
         }
         url = "https://export.arxiv.org/api/query?" + urlencode(params)
+        # export.arxiv.org 的 robots.txt 禁止 /api/，但官方 API 允许程序化访问（需限速，见 pipelines）
         return scrapy.Request(
             url,
             callback=self.parse_api_atom,
-            meta={"category": category, "search_query": search_query, "start": start},
+            meta={
+                "category": category,
+                "search_query": search_query,
+                "start": start,
+                "dont_obey_robotstxt": True,
+            },
             dont_filter=True,
         )
 
