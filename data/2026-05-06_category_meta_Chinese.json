@@ -1,0 +1,241 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "total_papers_before_filter": 37,
+  "all_papers_inventory": [
+    {
+      "id": "2605.02915",
+      "title": "When Should a Language Model Trust Itself? Same-Model Self-Verification as a Conditional Confidence Signal",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03050",
+      "title": "Evaluating Reasoning Models for Queries with Presuppositions",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03052",
+      "title": "How Language Models Process Negation",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03073",
+      "title": "The TTS-STT Flywheel: Synthetic Entity-Dense Audio Closes the Indic ASR Gap Where Commercial and Open-Source Systems Fail",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03103",
+      "title": "MedStruct-S: A Benchmark for Key Discovery, Key-Conditioned QA and Semi-Structured Extraction from OCR Clinical Reports",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03147",
+      "title": "Effective Performance Measurement: Challenges and Opportunities in KPI Extraction from Earnings Calls",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03196",
+      "title": "Geometric Deviation as an Unsupervised Pre-Generation Reliability Signal: Probing LLM Representations for Answerability",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03299",
+      "title": "LLM-XTM: Enhancing Cross-Lingual Topic Models with Large Language Models",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03301",
+      "title": "SHIELD: A Diverse Clinical Note Dataset and Distilled Small Language Models for Enterprise-Scale De-identification",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03387",
+      "title": "From prompting to evidence-based translation: A RAG+prompt system for Japanese-Chinese translation and its pedagogical potential",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03414",
+      "title": "Geolocating News about Extreme Climate Events: A Comparative Analysis of Off-the-Shelf Tools for Toponym Identification in German",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03439",
+      "title": "Benchmarking Logistic Regression, SVM, Naive Bayes, and IndoBERT Fine-Tuning for Sentiment Analysis on Indonesian Product Reviews",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03447",
+      "title": "An ERP Study of Recursive Possessive Parsing in ASD Children and Its Cognitive Neuro Mechanisms",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03450",
+      "title": "Retrieving Floods without Floodlights: Topic Models as Binary Classifiers for Extreme Climate Events in German News",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03472",
+      "title": "Detecting Stealth Sycophancy in Mental-Health Dialogue with Dynamic Emotional Signature Graphs",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03476",
+      "title": "CuraView: A Multi-Agent Framework for Medical Hallucination Detection with GraphRAG-Enhanced Knowledge Verification",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03510",
+      "title": "Rational Communication Shapes Morphological Composition",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03514",
+      "title": "Revisiting Graph-Tokenizing Large Language Models: A Systematic Evaluation of Graph Token Understanding",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03534",
+      "title": "SURE-RAG: Sufficiency and Uncertainty-Aware Evidence Verification for Selective Retrieval-Augmented Generation",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03571",
+      "title": "PatRe: A Full-Stage Office Action and Rebuttal Generation Benchmark for Patent Examination",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03618",
+      "title": "BIT.UA-AAUBS at ArchEHR-QA 2026: Evaluating Open-Source and Proprietary LLMs via Prompting in Low-Resource QA",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03624",
+      "title": "Annotation Quality in Aspect-Based Sentiment Analysis: A Case Study Comparing Experts, Students, Crowdworkers, and Large Language Model",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03671",
+      "title": "A Paradigm for Interpreting Metrics and Identifying Critical Errors in Automatic Speech Recognition",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03696",
+      "title": "A Comprehensive Analysis of Tokenization and Self-Supervised Learning in End-to-End Automatic Speech Recognition applied on French Language",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03701",
+      "title": "SERE: Structural Example Retrieval for Enhancing LLMs in Event Causality Identification",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03706",
+      "title": "SAM-NER: Semantic Archetype Mediation for Zero-Shot Named Entity Recognition",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03720",
+      "title": "Rose-SQL: Role-State Evolution Guided Structured Reasoning for Multi-Turn Text-to-SQL",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03723",
+      "title": "Segmenting Human-LLM Co-authored Text via Change Point Detection",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03799",
+      "title": "Natural Language Processing: A Comprehensive Practical Guide from Tokenisation to RLHF",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03824",
+      "title": "Reproducing Complex Set-Compositional Information Retrieval",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03838",
+      "title": "TRACE: A Metrologically-Grounded Engineering Framework for Trustworthy Agentic AI Systems in Operationally Critical Domains",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03858",
+      "title": "MCJudgeBench: A Benchmark for Constraint-Level Judge Evaluation in Multi-Constraint Instruction Following",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03903",
+      "title": "CC-OCR V2: Benchmarking Large Multimodal Models for Literacy in Real-world Document Processing",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03907",
+      "title": "Steer Like the LLM: Activation Steering that Mimics Prompting",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03916",
+      "title": "Atomic Fact-Checking Increases Clinician Trust in Large Language Model Recommendations for Oncology Decision Support: A Randomized Controlled Trial",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03936",
+      "title": "The Counterexample Game: Iterated Conceptual Analysis and Repair in Language Models",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.03971",
+      "title": "Logical Consistency as a Bridge: Improving LLM Hallucination Detection via Label Constraint Modeling between Responses and Self-Judgments",
+      "primary_category": "cs.CL"
+    }
+  ],
+  "categories": {
+    "cs.CL": {
+      "summary": "当日该分区无与关键词匹配的论文。",
+      "matched_count": 0,
+      "titles_in_category": [
+        "When Should a Language Model Trust Itself? Same-Model Self-Verification as a Conditional Confidence Signal",
+        "Evaluating Reasoning Models for Queries with Presuppositions",
+        "How Language Models Process Negation",
+        "The TTS-STT Flywheel: Synthetic Entity-Dense Audio Closes the Indic ASR Gap Where Commercial and Open-Source Systems Fail",
+        "MedStruct-S: A Benchmark for Key Discovery, Key-Conditioned QA and Semi-Structured Extraction from OCR Clinical Reports",
+        "Effective Performance Measurement: Challenges and Opportunities in KPI Extraction from Earnings Calls",
+        "Geometric Deviation as an Unsupervised Pre-Generation Reliability Signal: Probing LLM Representations for Answerability",
+        "LLM-XTM: Enhancing Cross-Lingual Topic Models with Large Language Models",
+        "SHIELD: A Diverse Clinical Note Dataset and Distilled Small Language Models for Enterprise-Scale De-identification",
+        "From prompting to evidence-based translation: A RAG+prompt system for Japanese-Chinese translation and its pedagogical potential",
+        "Geolocating News about Extreme Climate Events: A Comparative Analysis of Off-the-Shelf Tools for Toponym Identification in German",
+        "Benchmarking Logistic Regression, SVM, Naive Bayes, and IndoBERT Fine-Tuning for Sentiment Analysis on Indonesian Product Reviews",
+        "An ERP Study of Recursive Possessive Parsing in ASD Children and Its Cognitive Neuro Mechanisms",
+        "Retrieving Floods without Floodlights: Topic Models as Binary Classifiers for Extreme Climate Events in German News",
+        "Detecting Stealth Sycophancy in Mental-Health Dialogue with Dynamic Emotional Signature Graphs",
+        "CuraView: A Multi-Agent Framework for Medical Hallucination Detection with GraphRAG-Enhanced Knowledge Verification",
+        "Rational Communication Shapes Morphological Composition",
+        "Revisiting Graph-Tokenizing Large Language Models: A Systematic Evaluation of Graph Token Understanding",
+        "SURE-RAG: Sufficiency and Uncertainty-Aware Evidence Verification for Selective Retrieval-Augmented Generation",
+        "PatRe: A Full-Stage Office Action and Rebuttal Generation Benchmark for Patent Examination",
+        "BIT.UA-AAUBS at ArchEHR-QA 2026: Evaluating Open-Source and Proprietary LLMs via Prompting in Low-Resource QA",
+        "Annotation Quality in Aspect-Based Sentiment Analysis: A Case Study Comparing Experts, Students, Crowdworkers, and Large Language Model",
+        "A Paradigm for Interpreting Metrics and Identifying Critical Errors in Automatic Speech Recognition",
+        "A Comprehensive Analysis of Tokenization and Self-Supervised Learning in End-to-End Automatic Speech Recognition applied on French Language",
+        "SERE: Structural Example Retrieval for Enhancing LLMs in Event Causality Identification",
+        "SAM-NER: Semantic Archetype Mediation for Zero-Shot Named Entity Recognition",
+        "Rose-SQL: Role-State Evolution Guided Structured Reasoning for Multi-Turn Text-to-SQL",
+        "Segmenting Human-LLM Co-authored Text via Change Point Detection",
+        "Natural Language Processing: A Comprehensive Practical Guide from Tokenisation to RLHF",
+        "Reproducing Complex Set-Compositional Information Retrieval",
+        "TRACE: A Metrologically-Grounded Engineering Framework for Trustworthy Agentic AI Systems in Operationally Critical Domains",
+        "MCJudgeBench: A Benchmark for Constraint-Level Judge Evaluation in Multi-Constraint Instruction Following",
+        "CC-OCR V2: Benchmarking Large Multimodal Models for Literacy in Real-world Document Processing",
+        "Steer Like the LLM: Activation Steering that Mimics Prompting",
+        "Atomic Fact-Checking Increases Clinician Trust in Large Language Model Recommendations for Oncology Decision Support: A Randomized Controlled Trial",
+        "The Counterexample Game: Iterated Conceptual Analysis and Repair in Language Models",
+        "Logical Consistency as a Bridge: Improving LLM Hallucination Detection via Label Constraint Modeling between Responses and Self-Judgments"
+      ]
+    }
+  }
+}
