@@ -10,6 +10,17 @@ from daily_arxiv.arxiv_search_query import (
 )
 
 
+def _published_utc_yyyy_mm_dd(entry) -> str | None:
+    """Atom <published> 取 UTC 日历日 YYYY-MM-DD。"""
+    pub = entry.xpath('.//*[local-name()="published"]/text()').get()
+    if not pub:
+        return None
+    pub = pub.strip()
+    if len(pub) < 10:
+        return None
+    return pub[:10]
+
+
 def _normalize_arxiv_id_from_abs_url(abs_url: str) -> str:
     """http://arxiv.org/abs/2401.12345v2 -> 2401.12345"""
     if not abs_url:
@@ -46,10 +57,10 @@ class ArxivSpider(scrapy.Spider):
         if self.use_api_keyword_search:
             self.logger.info(
                 "Using export.arxiv.org API search (KEYWORDS set); "
-                "keywords=%s mode=%s date=%s",
+                "keywords=%s mode=%s crawl_date=%s (按 published UTC 过滤)",
                 self.keywords,
                 self.keyword_match_mode,
-                self.crawl_date or "(no submittedDate filter)",
+                self.crawl_date or "(no day filter)",
             )
             self.start_urls = []
         else:
@@ -62,14 +73,15 @@ class ArxivSpider(scrapy.Spider):
             if not self.crawl_date:
                 self.logger.warning(
                     "KEYWORDS set but ARXIV_CRAWL_DATE empty — "
-                    "submittedDate filter omitted (broader results)."
+                    "no per-day filter on Atom published date (broader results)."
                 )
-            for cat in self.target_categories:
+            # 串行按分区请求 API，避免并发打满 export 导致 500
+            if self.target_categories:
+                cat = self.target_categories[0]
                 sq = build_search_query_for_category(
                     cat,
                     self.keywords,
                     self.keyword_match_mode,
-                    self.crawl_date or None,
                 )
                 self.logger.info("API search_query[%s]: %s", cat, sq)
                 yield self._api_request(cat, sq, start=0)
@@ -78,7 +90,24 @@ class ArxivSpider(scrapy.Spider):
         for url in self.start_urls:
             yield scrapy.Request(url, callback=self.parse_list_html)
 
+    def _next_category_request(self, finished_cat: str):
+        try:
+            idx = self.target_categories.index(finished_cat)
+        except ValueError:
+            return None
+        if idx + 1 >= len(self.target_categories):
+            return None
+        next_cat = self.target_categories[idx + 1]
+        sq = build_search_query_for_category(
+            next_cat,
+            self.keywords,
+            self.keyword_match_mode,
+        )
+        self.logger.info("API search_query[%s]: %s", next_cat, sq)
+        return self._api_request(next_cat, sq, start=0)
+
     def _api_request(self, category: str, search_query: str, start: int):
+        # search_query 中不使用 submittedDate:（export 常 500）；按日过滤见 parse_api_atom + published
         params = {
             "search_query": search_query,
             "sortBy": "submittedDate",
@@ -122,6 +151,24 @@ class ArxivSpider(scrapy.Spider):
             total_int,
         )
 
+        # HTTP 200 但 body 为 API 错误说明（常见于查询语法或服务端异常）
+        for entry in entries:
+            eid = (entry.xpath('.//*[local-name()="id"]/text()').get() or "").strip()
+            if "api/errors" in eid or "arxiv.org/api/errors" in eid:
+                err_txt = "".join(
+                    entry.xpath('.//*[local-name()="summary"]//text()').getall()
+                ).strip()
+                self.logger.error(
+                    "arXiv API 返回错误条目 category=%s start=%s: %s",
+                    cat,
+                    start,
+                    err_txt[:500],
+                )
+                nxt = self._next_category_request(cat)
+                if nxt:
+                    yield nxt
+                return
+
         for entry in entries:
             abs_url = entry.xpath(
                 './/*[local-name()="id"]/text()'
@@ -131,6 +178,14 @@ class ArxivSpider(scrapy.Spider):
             aid = _normalize_arxiv_id_from_abs_url(abs_url.strip())
             if not aid or aid in self.seen_ids:
                 continue
+            if "api/errors" in abs_url:
+                continue
+
+            if self.crawl_date:
+                pday = _published_utc_yyyy_mm_dd(entry)
+                if pday != self.crawl_date:
+                    continue
+
             self.seen_ids.add(aid)
 
             title = entry.xpath(
@@ -170,6 +225,24 @@ class ArxivSpider(scrapy.Spider):
                 "_from_api_atom": True,
             }
 
+        # submittedDate 降序：若整页条目的 published 日均早于 crawl_date，后续页更旧，可结束本分区分页
+        if self.crawl_date and entries:
+            ok_entries = []
+            for entry in entries:
+                eid = (entry.xpath('.//*[local-name()="id"]/text()').get() or "").strip()
+                if "api/errors" in eid:
+                    continue
+                ok_entries.append(entry)
+            if ok_entries:
+                pdays = [_published_utc_yyyy_mm_dd(e) for e in ok_entries]
+                if all(
+                    p is not None and p < self.crawl_date for p in pdays
+                ):
+                    nxt = self._next_category_request(cat)
+                    if nxt:
+                        yield nxt
+                    return
+
         next_start = start + len(entries)
         if (
             len(entries) == self.max_results
@@ -177,6 +250,10 @@ class ArxivSpider(scrapy.Spider):
             and (total_int == 0 or next_start < total_int)
         ):
             yield self._api_request(cat, sq, next_start)
+        else:
+            nxt = self._next_category_request(cat)
+            if nxt:
+                yield nxt
 
     def parse_list_html(self, response):
         anchors = []

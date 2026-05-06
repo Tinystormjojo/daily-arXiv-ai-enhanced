@@ -34,7 +34,7 @@ def phrase_to_api_clause(phrase: str, mode: str) -> str:
         w = _escape_atom_word(words[0]) if words else ""
         if not w:
             return ""
-        return f"(all:{w})"
+        return f"all:{w}"
     if mode == "phrase":
         q = phrase.replace('"', '\\"')
         return f'(all:"{q}")'
@@ -43,15 +43,15 @@ def phrase_to_api_clause(phrase: str, mode: str) -> str:
         if not parts:
             return ""
         return "(" + " OR ".join(parts) + ")"
-    # all_words (default)
+    # all_words (default): 多词 AND，短语之间 OR 时再由 combine 包括号
     parts = [f"all:{_escape_atom_word(w)}" for w in words if _escape_atom_word(w)]
     if not parts:
         return ""
-    return "(" + " AND ".join(parts) + ")"
+    return " AND ".join(parts)
 
 
 def combine_keyword_clauses(keywords: List[str], mode: str) -> str:
-    """Comma-separated phrases -> OR between phrases."""
+    """逗号分隔的多个短语之间为 OR；含 AND 的子式在 OR 分支外加一层括号。"""
     clauses = []
     for k in keywords:
         c = phrase_to_api_clause(k, mode)
@@ -61,7 +61,13 @@ def combine_keyword_clauses(keywords: List[str], mode: str) -> str:
         return ""
     if len(clauses) == 1:
         return clauses[0]
-    return "(" + " OR ".join(clauses) + ")"
+    wrapped = []
+    for c in clauses:
+        if " OR " in c or " AND " in c:
+            wrapped.append(f"({c})")
+        else:
+            wrapped.append(c)
+    return "(" + " OR ".join(wrapped) + ")"
 
 
 def submitted_date_range(date_yyyy_mm_dd: str) -> tuple[str, str]:
@@ -84,16 +90,21 @@ def build_search_query_for_category(
     category: str,
     keywords: List[str],
     match_mode: str,
-    date_yyyy_mm_dd: str | None,
 ) -> str:
     """
-    Full search_query for one primary category.
+    Full search_query for one primary category (export.arxiv.org API).
+
+    注意：截至 2026-05，在 search_query 中加入 submittedDate:[...] 区间会导致
+    export API 返回 HTTP 500（与 cat/关键词组合与否无关）。当日范围改由蜘蛛在解析
+    Atom 时用 entry 的 published（UTC 日期）与 ARXIV_CRAWL_DATE 比对过滤。
+    官方文档仍见 https://info.arxiv.org/help/api/user-manual.html
     """
     cat = category.strip()
     parts = [f"cat:{cat}"]
     kw_expr = combine_keyword_clauses(keywords, match_mode)
     if kw_expr:
-        parts.append(kw_expr)
-    if date_yyyy_mm_dd:
-        parts.append(submitted_date_clause(date_yyyy_mm_dd.strip()))
+        if " OR " in kw_expr:
+            parts.append(f"({kw_expr})")
+        else:
+            parts.append(kw_expr)
     return " AND ".join(parts)

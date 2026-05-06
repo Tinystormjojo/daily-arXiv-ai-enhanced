@@ -24,7 +24,8 @@ ROBOTSTXT_OBEY = True
 
 # arxiv.org 列表页请求放慢，与 export.arxiv.org API 限流配合
 DOWNLOAD_DELAY = 2
-CONCURRENT_REQUESTS_PER_DOMAIN = 2
+# export.arxiv.org 易 429/500；关键词 API 路径下蜘蛛已串行分区，此处仍略收紧并发
+CONCURRENT_REQUESTS_PER_DOMAIN = 1
 RANDOMIZE_DOWNLOAD_DELAY = True
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
