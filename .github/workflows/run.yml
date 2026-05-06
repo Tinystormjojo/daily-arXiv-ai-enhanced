@@ -161,6 +161,20 @@ jobs:
         fi
         echo "AI增强处理完成 / AI enhancement processing completed"
 
+    - name: Fetch category meta from data branch (summary continuity)
+      if: steps.dedup_check.outputs.has_new_content == 'true'
+      run: |
+        git fetch origin data 2>/dev/null || true
+        if git rev-parse --verify origin/data >/dev/null 2>&1; then
+          git ls-tree -r --name-only origin/data | grep -E '^data/.*_category_meta_.*\.json$' | while read -r f; do
+            mkdir -p "$(dirname "$f")"
+            git show "origin/data:$f" > "$f" || rm -f "$f"
+          done
+          echo "已从 origin/data 恢复历史 category_meta（若有）/ Restored prior category_meta from origin/data if any"
+        else
+          echo "尚无 data 分支，跳过分区汇总延续素材 / No data branch yet, skip meta prefetch"
+        fi
+
     - name: Keyword filter and category summaries
       if: steps.dedup_check.outputs.has_new_content == 'true'
       run: |

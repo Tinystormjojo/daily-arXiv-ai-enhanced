@@ -1,6 +1,12 @@
 """
 Filter AI-enhanced JSONL to at most 5 most keyword-relevant papers per primary category,
-and write per-category aggregate summaries for all keyword-matched papers in that category.
+and write per-category aggregate summaries.
+
+When KEYWORDS is set, the crawler already restricts papers via the arXiv API; this script
+does not re-filter by title/abstract. It still ranks by keyword relevance for the top-K pick.
+
+Category summaries optionally incorporate the latest prior day's summary for the same
+category (from *_category_meta_*.json) for thematic continuity.
 """
 from __future__ import annotations
 
@@ -10,7 +16,8 @@ import os
 import re
 import sys
 from collections import defaultdict
-from typing import Any, Dict, List
+from datetime import datetime, timedelta, timezone
+from typing import Any, Dict, List, Optional, Tuple
 
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -104,12 +111,60 @@ def primary_category(item: Dict[str, Any]) -> str | None:
     return None
 
 
+def _is_substantive_summary(text: str) -> bool:
+    t = (text or "").strip()
+    if len(t) < 20:
+        return False
+    if "无与关键词匹配" in t:
+        return False
+    if "生成失败" in t:
+        return False
+    return True
+
+
+def load_latest_prior_category_summary(
+    out_dir: str,
+    current_date: str,
+    lang_key: str,
+    category: str,
+    max_lookback_days: int = 90,
+) -> Tuple[Optional[str], Optional[str]]:
+    """
+    从 current_date 往前找最近一天，其 category_meta 中该分区有可用 summary。
+    返回 (summary, 该 meta 对应的日期 YYYY-MM-DD)。
+    """
+    try:
+        anchor = datetime.strptime(current_date, "%Y-%m-%d").date()
+    except ValueError:
+        return None, None
+    for i in range(1, max_lookback_days + 1):
+        d = anchor - timedelta(days=i)
+        prev = d.strftime("%Y-%m-%d")
+        meta_f = os.path.join(out_dir, f"{prev}_category_meta_{lang_key}.json")
+        if not os.path.isfile(meta_f):
+            continue
+        try:
+            with open(meta_f, "r", encoding="utf-8") as f:
+                doc = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            continue
+        cat_info = (doc.get("categories") or {}).get(category)
+        if not cat_info:
+            continue
+        s = (cat_info.get("summary") or "").strip()
+        if _is_substantive_summary(s):
+            return s, prev
+    return None, None
+
+
 def summarize_category(
     llm: ChatOpenAI,
     category: str,
     papers: List[Dict[str, Any]],
     keywords: List[str],
     language: str,
+    prior_summary: Optional[str] = None,
+    prior_summary_date: Optional[str] = None,
 ) -> str:
     lines = []
     for p in papers:
@@ -125,16 +180,30 @@ def summarize_category(
         "Output only the summary text requested, no preamble."
     )
     kw_desc = ", ".join(keywords) if keywords else "(all papers in this category)"
+    scope = (
+        "These papers are already from the repository's keyword-targeted crawl (no extra text filter)."
+        if keywords
+        else "These are all papers in this category in today's batch."
+    )
     human = f"""Repository keywords (comma-separated): {kw_desc}
 arXiv primary category: {category}
 Target language for your answer: {language}
 
-Below are ALL papers in this category that match the keyword filter (or all papers if no keywords were set).
+{scope}
 Write a single cohesive summary (2–4 short paragraphs) that synthesizes themes, methods, and trends across these papers.
 If the list is empty, reply with one sentence saying there are no papers.
 
 Papers:
 {body}
+"""
+    if prior_summary and prior_summary_date:
+        human += f"""
+
+Below is the most recent prior summary for this same category (from {prior_summary_date}), when that day had data.
+Use it only for continuity: relate emerging vs continuing themes, do not copy verbatim, and highlight what is new or different in today's papers relative to that narrative.
+
+Prior summary:
+{prior_summary}
 """
     messages = [SystemMessage(content=sys_msg), HumanMessage(content=human)]
     out = llm.invoke(messages)
@@ -164,6 +233,15 @@ def main() -> None:
         print(f"File not found: {path}", file=sys.stderr)
         sys.exit(1)
 
+    out_dir = os.path.dirname(os.path.abspath(path)) or "."
+    stem = os.path.basename(path)
+    if "_AI_enhanced_" in stem:
+        date_part = stem.split("_AI_enhanced_")[0]
+        lang_part = stem.split("_AI_enhanced_")[1].replace(".jsonl", "")
+    else:
+        date_part = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        lang_part = re.sub(r"[^\w\-]+", "_", language.strip() or "Chinese")
+
     items: List[Dict[str, Any]] = []
     with open(path, "r", encoding="utf-8") as f:
         for line in f:
@@ -183,16 +261,22 @@ def main() -> None:
     meta_categories: Dict[str, Any] = {}
 
     llm: ChatOpenAI | None = None
+    # 与爬虫一致：设置了 KEYWORDS 时论文已在检索阶段限定，此处不再按标题/摘要二次过滤
+    crawl_prefiltered_by_keywords = bool(keywords)
 
     for cat in sorted(by_cat.keys()):
         papers = by_cat[cat]
-        matched = [p for p in papers if matches_keywords(p, keywords, match_mode)]
+        if crawl_prefiltered_by_keywords:
+            matched = list(papers)
+        else:
+            matched = [p for p in papers if matches_keywords(p, keywords, match_mode)]
 
         if keywords and not matched:
             meta_categories[cat] = {
                 "summary": "当日该分区无与关键词匹配的论文。",
                 "matched_count": 0,
                 "titles_in_category": [p.get("title", "") for p in papers],
+                "continuity_from_date": None,
             }
             continue
 
@@ -217,6 +301,7 @@ def main() -> None:
                 "summary": "",
                 "matched_count": 0,
                 "titles_in_category": [p.get("title", "") for p in papers],
+                "continuity_from_date": None,
             }
             continue
 
@@ -226,8 +311,20 @@ def main() -> None:
         if llm is None:
             llm = ChatOpenAI(model=model_name)
 
+        prior_text, prior_dt = load_latest_prior_category_summary(
+            out_dir, date_part, lang_part, cat
+        )
+
         try:
-            summary_text = summarize_category(llm, cat, to_summarize, keywords, language)
+            summary_text = summarize_category(
+                llm,
+                cat,
+                to_summarize,
+                keywords,
+                language,
+                prior_summary=prior_text,
+                prior_summary_date=prior_dt,
+            )
         except Exception as e:
             print(f"Category summary failed for {cat}: {e}", file=sys.stderr)
             summary_text = "（分类汇总生成失败，请稍后重试或检查 API 配置。）"
@@ -235,18 +332,15 @@ def main() -> None:
             "summary": summary_text,
             "matched_count": len(matched) if keywords else len(papers),
             "titles_in_category": [p.get("title", "") for p in papers],
+            "continuity_from_date": prior_dt,
         }
 
-    stem = os.path.basename(path)
     # e.g. 2025-01-01_AI_enhanced_Chinese.jsonl -> 2025-01-01_category_meta_Chinese.json
     if "_AI_enhanced_" in stem:
-        date_part = stem.split("_AI_enhanced_")[0]
-        lang_part = stem.split("_AI_enhanced_")[1].replace(".jsonl", "")
         meta_name = f"{date_part}_category_meta_{lang_part}.json"
     else:
         meta_name = stem.replace(".jsonl", "") + "_category_meta.json"
 
-    out_dir = os.path.dirname(path) or "."
     meta_path = os.path.join(out_dir, meta_name)
 
     inventory = []
