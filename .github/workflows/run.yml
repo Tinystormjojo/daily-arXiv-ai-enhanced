@@ -3,9 +3,10 @@
 
 name: arXiv-daily-ai-enhanced
 
+# schedule 使用 UTC。0 0 * * * = 每日 UTC 00:00，对应北京时间 08:00（全年 UTC+8，无夏令时）
 on:
   schedule:
-    - cron: "30 1 * * *"
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 # 向 main / data 分支推送时需要写权限；若仍 403，请在仓库 Settings → Actions → Workflow permissions 勾选 Read and write
@@ -28,16 +29,17 @@ jobs:
       id: crawl_step
       run: |
         source .venv/bin/activate
-        today=$(date -u "+%Y-%m-%d")
-        echo "开始爬取 $today 的arXiv论文... / Starting to crawl $today arXiv papers..."
+        # 在北京时间约 08:00（UTC 00:00）触发时，抓取「已结束的上一 UTC 自然日」，避免当日未过完导致漏文
+        crawl_date=$(date -u -d "yesterday" +%Y-%m-%d)
+        echo "数据日（UTC）: $crawl_date / Dataset day (UTC): $crawl_date"
+        echo "开始爬取 $crawl_date（UTC）的 arXiv 论文... / Starting to crawl arXiv papers for UTC day $crawl_date..."
         
-        # 检查今日文件是否已存在，如存在则删除 / Check if today's file exists, delete if found
-        if [ -f "data/${today}.jsonl" ]; then
-            echo "🗑️ 发现今日文件已存在，正在删除重新生成... / Found existing today's file, deleting for fresh start..."
-            rm "data/${today}.jsonl"
-            echo "✅ 已删除现有文件：data/${today}.jsonl / Deleted existing file: data/${today}.jsonl"
+        if [ -f "data/${crawl_date}.jsonl" ]; then
+          echo "🗑️ 发现该日数据文件已存在，正在删除重新生成... / Found existing file for that UTC day, deleting for fresh start..."
+          rm "data/${crawl_date}.jsonl"
+          echo "✅ 已删除：data/${crawl_date}.jsonl / Deleted: data/${crawl_date}.jsonl"
         else
-            echo "📝 今日文件不存在，准备新建... / Today's file doesn't exist, ready to create new one..."
+          echo "📝 该日文件不存在，准备新建... / No file for that UTC day yet, creating..."
         fi
         
         cd daily_arxiv
@@ -51,24 +53,23 @@ jobs:
         export ARXIV_API_429_RETRIES="${{ vars.ARXIV_API_429_RETRIES }}"
         export KEYWORDS="${{ vars.KEYWORDS }}"
         export KEYWORD_MATCH_MODE="${{ vars.KEYWORD_MATCH_MODE }}"
-        export ARXIV_CRAWL_DATE="$today"
-        # Use Scrapy to crawl
-        scrapy crawl arxiv -o ../data/${today}.jsonl
+        export ARXIV_CRAWL_DATE="$crawl_date"
+        scrapy crawl arxiv -o ../data/${crawl_date}.jsonl
         
-        # 检查爬取是否成功 / Check if crawling was successful
-        if [ ! -f "../data/${today}.jsonl" ]; then
-            echo "爬取失败，未生成数据文件 / Crawling failed, no data file generated"
-            exit 1
+        if [ ! -f "../data/${crawl_date}.jsonl" ]; then
+          echo "爬取失败，未生成数据文件 / Crawling failed, no data file generated"
+          exit 1
         fi
         
-        echo "crawl_date=$today" >> $GITHUB_OUTPUT
+        echo "crawl_date=$crawl_date" >> $GITHUB_OUTPUT
         echo "爬取完成 / Crawling completed"
         
     - name: Check for duplicates
       id: dedup_check
       run: |
         source .venv/bin/activate
-        echo "执行去重检查... / Performing intelligent deduplication check..."
+        export ARXIV_CRAWL_DATE="${{ steps.crawl_step.outputs.crawl_date }}"
+        echo "执行去重检查（数据日 ARXIV_CRAWL_DATE=$ARXIV_CRAWL_DATE）... / Performing dedup for dataset day $ARXIV_CRAWL_DATE..."
         
         cd daily_arxiv
         # 执行去重检查脚本 / Execute intelligent deduplication check script

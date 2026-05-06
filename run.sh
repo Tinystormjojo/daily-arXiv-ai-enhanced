@@ -55,29 +55,28 @@ fi
 echo ""
 echo "=== 开始本地调试流程 / Starting Local Debug Workflow ==="
 
-# 获取当前日期 / Get current date
-today=`date -u "+%Y-%m-%d"`
+# 与 CI 一致：抓取「上一 UTC 自然日」，便于本地复现工作流
+crawl_date=$(date -u -d "yesterday" +%Y-%m-%d")
+export ARXIV_CRAWL_DATE="$crawl_date"
 
-echo "本地测试：爬取 $today 的arXiv论文... / Local test: Crawling $today arXiv papers..."
+echo "本地测试：爬取 UTC 日 $crawl_date 的 arXiv 论文... / Local: crawling UTC day $crawl_date..."
 
 # 第一步：爬取数据 / Step 1: Crawl data
 echo "步骤1：开始爬取... / Step 1: Starting crawl..."
 
-# 检查今日文件是否已存在，如存在则删除 / Check if today's file exists, delete if found
-if [ -f "data/${today}.jsonl" ]; then
-    echo "🗑️ 发现今日文件已存在，正在删除重新生成... / Found existing today's file, deleting for fresh start..."
-    rm "data/${today}.jsonl"
-    echo "✅ 已删除现有文件：data/${today}.jsonl / Deleted existing file: data/${today}.jsonl"
+# 检查该日文件是否已存在，如存在则删除 / Check if file for that UTC day exists, delete if found
+if [ -f "data/${crawl_date}.jsonl" ]; then
+    echo "🗑️ 发现该日文件已存在，正在删除重新生成... / Found existing file for that UTC day, deleting for fresh start..."
+    rm "data/${crawl_date}.jsonl"
+    echo "✅ 已删除现有文件：data/${crawl_date}.jsonl / Deleted existing file: data/${crawl_date}.jsonl"
 else
-    echo "📝 今日文件不存在，准备新建... / Today's file doesn't exist, ready to create new one..."
+    echo "📝 该日文件不存在，准备新建... / No file for that UTC day, ready to create new one..."
 fi
 
-export ARXIV_CRAWL_DATE="$today"
-
 cd daily_arxiv
-scrapy crawl arxiv -o ../data/${today}.jsonl
+scrapy crawl arxiv -o ../data/${crawl_date}.jsonl
 
-if [ ! -f "../data/${today}.jsonl" ]; then
+if [ ! -f "../data/${crawl_date}.jsonl" ]; then
     echo "爬取失败，未生成数据文件 / Crawling failed, no data file generated"
     exit 1
 fi
@@ -111,7 +110,7 @@ cd ..
 if [ "$PARTIAL_MODE" = "false" ]; then
     echo "步骤3：AI增强处理... / Step 3: AI enhancement processing..."
     cd ai
-    python enhance.py --data ../data/${today}.jsonl
+    python enhance.py --data ../data/${crawl_date}.jsonl
     
     if [ $? -ne 0 ]; then
         echo "❌ AI处理失败 / AI processing failed"
@@ -127,9 +126,9 @@ fi
 echo "步骤4：转换为Markdown... / Step 4: Converting to Markdown..."
 cd to_md
 
-if [ "$PARTIAL_MODE" = "false" ] && [ -f "../data/${today}_AI_enhanced_${LANGUAGE}.jsonl" ]; then
+if [ "$PARTIAL_MODE" = "false" ] && [ -f "../data/${crawl_date}_AI_enhanced_${LANGUAGE}.jsonl" ]; then
     echo "📄 使用AI增强后的数据进行转换... / Using AI enhanced data for conversion..."
-    python convert.py --data ../data/${today}_AI_enhanced_${LANGUAGE}.jsonl
+    python convert.py --data ../data/${crawl_date}_AI_enhanced_${LANGUAGE}.jsonl
     
     if [ $? -ne 0 ]; then
         echo "❌ Markdown转换失败 / Markdown conversion failed"
@@ -142,7 +141,7 @@ else
         echo "⏭️  跳过Markdown转换（部分模式，需要AI增强数据）/ Skipping Markdown conversion (partial mode, requires AI enhanced data)"
     else
         echo "❌ 错误：未找到AI增强文件 / Error: AI enhanced file not found"
-        echo "AI文件: ../data/${today}_AI_enhanced_${LANGUAGE}.jsonl"
+        echo "AI文件: ../data/${crawl_date}_AI_enhanced_${LANGUAGE}.jsonl"
         exit 1
     fi
 fi

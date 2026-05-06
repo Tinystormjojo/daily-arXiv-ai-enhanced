@@ -4,14 +4,14 @@
 用于获取去重检查的状态结果 / Used to get deduplication check status results
 
 功能说明 / Features:
-- 检查当日与昨日论文数据的重复情况 / Check duplication between today's and yesterday's paper data
+- 对指定数据日（环境变量 ARXIV_CRAWL_DATE，未设则用 UTC 当天）的 jsonl 与更早的历史文件做去重
 - 删除重复论文条目，保留新内容 / Remove duplicate papers, keep new content
 - 根据去重后的结果决定工作流是否继续 / Decide workflow continuation based on deduplication results
 """
 import json
 import sys
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 def load_papers_data(file_path):
     """
@@ -73,25 +73,37 @@ def perform_deduplication():
              - "error": 处理错误 / Processing error
     """
 
-    today = datetime.now().strftime("%Y-%m-%d")
-    today_file = f"../data/{today}.jsonl"
+    env_date = os.environ.get("ARXIV_CRAWL_DATE", "").strip()
+    if env_date:
+        crawl_date = env_date
+    else:
+        crawl_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    today_file = f"../data/{crawl_date}.jsonl"
     history_days = 7  # 向前追溯几天的数据进行对比
 
     if not os.path.exists(today_file):
-        print("今日数据文件不存在 / Today's data file does not exist", file=sys.stderr)
+        print(
+            f"数据文件不存在: {today_file} / Data file missing: {today_file}",
+            file=sys.stderr,
+        )
         return "no_data"
 
     try:
         today_papers, today_ids = load_papers_data(today_file)
-        print(f"今日论文总数: {len(today_papers)} / Today's total papers: {len(today_papers)}", file=sys.stderr)
+        print(
+            f"本批论文总数 ({crawl_date}): {len(today_papers)} / Batch total ({crawl_date}): {len(today_papers)}",
+            file=sys.stderr,
+        )
 
         if not today_papers:
             return "no_data"
 
-        # 收集历史多日 ID 集合
+        # 收集历史多日 ID 集合（严格早于本数据日，避免与「UTC 昨日跑批」等场景下日历错位）
         history_ids = set()
+        anchor = datetime.strptime(crawl_date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
         for i in range(1, history_days + 1):
-            date_str = (datetime.now() - timedelta(days=i)).strftime("%Y-%m-%d")
+            date_str = (anchor - timedelta(days=i)).strftime("%Y-%m-%d")
             history_file = f"../data/{date_str}.jsonl"
             _, past_ids = load_papers_data(history_file)
             history_ids.update(past_ids)
@@ -151,7 +163,7 @@ def main():
         print("⏹️ 去重完成，无新内容，停止工作流 / Deduplication completed, no new content, stop workflow", file=sys.stderr)
         sys.exit(1)
     elif dedup_status == "no_data":
-        print("⏹️ 今日无数据，停止工作流 / No data today, stop workflow", file=sys.stderr)
+        print("⏹️ 无数据文件，停止工作流 / No data file, stop workflow", file=sys.stderr)
         sys.exit(1)
     elif dedup_status == "error":
         print("❌ 去重处理出错，停止工作流 / Deduplication processing error, stop workflow", file=sys.stderr)
