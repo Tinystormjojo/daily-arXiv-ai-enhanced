@@ -406,13 +406,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function fetchGitHubStats() {
-  if (typeof DATA_CONFIG !== 'undefined') {
-    DATA_CONFIG.syncGithubDomLinks();
+  if (typeof DATA_CONFIG === 'undefined' || !DATA_CONFIG.getGithubRepoApiUrl) {
+    console.error('DATA_CONFIG 未加载，无法获取 GitHub 统计数据');
+    document.getElementById('starCount').textContent = '?';
+    document.getElementById('forkCount').textContent = '?';
+    return;
   }
-  const apiUrl =
-    typeof DATA_CONFIG !== 'undefined' && DATA_CONFIG.getGithubRepoApiUrl
-      ? DATA_CONFIG.getGithubRepoApiUrl()
-      : 'https://api.github.com/repos/Tinystormjojo/daily-arXiv-ai-enhanced';
+  DATA_CONFIG.syncGithubDomLinks();
+  const apiUrl = DATA_CONFIG.getGithubRepoApiUrl();
   try {
     const response = await fetch(apiUrl);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
