@@ -5,237 +5,91 @@
   "keyword_match_mode": "all_words",
   "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
   "language": "Chinese",
-  "total_papers_before_filter": 37,
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 5 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 5 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 6,
+  "jsonl_output_line_count": 6,
+  "total_papers_before_filter": 6,
   "all_papers_inventory": [
     {
-      "id": "2605.02915",
-      "title": "When Should a Language Model Trust Itself? Same-Model Self-Verification as a Conditional Confidence Signal",
-      "primary_category": "cs.CL"
+      "id": "2605.05165",
+      "title": "Interests Burn-down Diffusion Process for Personalized Collaborative Filtering",
+      "primary_category": "cs.IR"
     },
     {
-      "id": "2605.03050",
-      "title": "Evaluating Reasoning Models for Queries with Presuppositions",
-      "primary_category": "cs.CL"
+      "id": "2605.05096",
+      "title": "CapsID: Soft-Routed Variable-Length Semantic IDs for Generative Recommendation",
+      "primary_category": "cs.IR"
     },
     {
-      "id": "2605.03052",
-      "title": "How Language Models Process Negation",
-      "primary_category": "cs.CL"
+      "id": "2605.04723",
+      "title": "Rethinking Convolutional Networks for Attribute-Aware Sequential Recommendation",
+      "primary_category": "cs.IR"
     },
     {
-      "id": "2605.03073",
-      "title": "The TTS-STT Flywheel: Synthetic Entity-Dense Audio Closes the Indic ASR Gap Where Commercial and Open-Source Systems Fail",
-      "primary_category": "cs.CL"
+      "id": "2605.04559",
+      "title": "Beyond Static Best-of-N: Bayesian List-wise Alignment for LLM-based Recommendation",
+      "primary_category": "cs.IR"
     },
     {
-      "id": "2605.03103",
-      "title": "MedStruct-S: A Benchmark for Key Discovery, Key-Conditioned QA and Semi-Structured Extraction from OCR Clinical Reports",
-      "primary_category": "cs.CL"
+      "id": "2605.04450",
+      "title": "One Pool, Two Caches: Adaptive HBM Partitioning for Accelerating Generative Recommender Serving",
+      "primary_category": "cs.IR"
     },
     {
-      "id": "2605.03147",
-      "title": "Effective Performance Measurement: Challenges and Opportunities in KPI Extraction from Earnings Calls",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03196",
-      "title": "Geometric Deviation as an Unsupervised Pre-Generation Reliability Signal: Probing LLM Representations for Answerability",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03299",
-      "title": "LLM-XTM: Enhancing Cross-Lingual Topic Models with Large Language Models",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03301",
-      "title": "SHIELD: A Diverse Clinical Note Dataset and Distilled Small Language Models for Enterprise-Scale De-identification",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03387",
-      "title": "From prompting to evidence-based translation: A RAG+prompt system for Japanese-Chinese translation and its pedagogical potential",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03414",
-      "title": "Geolocating News about Extreme Climate Events: A Comparative Analysis of Off-the-Shelf Tools for Toponym Identification in German",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03439",
-      "title": "Benchmarking Logistic Regression, SVM, Naive Bayes, and IndoBERT Fine-Tuning for Sentiment Analysis on Indonesian Product Reviews",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03447",
-      "title": "An ERP Study of Recursive Possessive Parsing in ASD Children and Its Cognitive Neuro Mechanisms",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03450",
-      "title": "Retrieving Floods without Floodlights: Topic Models as Binary Classifiers for Extreme Climate Events in German News",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03472",
-      "title": "Detecting Stealth Sycophancy in Mental-Health Dialogue with Dynamic Emotional Signature Graphs",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03476",
-      "title": "CuraView: A Multi-Agent Framework for Medical Hallucination Detection with GraphRAG-Enhanced Knowledge Verification",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03510",
-      "title": "Rational Communication Shapes Morphological Composition",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03514",
-      "title": "Revisiting Graph-Tokenizing Large Language Models: A Systematic Evaluation of Graph Token Understanding",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03534",
-      "title": "SURE-RAG: Sufficiency and Uncertainty-Aware Evidence Verification for Selective Retrieval-Augmented Generation",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03571",
-      "title": "PatRe: A Full-Stage Office Action and Rebuttal Generation Benchmark for Patent Examination",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03618",
-      "title": "BIT.UA-AAUBS at ArchEHR-QA 2026: Evaluating Open-Source and Proprietary LLMs via Prompting in Low-Resource QA",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03624",
-      "title": "Annotation Quality in Aspect-Based Sentiment Analysis: A Case Study Comparing Experts, Students, Crowdworkers, and Large Language Model",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03671",
-      "title": "A Paradigm for Interpreting Metrics and Identifying Critical Errors in Automatic Speech Recognition",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03696",
-      "title": "A Comprehensive Analysis of Tokenization and Self-Supervised Learning in End-to-End Automatic Speech Recognition applied on French Language",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03701",
-      "title": "SERE: Structural Example Retrieval for Enhancing LLMs in Event Causality Identification",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03706",
-      "title": "SAM-NER: Semantic Archetype Mediation for Zero-Shot Named Entity Recognition",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03720",
-      "title": "Rose-SQL: Role-State Evolution Guided Structured Reasoning for Multi-Turn Text-to-SQL",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03723",
-      "title": "Segmenting Human-LLM Co-authored Text via Change Point Detection",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03799",
-      "title": "Natural Language Processing: A Comprehensive Practical Guide from Tokenisation to RLHF",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03824",
-      "title": "Reproducing Complex Set-Compositional Information Retrieval",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03838",
-      "title": "TRACE: A Metrologically-Grounded Engineering Framework for Trustworthy Agentic AI Systems in Operationally Critical Domains",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03858",
-      "title": "MCJudgeBench: A Benchmark for Constraint-Level Judge Evaluation in Multi-Constraint Instruction Following",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03903",
-      "title": "CC-OCR V2: Benchmarking Large Multimodal Models for Literacy in Real-world Document Processing",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03907",
-      "title": "Steer Like the LLM: Activation Steering that Mimics Prompting",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03916",
-      "title": "Atomic Fact-Checking Increases Clinician Trust in Large Language Model Recommendations for Oncology Decision Support: A Randomized Controlled Trial",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03936",
-      "title": "The Counterexample Game: Iterated Conceptual Analysis and Repair in Language Models",
-      "primary_category": "cs.CL"
-    },
-    {
-      "id": "2605.03971",
-      "title": "Logical Consistency as a Bridge: Improving LLM Hallucination Detection via Label Constraint Modeling between Responses and Self-Judgments",
-      "primary_category": "cs.CL"
+      "id": "2605.04396",
+      "title": "Critical Windows of Complexity Control: When Transformers Decide to Reason or Memorize",
+      "primary_category": "cs.LG"
     }
   ],
   "categories": {
-    "cs.CL": {
-      "summary": "当日该分区无与关键词匹配的论文。",
-      "matched_count": 0,
+    "cs.AI": {
+      "summary": "过往cs.AI领域的生成式推荐相关研究，多围绕工业制造、临床医疗、AIGC服务等落地场景展开，核心聚焦解决生成推荐结果的可靠性、可信性痛点，已积累了一批适配场景需求的技术方案与实证结论。本次收录的研究则转向支撑当前主流生成式推荐的Transformer架构的底层机制探究，核心关注模型组合泛化过程中，模型最终依赖记忆还是推理完成任务的决定逻辑。该研究证实，训练过程中存在一个清晰可识别的复杂度控制关键窗口，模型最终走记忆还是推理的发展路径由该窗口的训练动态决定，研究还进一步揭示了关键窗口位置与不同任务特性的关联规律。\n\n和此前侧重落地应用优化的研究脉络不同，这一基础层面的新发现填补了生成式推荐模型行为机制研究的空缺，也为解决现有生成式推荐常出现的泛化能力不足、依赖记忆训练数据导致分布外场景表现下滑等共性问题，提供了全新的优化方向。后续研究可尝试在训练的关键窗口介入调整复杂度控制策略，引导模型依赖推理路径而非记忆生成推荐结果，进而从模型底层训练逻辑层面提升生成式推荐的泛化可靠性与跨场景适配能力。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
       "titles_in_category": [
-        "When Should a Language Model Trust Itself? Same-Model Self-Verification as a Conditional Confidence Signal",
-        "Evaluating Reasoning Models for Queries with Presuppositions",
-        "How Language Models Process Negation",
-        "The TTS-STT Flywheel: Synthetic Entity-Dense Audio Closes the Indic ASR Gap Where Commercial and Open-Source Systems Fail",
-        "MedStruct-S: A Benchmark for Key Discovery, Key-Conditioned QA and Semi-Structured Extraction from OCR Clinical Reports",
-        "Effective Performance Measurement: Challenges and Opportunities in KPI Extraction from Earnings Calls",
-        "Geometric Deviation as an Unsupervised Pre-Generation Reliability Signal: Probing LLM Representations for Answerability",
-        "LLM-XTM: Enhancing Cross-Lingual Topic Models with Large Language Models",
-        "SHIELD: A Diverse Clinical Note Dataset and Distilled Small Language Models for Enterprise-Scale De-identification",
-        "From prompting to evidence-based translation: A RAG+prompt system for Japanese-Chinese translation and its pedagogical potential",
-        "Geolocating News about Extreme Climate Events: A Comparative Analysis of Off-the-Shelf Tools for Toponym Identification in German",
-        "Benchmarking Logistic Regression, SVM, Naive Bayes, and IndoBERT Fine-Tuning for Sentiment Analysis on Indonesian Product Reviews",
-        "An ERP Study of Recursive Possessive Parsing in ASD Children and Its Cognitive Neuro Mechanisms",
-        "Retrieving Floods without Floodlights: Topic Models as Binary Classifiers for Extreme Climate Events in German News",
-        "Detecting Stealth Sycophancy in Mental-Health Dialogue with Dynamic Emotional Signature Graphs",
-        "CuraView: A Multi-Agent Framework for Medical Hallucination Detection with GraphRAG-Enhanced Knowledge Verification",
-        "Rational Communication Shapes Morphological Composition",
-        "Revisiting Graph-Tokenizing Large Language Models: A Systematic Evaluation of Graph Token Understanding",
-        "SURE-RAG: Sufficiency and Uncertainty-Aware Evidence Verification for Selective Retrieval-Augmented Generation",
-        "PatRe: A Full-Stage Office Action and Rebuttal Generation Benchmark for Patent Examination",
-        "BIT.UA-AAUBS at ArchEHR-QA 2026: Evaluating Open-Source and Proprietary LLMs via Prompting in Low-Resource QA",
-        "Annotation Quality in Aspect-Based Sentiment Analysis: A Case Study Comparing Experts, Students, Crowdworkers, and Large Language Model",
-        "A Paradigm for Interpreting Metrics and Identifying Critical Errors in Automatic Speech Recognition",
-        "A Comprehensive Analysis of Tokenization and Self-Supervised Learning in End-to-End Automatic Speech Recognition applied on French Language",
-        "SERE: Structural Example Retrieval for Enhancing LLMs in Event Causality Identification",
-        "SAM-NER: Semantic Archetype Mediation for Zero-Shot Named Entity Recognition",
-        "Rose-SQL: Role-State Evolution Guided Structured Reasoning for Multi-Turn Text-to-SQL",
-        "Segmenting Human-LLM Co-authored Text via Change Point Detection",
-        "Natural Language Processing: A Comprehensive Practical Guide from Tokenisation to RLHF",
-        "Reproducing Complex Set-Compositional Information Retrieval",
-        "TRACE: A Metrologically-Grounded Engineering Framework for Trustworthy Agentic AI Systems in Operationally Critical Domains",
-        "MCJudgeBench: A Benchmark for Constraint-Level Judge Evaluation in Multi-Constraint Instruction Following",
-        "CC-OCR V2: Benchmarking Large Multimodal Models for Literacy in Real-world Document Processing",
-        "Steer Like the LLM: Activation Steering that Mimics Prompting",
-        "Atomic Fact-Checking Increases Clinician Trust in Large Language Model Recommendations for Oncology Decision Support: A Randomized Controlled Trial",
-        "The Counterexample Game: Iterated Conceptual Analysis and Repair in Language Models",
-        "Logical Consistency as a Bridge: Improving LLM Hallucination Detection via Label Constraint Modeling between Responses and Self-Judgments"
-      ]
+        "Critical Windows of Complexity Control: When Transformers Decide to Reason or Memorize"
+      ],
+      "continuity_from_date": "2026-05-05"
+    },
+    "cs.IR": {
+      "summary": "本次梳理的cs.IR分类下5篇生成式推荐最新研究，延续了该领域既聚焦核心算法创新、也重视落地工程优化的整体趋势，相比此前侧重垂直场景应用适配与RAG架构落地的研究方向，本次研究更集中于生成式推荐自身核心模块改进与推理服务优化，覆盖基础建模、模块优化、大模型适配、工程部署多个维度。\n\n在核心算法创新层面，不同研究针对生成式推荐各技术路线的典型痛点提出了针对性方案：针对扩散生成协同过滤中高斯噪声与用户个性化交互不匹配的问题，提出兴趣燃尽扩散过程和StageCF模型，效果超越现有基线；针对生成式推荐的分词器瓶颈，设计基于胶囊路由的软路由变长语义分词方案CapsID，在提升推荐效果的同时降低了推理延迟；针对大语言模型推荐中列表级非可微指标难以优化、静态最优N对齐方法存在 indiscriminate supervision与梯度衰减的问题，提出贝叶斯列表对齐方法BLADE，在推荐准确率与复杂列表指标上均实现稳定性能提升；针对属性感知序列推荐，也提出了线性复杂度层级下采样的卷积模型ConvRec，效果超越现有最优模型。\n\n在工程落地层面，本次研究延续了此前领域重视生成式推荐底层基础设施支撑的方向，针对生成式推荐推理部署中嵌入缓存与KV缓存竞争GPU HBM内存的生产痛点，提出HELM自适应内存分区框架，通过联合优化运行时内存分配与请求路由，在大规模生产集群与真实数据集上验证了其降低尾延迟、提升服务水平目标达标率的效果，进一步提升了生成式推荐的落地可用性。",
+      "matched_count": 5,
+      "paper_count_in_bucket": 5,
+      "titles_in_category": [
+        "Interests Burn-down Diffusion Process for Personalized Collaborative Filtering",
+        "CapsID: Soft-Routed Variable-Length Semantic IDs for Generative Recommendation",
+        "Rethinking Convolutional Networks for Attribute-Aware Sequential Recommendation",
+        "Beyond Static Best-of-N: Bayesian List-wise Alignment for LLM-based Recommendation",
+        "One Pool, Two Caches: Adaptive HBM Partitioning for Accelerating Generative Recommender Serving"
+      ],
+      "continuity_from_date": "2026-05-05"
+    },
+    "cs.LG": {
+      "summary": "本次cs.LG分类下收录的生成式推荐相关研究，延续了领域对模型性能与落地效能的核心探索方向，相较于此前聚焦AI生成音乐场景偏好预测多任务建模的研究主题，本次研究拓展了研究边界，覆盖序列推荐基础架构优化、生成式推荐工程落地性能优化和Transformer决策机制基础分析三个全新维度。\n\n在算法与工程应用层面，本次研究既推进了推荐任务的基础架构创新：针对属性感知序列推荐任务，提出卷积模型ConvRec，通过线性复杂度的层级下采样提取用户行为序列表示，在四个真实数据集上取得了优于现有最优模型的效果；也回应了生成式推荐大规模落地的核心痛点：针对生成式推荐推理阶段嵌入缓存与KV缓存竞争GPU HBM内存的问题，提出HELM优化框架，通过联合优化运行时内存分配与请求路由，在多个生产数据集和大规模集群验证中，显著降低了推理尾延迟、提升了服务水平目标达标率。\n\n此外，本次研究还包含一项针对生成式推荐常用骨干模型Transformer的基础机制探究，研究发现在组合泛化任务中，Transformer最终依赖记忆还是推理的行为选择，由训练过程中一个清晰可识别的关键窗口决定，该结论为后续生成式推荐中Transformer模型的训练策略优化提供了重要的基础理论支撑。",
+      "matched_count": 3,
+      "paper_count_in_bucket": 3,
+      "titles_in_category": [
+        "Rethinking Convolutional Networks for Attribute-Aware Sequential Recommendation",
+        "One Pool, Two Caches: Adaptive HBM Partitioning for Accelerating Generative Recommender Serving",
+        "Critical Windows of Complexity Control: When Transformers Decide to Reason or Memorize"
+      ],
+      "continuity_from_date": "2026-05-05"
     }
   }
 }
