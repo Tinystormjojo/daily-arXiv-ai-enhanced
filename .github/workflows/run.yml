@@ -161,6 +161,33 @@ jobs:
         fi
         echo "AI增强处理完成 / AI enhancement processing completed"
 
+    # 在 aggregate_keywords 覆盖 JSONL 之前发送飞书（使用当日完整增强列表，非 top-K 子集）
+    - name: Feishu daily digest (optional)
+      if: steps.dedup_check.outputs.has_new_content == 'true'
+      env:
+        FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+        LANGUAGE: ${{ vars.LANGUAGE }}
+        MODEL_NAME: ${{ vars.MODEL_NAME }}
+      run: |
+        source .venv/bin/activate
+        today="${{ steps.crawl_step.outputs.crawl_date }}"
+        LANG="${{ vars.LANGUAGE }}"
+        SITE_URL="${{ vars.SITE_URL }}"
+        if [ -z "${FEISHU_WEBHOOK_URL:-}" ]; then
+          echo "FEISHU_WEBHOOK_URL 未设置，跳过飞书通知 / Skip Feishu: secret not set"
+          exit 0
+        fi
+        if [ -z "${SITE_URL:-}" ]; then
+          SITE_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+        fi
+        cd ai
+        python feishu_notify.py \
+          --data "../data/${today}_AI_enhanced_${LANG}.jsonl" \
+          --date "$today" \
+          --site-url "$SITE_URL"
+
     - name: Fetch category meta from data branch (summary continuity)
       if: steps.dedup_check.outputs.has_new_content == 'true'
       run: |
