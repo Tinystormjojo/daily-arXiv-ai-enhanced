@@ -1,4 +1,10 @@
-Please analyze the following abstract of papers. 
+Please analyze the following paper using the title, author list, and abstract.
 
-Content:
+Title:
+{title}
+
+Authors:
+{authors}
+
+Abstract:
 {content}

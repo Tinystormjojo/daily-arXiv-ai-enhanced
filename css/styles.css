@@ -732,6 +732,56 @@ main {
   border-radius: 6px;
 }
 
+.paper-card-highlights {
+  margin: -4px 0 16px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: rgba(139, 92, 246, 0.06);
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.paper-highlight-line {
+  margin: 0 0 8px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.paper-highlight-line:last-child {
+  margin-bottom: 0;
+}
+
+.paper-highlight-label {
+  flex: 0 0 auto;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.paper-highlight-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.paper-overview-focus {
+  margin: 0 0 1.25rem;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: rgba(139, 92, 246, 0.06);
+  border: 1px solid rgba(139, 92, 246, 0.18);
+}
+
+.paper-overview-focus > h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+}
+
+.paper-overview-focus .paper-section:first-of-type h4 {
+  margin-top: 0;
+}
+
 .paper-card-footer {
   margin-top: auto;
   display: flex;

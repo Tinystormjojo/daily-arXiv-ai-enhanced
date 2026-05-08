@@ -261,7 +261,10 @@ function outputJsonData(papers, category) {
       summary: p.summary,
       date: p.date,
       url: p.url,
-      reason: p.matchReason
+      reason: p.matchReason,
+      author_affiliations: p.author_affiliations || null,
+      production_deployment: p.production_deployment || null,
+      generative_recommendation: p.generative_recommendation || null
     }))
   };
 
@@ -964,6 +967,12 @@ function parseJsonlData(jsonlText, date) {
         method: paper.AI && paper.AI.method ? paper.AI.method : '',
         result: paper.AI && paper.AI.result ? paper.AI.result : '',
         conclusion: paper.AI && paper.AI.conclusion ? paper.AI.conclusion : '',
+        author_affiliations:
+          paper.AI && paper.AI.author_affiliations ? paper.AI.author_affiliations : '',
+        production_deployment:
+          paper.AI && paper.AI.production_deployment ? paper.AI.production_deployment : '',
+        generative_recommendation:
+          paper.AI && paper.AI.generative_recommendation ? paper.AI.generative_recommendation : '',
         code_url: paper.code_url || '',
         code_stars: paper.code_stars || 0,
         code_last_update: paper.code_last_update || ''
@@ -1128,6 +1137,35 @@ function formatAuthorsForCard(authorsString, authorTerms = []) {
   return result.join(', ');
 }
 
+/** 卡片上展示：机构、生产环境、与端到端生成式推荐的关系（来自 AI 结构化字段） */
+function buildPaperCardHighlightsHtml(paper, terms) {
+  const aff = paper.author_affiliations;
+  const prod = paper.production_deployment;
+  const gen = paper.generative_recommendation;
+  if (!aff && !prod && !gen) return '';
+  const h = (text) =>
+    text && terms && terms.length > 0
+      ? highlightMatches(text, terms, 'keyword-highlight')
+      : text || '';
+  const rows = [];
+  if (aff) {
+    rows.push(
+      `<p class="paper-highlight-line"><span class="paper-highlight-label">机构 / 单位</span><span class="paper-highlight-text">${h(aff)}</span></p>`
+    );
+  }
+  if (prod) {
+    rows.push(
+      `<p class="paper-highlight-line"><span class="paper-highlight-label">生产环境</span><span class="paper-highlight-text">${h(prod)}</span></p>`
+    );
+  }
+  if (gen) {
+    rows.push(
+      `<p class="paper-highlight-line"><span class="paper-highlight-label">端到端生成式推荐</span><span class="paper-highlight-text">${h(gen)}</span></p>`
+    );
+  }
+  return `<div class="paper-card-highlights">${rows.join('')}</div>`;
+}
+
 function paperPrimaryCategory(paper) {
   if (Array.isArray(paper.category) && paper.category.length) {
     return paper.category[0];
@@ -1204,6 +1242,8 @@ function buildPaperCardElement(paper, index) {
     ? highlightMatches(paper.summary, titleSummaryTerms, 'keyword-highlight')
     : paper.summary;
 
+  const highlightsHtml = buildPaperCardHighlightsHtml(paper, titleSummaryTerms);
+
   const authorTerms = [];
   if (activeAuthors.length > 0) authorTerms.push(...activeAuthors);
   if (textSearchQuery && textSearchQuery.trim().length > 0) authorTerms.push(textSearchQuery.trim());
@@ -1222,6 +1262,7 @@ function buildPaperCardElement(paper, index) {
       </div>
       <div class="paper-card-body">
         <p class="paper-card-summary">${highlightedSummary}</p>
+        ${highlightsHtml}
         <div class="paper-card-footer">
           <div class="footer-left">
             <span class="paper-card-date">${formatDate(paper.date)}</span>
@@ -1606,6 +1647,41 @@ function showPaperDetails(paper, paperIndex) {
   const highlightedConclusion = paper.conclusion && modalTitleTerms.length > 0 
     ? highlightMatches(paper.conclusion, modalTitleTerms, 'keyword-highlight') 
     : paper.conclusion;
+
+  const highlightedAffiliations =
+    paper.author_affiliations && modalTitleTerms.length > 0
+      ? highlightMatches(paper.author_affiliations, modalTitleTerms, 'keyword-highlight')
+      : paper.author_affiliations;
+  const highlightedProduction =
+    paper.production_deployment && modalTitleTerms.length > 0
+      ? highlightMatches(paper.production_deployment, modalTitleTerms, 'keyword-highlight')
+      : paper.production_deployment;
+  const highlightedGenRec =
+    paper.generative_recommendation && modalTitleTerms.length > 0
+      ? highlightMatches(paper.generative_recommendation, modalTitleTerms, 'keyword-highlight')
+      : paper.generative_recommendation;
+
+  const overviewFocusHtml =
+    paper.author_affiliations || paper.production_deployment || paper.generative_recommendation
+      ? `<div class="paper-overview-focus">
+      <h3>概览要点</h3>
+      ${
+        paper.author_affiliations
+          ? `<div class="paper-section"><h4>机构 / 单位</h4><p>${highlightedAffiliations}</p></div>`
+          : ''
+      }
+      ${
+        paper.production_deployment
+          ? `<div class="paper-section"><h4>生产环境</h4><p>${highlightedProduction}</p></div>`
+          : ''
+      }
+      ${
+        paper.generative_recommendation
+          ? `<div class="paper-section"><h4>与端到端生成式推荐的关系</h4><p>${highlightedGenRec}</p></div>`
+          : ''
+      }
+    </div>`
+      : '';
   
   // 判断是否需要显示高亮说明
   const showHighlightLegend = activeKeywords.length > 0 || activeAuthors.length > 0;
@@ -1622,6 +1698,8 @@ function showPaperDetails(paper, paperIndex) {
       
       <h3>TL;DR</h3>
       <p>${highlightedSummary}</p>
+      
+      ${overviewFocusHtml}
       
       <div class="paper-sections">
         ${paper.motivation ? `<div class="paper-section"><h4>Motivation</h4><p>${highlightedMotivation}</p></div>` : ''}
