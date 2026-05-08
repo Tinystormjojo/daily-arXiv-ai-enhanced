@@ -1,0 +1,99 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 5 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 5 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 7,
+  "jsonl_output_line_count": 7,
+  "total_papers_before_filter": 7,
+  "all_papers_inventory": [
+    {
+      "id": "2605.06331",
+      "title": "Expressiveness Limits of Autoregressive Semantic ID Generation in Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2605.05855",
+      "title": "Bridging Passive and Active: Enhancing Conversation Starter Recommendation via Active Expression Modeling",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2605.05803",
+      "title": "Unified Value Alignment for Generative Recommendation in Industrial Advertising",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2605.05771",
+      "title": "Beyond Long Tail POIs: Transition-Centered Generalization for Human Mobility Prediction",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2605.06594",
+      "title": "Automated Clinical Report Generation for Remote Cognitive Remediation: Comparing Knowledge-Engineered Templates and LLMs in Low-Resource Settings",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.06029",
+      "title": "Pathways to AGI",
+      "primary_category": "cs.AI"
+    },
+    {
+      "id": "2605.05958",
+      "title": "Temporal Smoothness Doubly Robust Learning for Debiased Knowledge Tracing",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "相较于此前cs.AI领域生成式推荐研究从落地应用优化转向模型底层机制探究的发展脉络，本次收录的两篇研究进一步拓展了该领域的研究边界，覆盖了宏观发展反思与细分场景技术优化两个差异化方向。其中一项研究跳出纯技术讨论范畴，从批判软件研究视角切入，将通用人工智能发展路径问题置于商业AI与社会政治经济的关联背景中，质疑现有AGI概念定义的合理性，探索符合透明性、公共福祉要求的类AGI能力发展的社会技术方案，这类宏观面向的批判性反思是过往技术导向的生成式推荐相关研究中较为少见的内容。\n\n另一项研究聚焦教育场景个性化推荐的核心支撑任务——知识追踪，针对观测教育日志中普遍存在的选择偏差问题，提出了结合时间平滑正则化的双稳健知识追踪框架TSDR，该框架在保持估计无偏性的同时可有效降低估计方差，能够直接赋能现有主流知识追踪模型、提升其预测性能，填补了生成式推荐相关研究在教育场景偏差优化方向的技术空白。\n\n整体来看，本次两篇论文体现出当前cs.AI领域与生成式推荐相关的研究，正呈现出宏观发展路径反思与细分场景技术迭代并行的新趋势，既呼应了大模型时代学界对AI发展方向的价值反思需求，也持续推进不同落地场景的技术痛点解决。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Pathways to AGI",
+        "Temporal Smoothness Doubly Robust Learning for Debiased Knowledge Tracing"
+      ],
+      "continuity_from_date": "2026-05-06"
+    },
+    "cs.CL": {
+      "summary": "延续此前cs.CL领域生成式推荐研究向垂直场景实际问题落地的整体趋势，本次收录的两篇研究进一步拓展了该方向的应用边界，分别覆盖对话交互系统与远程医疗康复两大细分场景，聚焦传统方案未解决的特定痛点展开探索。其中面向对话搜索场景的研究针对传统对话启动推荐存在的封闭反馈回路与回声室效应问题，提出PA-Bridge框架，通过引入用户主动表达建模、利用主动输入打破原有闭环，在线实验结果验证了该框架对推荐效果的提升作用，为开放场景下的对话生成推荐提供了新的改进思路。\n\n医疗场景方向的研究延续了此前生成式推荐赋能临床场景的探索方向，相较于此前聚焦高资源肿瘤决策支持场景、解决大模型推荐信任问题的工作，本次研究瞄准低资源、无参考标注的远程认知康复场景，解决海量交互数据难以被临床医生高效审阅的痛点，对比了基于规则模板和零样本大语言模型（GPT-4）两类自动临床报告生成方案，结合评估反馈提出了适配低资源场景的设计建议，同时贡献了可复现的临床生成研究方法论，填补了低资源临床场景生成式辅助方案研究的空白。\n\n整体来看，本次收录的两篇研究进一步印证了生成式推荐研究深耕垂直细分场景、依托实证试验验证效用的趋势，同时也呈现出新的探索方向：除核心场景的方案构建与落地信任问题外，研究也开始关注推荐系统本身的固有缺陷（如回声室效应）、低资源特殊约束下的方案选型等细分痛点，推动生成式推荐技术逐步适配更多不同条件的实际应用场景。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Bridging Passive and Active: Enhancing Conversation Starter Recommendation via Active Expression Modeling",
+        "Automated Clinical Report Generation for Remote Cognitive Remediation: Comparing Knowledge-Engineered Templates and LLMs in Low-Resource Settings"
+      ],
+      "continuity_from_date": "2026-05-05"
+    },
+    "cs.IR": {
+      "summary": "本次梳理的cs.IR分类下4篇生成式推荐最新研究，延续了该领域同时推进核心算法创新与工业落地优化的整体趋势，延续了此前深挖生成式推荐技术路线固有痛点的方向，进一步拓展了基础问题探索与细分场景适配。在基础算法层面，研究针对自回归生成式推荐中语义ID生成的解码空间结构对模型表达能力的限制这一未被充分关注的问题，提出了简单有效的Latte改进方案，补齐了自回归生成路线基础建模的缺陷；针对人类移动预测类位置推荐场景中转换级长尾稀疏性导致的泛化性能不足问题，提出了以转换为核心的RECAP框架，通过重构长尾转换提升预测效果，在多个真实数据集上验证了有效性。\n\n在垂直场景落地层面，本次研究围绕实际应用的特有痛点给出了多个定制化解决方案，拓展了生成式推荐的应用边界。针对对话搜索场景下传统对话启动推荐形成的封闭反馈回路与回声室效应，提出PA-Bridge框架，通过引入用户主动表达建模打破闭环，在线实验验证了该方案可有效提升推荐指标；针对工业广告场景中生成式推荐难以同时对齐用户兴趣与商业价值的核心痛点，提出统一价值对齐框架UniVA，在腾讯微信视频号广告的真实工业落地实验中取得了显著效果提升，填补了该场景生成式推荐价值对齐的方案空白。\n\n对比此前2026-05-06梳理的研究脉络，本次这批研究既延续了聚焦生成式推荐核心模块缺陷改进的思路，将此前对分词、建模的优化推进到自回归生成表达能力极限这一更基础的问题层面，也进一步转向细分场景特有痛点的解决，从通用架构优化、推理部署优化延伸到对话推荐、工业广告、位置预测等场景的定制化需求，既补充了生成式推荐的基础问题探索，也加速了不同场景下的落地进程。",
+      "matched_count": 4,
+      "paper_count_in_bucket": 4,
+      "titles_in_category": [
+        "Expressiveness Limits of Autoregressive Semantic ID Generation in Generative Recommendation",
+        "Bridging Passive and Active: Enhancing Conversation Starter Recommendation via Active Expression Modeling",
+        "Unified Value Alignment for Generative Recommendation in Industrial Advertising",
+        "Beyond Long Tail POIs: Transition-Centered Generalization for Human Mobility Prediction"
+      ],
+      "continuity_from_date": "2026-05-06"
+    }
+  }
+}
