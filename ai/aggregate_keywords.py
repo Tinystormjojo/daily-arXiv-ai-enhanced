@@ -23,7 +23,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
 
 
-TOP_K = 5
+TOP_K = 10
 # 避免单次分类汇总上下文过长导致 API 失败
 MAX_PAPERS_PER_CATEGORY_SUMMARY = 60
 
