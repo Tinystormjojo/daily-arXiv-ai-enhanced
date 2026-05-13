@@ -1,0 +1,106 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 8,
+  "jsonl_output_line_count": 8,
+  "total_papers_before_filter": 8,
+  "all_papers_inventory": [
+    {
+      "id": "2605.11732",
+      "title": "AgentDisCo: Towards Disentanglement and Collaboration in Open-ended Deep Research Agents",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2605.11707",
+      "title": "Quality-Aware Collaborative Multi-Positive Contrastive Learning for Sequential Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2605.11553",
+      "title": "TwiSTAR:Think Fast, Think Slow, Then Act,Generative Recommendation with Adaptive Reasoning",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2605.11447",
+      "title": "Conditional Memory Enhanced Item Representation for Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2605.11433",
+      "title": "FedMM: Federated Collaborative Signal Quantization for Multi-Market CTR Prediction",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2605.11533",
+      "title": "Checkup2Action: A Multimodal Clinical Check-up Report Dataset for Patient-Oriented Action Card Generation",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.12087",
+      "title": "Intermediate Artifacts as First-Class Citizens: A Data Model for Durable Intermediate Artifacts in Agentic Systems",
+      "primary_category": "cs.AI"
+    },
+    {
+      "id": "2605.11807",
+      "title": "Why Users Go There: World Knowledge-Augmented Generative Next POI Recommendation",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "承接此前cs.AI领域生成式推荐研究从纯技术性能优化，向宏观发展路径反思与垂直细分场景深耕演进的整体脉络，本次收录的相关研究进一步延续了技术精细化升级与应用场景拓展的方向，在核心技术底层和落地场景都实现了新突破。针对生成式推荐领域现有项目表示构建粒度不足的核心痛点，本次有研究提出条件记忆增强的项目表示框架ComeIR，通过自适应评分、双级记忆存储、记忆复用恢复token粒度信息，实验验证了该方法的性能有效性与良好可扩展性，为生成式推荐的核心表示模块提供了全新优化思路。\n\n在垂直场景落地层面，本次研究延续了此前向小众深耕场景拓展的趋势，聚焦出行领域的下一个兴趣点（POI）推荐任务，针对现有大语言模型驱动的生成式POI推荐无法感知真实世界动态出行影响因素的短板，提出世界知识增强的生成式推荐方法AWARE，在三个真实数据集上相较基线模型取得最高12.4%的相对性能提升，进一步拓展了生成式推荐在位置服务领域的应用边界。\n\n本次收录还出现了生成式推荐相关的跨领域基础研究成果，一篇聚焦智能体系统的研究提出将智能体工作流中的中间制品作为一等公民，设计了支持持久化、可检查的中间工作产品的数据模型，可提升AI工作的可维护性与可修订性。这一成果为未来依托智能体架构构建多轮交互式生成推荐系统提供了系统层技术支撑，体现出生成式推荐领域研究开始和智能体系统层技术发展形成联动的新动向。",
+      "matched_count": 3,
+      "paper_count_in_bucket": 3,
+      "titles_in_category": [
+        "Conditional Memory Enhanced Item Representation for Generative Recommendation",
+        "Intermediate Artifacts as First-Class Citizens: A Data Model for Durable Intermediate Artifacts in Agentic Systems",
+        "Why Users Go There: World Knowledge-Augmented Generative Next POI Recommendation"
+      ],
+      "continuity_from_date": "2026-05-07"
+    },
+    "cs.CL": {
+      "summary": "延续此前cs.CL领域生成式推荐研究从通用方法设计转向垂直场景实际问题解决的整体趋势，本次收录的两篇研究进一步拓展了生成式推荐技术的应用边界，分别在科研辅助智能体、临床健康服务两个新场景落地，延续了依托实证基准验证方法效用的研究特征。\n\n第一篇研究面向开放式个性化深度科研辅助这一新兴生成式推荐场景，针对现有研究智能体未实现模块解耦与有效协作的痛点，提出了AgentDisCo解耦协作架构。该方案在现有公开基准上取得了可媲美领先闭源系统的性能，同时贡献了全新基准GALA，还完成了端到端个性化深度研究产品的验证，为生成式推荐技术支撑个性化科研服务探索了可行路径。\n\n第二篇研究延续了生成式推荐在医疗领域的探索方向，和此前聚焦低资源远程康复临床报告生成的研究不同，该工作瞄准面向普通用户的个性化健康行动推荐需求，打造了包含多模态体检报告的Checkup2Action数据集，定义了结构化行动卡片生成这一新任务并建立了完整评估协议，通过对比不同大语言模型的生成效果得到了基准结论，为该方向的后续研究打下了数据与评测基础。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "AgentDisCo: Towards Disentanglement and Collaboration in Open-ended Deep Research Agents",
+        "Checkup2Action: A Multimodal Clinical Check-up Report Dataset for Patient-Oriented Action Card Generation"
+      ],
+      "continuity_from_date": "2026-05-07"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR分类下的生成式推荐领域最新研究，延续了该领域“基础算法创新+落地场景拓展”协同推进的既有趋势，同时在核心模块优化、推理效率改进和新兴场景落地方面取得了新进展。在基础算法层，多篇工作针对生成式推荐的不同底层痛点展开攻坚：针对序列推荐中对比学习存在的视图构造缺陷，包括语义漂移、正例多样性不足、假阳性等问题，研究提出质量感知的协同多正例对比学习方法QCMP-CL，通过可学习协同序列增强和质量自适应加权机制提升性能，在多个真实数据集上超越了现有基于对比学习的最优基线；针对生成式推荐项目表示构建的不足，研究提出条件记忆增强的项目表示框架ComeIR，通过自适应评分、双级记忆存储与复用实现token粒度的精准表示，验证了方法的有效性与可扩展性。\n\n延续上一批研究对大语言模型生成推荐落地效率的优化方向，本次研究进一步深化了自适应推理范式的探索。针对基于语义ID的生成推荐中固定推理策略难以平衡精度与推理延迟的固有矛盾，研究提出“快思考、慢思考、再行动”的TwiSTAR自适应推理生成推荐框架，通过规划器动态分配不同速度的推理资源，在提升推荐精度的同时有效降低了推理延迟，为生成式推荐的高效落地提供了新的思路。\n\n与此前拓展细分服饰电商场景的方向不同，本次研究进一步将生成式推荐相关技术的应用边界拓展至全新领域，同时覆盖了隐私计算赋能推荐的新需求。一方面，有研究将生成式推荐的个性化能力延伸至开放式深度研究场景，提出具备解耦特性的多智能体协作架构AgentDisCo，构建了全新基准GALA，在取得媲美领先闭源系统性能的同时，完成了端到端个性化深度研究产品的落地验证；另一方面，面向多市场点击率预测这一推荐核心任务，研究针对现有方法存在的隐私泄露、市场异质性、跨市场ID空间不相交等问题，提出联邦协作信号量化方法FedMM，在满足隐私保护要求的前提下有效提升了CTR预测性能，丰富了生成推荐相关技术在隐私敏感场景的应用路径。",
+      "matched_count": 5,
+      "paper_count_in_bucket": 5,
+      "titles_in_category": [
+        "AgentDisCo: Towards Disentanglement and Collaboration in Open-ended Deep Research Agents",
+        "Quality-Aware Collaborative Multi-Positive Contrastive Learning for Sequential Recommendation",
+        "TwiSTAR:Think Fast, Think Slow, Then Act,Generative Recommendation with Adaptive Reasoning",
+        "Conditional Memory Enhanced Item Representation for Generative Recommendation",
+        "FedMM: Federated Collaborative Signal Quantization for Multi-Market CTR Prediction"
+      ],
+      "continuity_from_date": "2026-05-11"
+    }
+  }
+}
