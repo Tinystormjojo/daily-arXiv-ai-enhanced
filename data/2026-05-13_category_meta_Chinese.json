@@ -1,0 +1,103 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 6,
+  "jsonl_output_line_count": 6,
+  "total_papers_before_filter": 6,
+  "all_papers_inventory": [
+    {
+      "id": "2605.13497",
+      "title": "Task-Aware Automated User Profile Generation for Recommendation Simulation Using Large Language Models",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2605.12887",
+      "title": "EcoGEO: Trajectory-Aware Evidence Ecosystems for Web-Enabled LLM Search Agents",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2605.13542",
+      "title": "RealICU: Do LLM Agents Understand Long-Context ICU Data? A Benchmark Beyond Behavior Imitation",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2605.13433",
+      "title": "TurboGR: An Accelerated Training System for Large-Scale Generative Recommendation",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2605.13225",
+      "title": "Mix, Don't Tune: Bilingual Pre-Training Outperforms Hyperparameter Search in Data-Constrained Settings",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2605.12995",
+      "title": "F-GRPO: Factorized Group-Relative Policy Optimization for Unified Candidate Generation and Ranking",
+      "primary_category": "cs.LG"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "延续此前cs.AI领域生成式推荐研究从纯性能优化向技术精细化升级、垂直场景深耕演进，且逐步与智能体系统技术形成联动的整体脉络，本次收录的两篇研究进一步推进了这一发展方向，拓展了生成式推荐相关技术的落地空间与应用边界。针对开放端产品推荐这一核心生成式推荐任务，本次研究呼应了此前生成式推荐与智能体技术联动的新动向，将生成式引擎优化从传统页级优化升级至生态层面，提出面向web赋能LLM搜索智能体的EcoGEO框架，搭配轨迹感知的协同证据生态方法TRACE，在开放型产品推荐任务中性能优于现有页级基线，实现了LLM智能体技术在生成式推荐场景的实际落地。\n\n本次研究也凸显出生成式推荐的垂直场景拓展正从大众消费、出行等通用领域进一步向高风险专业领域延伸的新趋势。不同于面向通用场景的方法优化，本次收录的研究针对重症监护临床决策这一高风险专业场景，构建了评估LLM智能体长上下文理解能力的RealICU基准，测试发现现有主流LLM在该场景下的长时域推理能力仍远未满足需求，虽提出的结构化记忆智能体ICU-Evo可实现性能提升，但仍未解决核心安全问题。该基准为高风险临床决策支持领域的AI研究提供了规范测试平台，也为后续生成式个性化临床推荐等专业领域应用的发展奠定了评估基础。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "EcoGEO: Trajectory-Aware Evidence Ecosystems for Web-Enabled LLM Search Agents",
+        "RealICU: Do LLM Agents Understand Long-Context ICU Data? A Benchmark Beyond Behavior Imitation"
+      ],
+      "continuity_from_date": "2026-05-12"
+    },
+    "cs.CL": {
+      "summary": "延续cs.CL领域生成式推荐研究从通用方法设计转向垂直场景实际问题解决的整体趋势，本次收录的研究继续推进生成式大模型智能体在医疗领域的落地探索，延续了此前依托定制化实证基准验证方法效用的研究脉络，进一步向高风险临床决策场景延伸了生成式技术的应用与评测边界。\n\n不同于此前生成式推荐方向的医疗相关研究分别聚焦低资源远程康复临床报告生成、面向普通用户的个性化健康行动推荐，本次研究瞄准重症监护（ICU）这一风险等级更高、对长上下文推理能力要求更强的细分临床场景，指出现有研究缺乏针对真实ICU长上下文数据理解能力的规范评测框架，现有评测大多局限于行为模仿任务，无法反映真实临床决策的实际需求。\n\n该研究提出的RealICU基准填补了这一方向的空白，评测结果显示现有主流大语言模型在该任务上表现仍不理想，研究团队提出的结构化记忆代理ICU-Evo虽能有效提升模型的长时域推理能力，但该场景下大模型应用的安全问题仍未得到完全解决。RealICU基准为后续生成式推荐技术支撑高风险临床决策支持AI的研究提供了标准化测试平台，对推动生成式大模型在高风险临床场景的可靠落地具有重要支撑作用。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "RealICU: Do LLM Agents Understand Long-Context ICU Data? A Benchmark Beyond Behavior Imitation"
+      ],
+      "continuity_from_date": "2026-05-12"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR分类下生成式推荐领域的两篇最新研究，延续了领域依托大语言模型推进生成式推荐技术创新与场景落地的整体趋势，同时将探索方向延伸至此前研究较少关注的大模型生成式推荐上下游支撑环节，和此前侧重核心推荐算法模块优化、隐私敏感场景落地的研究形成互补。第一项研究针对推荐系统仿真环节依赖人工构建用户画像、难以适配不同推荐任务需求的痛点，提出大语言模型驱动的任务感知自动化用户画像生成框架APG4RecSim，在多个基准数据集上验证了其相比现有基线的性能提升，为生成式推荐方法的仿真验证提供了更高效的自动化支撑工具。\n\n第二项研究沿着此前领域拓展开放式推荐场景的方向进一步深化，针对现有大语言模型搜索代理的生成引擎优化仅停留在页面级的局限，提出生态层级的生成引擎优化框架EcoGEO，结合轨迹感知的协调证据生态方法TRACE实现全链路证据统筹优化。该方法在开放式产品推荐任务上性能超越现有页面级基线，为大语言模型搜索代理落地开放式生成式推荐提供了新的技术路径。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Task-Aware Automated User Profile Generation for Recommendation Simulation Using Large Language Models",
+        "EcoGEO: Trajectory-Aware Evidence Ecosystems for Web-Enabled LLM Search Agents"
+      ],
+      "continuity_from_date": "2026-05-12"
+    },
+    "cs.LG": {
+      "summary": "本次cs.LG分类下的生成式推荐相关研究，延续了领域对落地效能与核心算法优化的核心探索方向，在原有序列推荐架构优化、大规模落地性能优化的基础上，进一步拓展了技术方向与应用场景。不同于上一批次聚焦GPU推理阶段内存优化的落地研究，本次研究针对国产昇腾NPU硬件，提出了面向大规模生成式推荐的加速训练系统TurboGR，解决了生成式推荐在该硬件平台部署的核心系统瓶颈，实现了高浮点利用率与近线性扩展性，为生成式推荐在国产AI硬件的规模化落地填补了技术空白。算法层面，针对生成式推荐中候选生成与排序两阶段优化割裂、端到端训练信用分配困难的痛点，本次提出因式分解组相对策略优化框架F-GRPO，实现了候选生成与排序的统一优化，在序列推荐基准上取得了优于现有方法的性能，推进了生成式推荐统一架构的发展。\n\n除核心任务优化外，本次研究也延伸出不少对生成式推荐领域有参考价值的基础方法探索，拓展了相关研究的边界。针对数据约束场景下大模型性能优化的共性问题，研究对比验证了混合高资源辅助双语数据的方案，效果显著优于激进超参数搜索，且收益随模型规模扩大而提升，这一结论为小语种推荐、垂直领域冷启动推荐等低数据场景的生成式模型构建，提供了一种简便高效的优化路径。此外，本次发布的长上下文ICU临床场景LLM基准RealICU，揭示了现有大模型长上下文推理能力的不足，也呼应了生成式推荐领域对长用户行为序列理解能力的核心需求，为相关长上下文能力优化提供了新的测试基准参考。",
+      "matched_count": 4,
+      "paper_count_in_bucket": 4,
+      "titles_in_category": [
+        "RealICU: Do LLM Agents Understand Long-Context ICU Data? A Benchmark Beyond Behavior Imitation",
+        "TurboGR: An Accelerated Training System for Large-Scale Generative Recommendation",
+        "Mix, Don't Tune: Bilingual Pre-Training Outperforms Hyperparameter Search in Data-Constrained Settings",
+        "F-GRPO: Factorized Group-Relative Policy Optimization for Unified Candidate Generation and Ranking"
+      ],
+      "continuity_from_date": "2026-05-06"
+    }
+  }
+}
