@@ -1,0 +1,90 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 4,
+  "jsonl_output_line_count": 4,
+  "total_papers_before_filter": 4,
+  "all_papers_inventory": [
+    {
+      "id": "2606.01783",
+      "title": "Breaking the Information Silo: Semantic Personas for Cross-Domain Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2606.01670",
+      "title": "Time-Aware Diffusion based on Preference Disentanglement for Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2606.02009",
+      "title": "Automated Essay Scoring and Language Certification: Assessing Generalizability, Agreement and Validity for French",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2606.01816",
+      "title": "Site4Drug: Predicting Drug-Binding Target Sites with an AI Agent",
+      "primary_category": "cs.LG"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "本次cs.AI领域收录的生成式推荐最新研究，延续了大语言模型等新一代生成技术赋能推荐任务的整体发展趋势，同时在研究方向上补充了此前聚焦商业化落地评估与算法基础设施建设之外的场景痛点与基础建模创新。不同于此前针对商业化对话场景品牌推荐的相关探索，本次有研究瞄准跨域推荐领域的极端痛点——无共享用户或物品的严格不相交跨域推荐的信息孤岛问题，提出SPHERE方法，利用大语言模型生成语义用户persona实现跨域知识迁移，不仅有效提升了该场景下的推荐效果，还厘清了影响跨域迁移效果的核心因素，为这类低资源跨域推荐场景提供了可行的新方案。\n\n另一项研究则面向扩散模型这类主流生成式推荐框架的共性缺陷开展基础算法创新，弥补了现有研究对用户偏好时间动态性关注不足的问题。该研究提出时间感知扩散模型TDPM，通过解纠缠用户的长期周期偏好与近期点偏好，解决了原有扩散生成过程对所有历史交互均匀建模的缺陷，在公开数据集上取得了显著优于现有最优基线的推荐效果，进一步完善了扩散类生成式推荐的偏好建模框架。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Breaking the Information Silo: Semantic Personas for Cross-Domain Recommendation",
+        "Time-Aware Diffusion based on Preference Disentanglement for Generative Recommendation"
+      ],
+      "continuity_from_date": "2026-05-28"
+    },
+    "cs.CL": {
+      "summary": "延续此前cs.CL领域生成式技术研究从通用方法设计转向垂直场景实际问题解决的整体趋势，本次收录的生成式相关研究在先前拓展工业智能制造场景的基础上，进一步将生成式技术的落地探索延伸至语言教育评估领域，丰富了生成式方法服务各类垂直领域实际需求的研究脉络。\n\n现有自动作文评分与语言认证相关研究多以英语为核心研究对象，针对法语等非通用大语种的自动评估体系，学界很少系统验证其跨场景泛化性、评分一致性与实际应用效度。本次研究针对法语语言能力认证的自动化评分需求展开系统探究，弥补了小语种语言能力自动评估领域的研究缺口，也为生成式自动评估方法适配不同语种场景提供了基础实证参考。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Automated Essay Scoring and Language Certification: Assessing Generalizability, Agreement and Validity for French"
+      ],
+      "continuity_from_date": "2026-05-26"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR分类下的生成式推荐最新研究，延续了领域依托大语言模型与新型生成架构解决传统推荐痛点的核心趋势，进一步拓展了生成式推荐的适用场景与技术路径。其中一项研究针对无共享用户、物品的极端不相交跨域推荐任务，瞄准该场景长期存在的信息孤岛难题，利用大语言模型生成语义用户persona实现跨域知识迁移，提出了SPHERE方法，在验证方案有效性的同时，还厘清了影响跨域知识迁移效果的关键因素，为这类低数据连通性的跨域推荐场景提供了新的生成式解决方案。\n\n另一项研究聚焦生成式推荐的核心偏好建模问题，针对现有扩散基生成式推荐忽略用户偏好时间动态性、对所有历史交互统一应用扩散过程的缺陷，提出了时间感知扩散模型TDPM。该方法通过偏好解纠缠将用户偏好拆分为长期周期偏好与近期点偏好分别建模，最终在公开基准数据集上取得了显著优于现有SOTA基线的推荐效果，完善了扩散类生成范式的偏好建模逻辑，推动了扩散生成推荐的性能提升。\n\n相较于2026年5月聚焦大模型架构优化、落地安全防护与大规模工业场景适配的研究脉络，本次两篇研究分别切入了此前较少深入探索的极端跨域推荐场景与扩散生成范式的动态偏好优化方向，并未延续此前对安全评估、工业落地的讨论，而是从细分场景痛点与生成架构缺陷的角度切入拓展领域边界，进一步丰富了生成式推荐的研究布局。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Breaking the Information Silo: Semantic Personas for Cross-Domain Recommendation",
+        "Time-Aware Diffusion based on Preference Disentanglement for Generative Recommendation"
+      ],
+      "continuity_from_date": "2026-05-27"
+    },
+    "cs.LG": {
+      "summary": "本次cs.LG分类下生成式推荐领域的新增研究，跳出了此前持续聚焦通用推荐场景核心算法模块逐个突破的发展脉络，转向探索生成式推荐方法在前沿生物医药领域的交叉应用，进一步拓展了生成式推荐技术的应用边界。\n\n本次新增工作针对药物研发中蛋白药物结合位点预测与结合模态选择的痛点需求，构建了Site4Drug生成式AI智能体。该模型不仅能够输出按成药潜力排序的可靶向蛋白区域，还可同步生成对应结合位点的约束条件、证据摘要、风险标识与可追溯决策日志，更突破了传统方法需要用户预先指定结合模态的限制，可直接为候选药物结合模态自动完成生成式推荐。\n\n相较于此前围绕生成式推荐自身技术链条补全的研究方向，本次工作体现了生成式推荐领域逐渐向细分垂直交叉场景渗透的新趋势，为AI辅助药物研发提供了具备可解释性与可追溯性的新工具。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Site4Drug: Predicting Drug-Binding Target Sites with an AI Agent"
+      ],
+      "continuity_from_date": "2026-05-28"
+    }
+  }
+}
