@@ -1,0 +1,70 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 2,
+  "jsonl_output_line_count": 2,
+  "total_papers_before_filter": 2,
+  "all_papers_inventory": [
+    {
+      "id": "2606.11023",
+      "title": "Generative Archetype-Grounded Item Representations for Sequential Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2606.10375",
+      "title": "SIDInspector: A Mapping-First Diagnostic Resource for Semantic-ID Tokenizers",
+      "primary_category": "cs.IR"
+    }
+  ],
+  "categories": {
+    "cs.CL": {
+      "summary": "当前cs.CL领域的生成式推荐研究延续了大语言模型赋能技术演进、聚焦落地场景痛点的整体趋势，与此前核心关注大规模推荐场景中大语言模型个性化方案的参数开销与可扩展性问题的研究脉络不同，本次收录的研究将切入点转向序列推荐任务的核心基础环节——物品表示的质量提升。该研究提出基于生成式原型锚定的GenAIR框架，依托大语言模型推断物品对应的目标受众原型，再结合行为校准优化物品表示；实验结果显示该方案不仅性能超越现有最优基线，还可通用提升多种现有序列推荐模型的效果。\n\n这一新工作反映出生成式推荐结合大语言模型的研究正逐步深入，在完成了落地效率、用户侧个性化等方向的探索后，学界开始挖掘大语言模型在物品侧语义建模中的价值，拓展了大语言模型在生成式推荐中的应用场景，也为生成式推荐核心要素的基础建模提供了新的技术路径。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Generative Archetype-Grounded Item Representations for Sequential Recommendation"
+      ],
+      "continuity_from_date": "2026-06-03"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR分类下生成式推荐领域的最新研究承接此前领域发展脉络，相较于上一次聚焦生成化学术推荐的领域梳理与社区共识总结，本次收录的两篇研究重新回归具体技术创新方向，分别从核心任务方法优化、配套基础设施建设两个维度推进生成式推荐技术发展，延续了领域依托大语言模型升级推荐能力的整体趋势。\n\n针对序列推荐这一核心场景的物品表示优化问题，第一篇研究提出生成式原型接地物品表示框架GenAIR，利用大语言模型推断物品对应的目标受众原型，再结合用户行为校准优化物品表示。实验证明该框架可适配提升多个现有序列推荐模型的性能，效果超越当前最优基线，为序列推荐的生成式表示学习提供了新的可行方案。\n\n针对生成式推荐中广泛应用的语义ID分词器缺乏事前质量检测工具的研究缺口，第二篇研究推出了映射优先的诊断工具SIDInspector。该工具定义了语义ID映射与相关数据的适配接口规范，可在下游模型训练启动前完成多维度的映射层面问题诊断；在多个公开语义ID分词器构件上的实验，发现了现有分词器映射在别名问题、前缀对齐、可寻址性等方面此前未被关注的潜在问题，为生成式推荐基础设施的质量管控提供了实用工具与新的经验发现，也体现出当前领域对生成式推荐全链条技术质量的关注度正在提升。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Generative Archetype-Grounded Item Representations for Sequential Recommendation",
+        "SIDInspector: A Mapping-First Diagnostic Resource for Semantic-ID Tokenizers"
+      ],
+      "continuity_from_date": "2026-06-08"
+    },
+    "cs.LG": {
+      "summary": "本次cs.LG分类下生成式推荐方向的新增研究，相较于2026年6月8日收录成果聚焦垂直场景落地与隐私部署实用规范探索的方向，本次研究重回生成式推荐核心模块的性能优化方向，呼应了早期研究打磨推荐核心能力的发展脉络。\n\n本次收录的研究针对序列推荐任务，提出了基于生成式原型约束的物品表示学习框架GenAIR。该框架创新性地引入大语言模型推断不同物品对应的目标受众原型，再通过用户行为数据校准优化物品的最终表示，解决了现有物品表示缺乏语义层面泛化刻画的痛点。\n\n实验验证显示，该框架可以无缝适配多种主流序列推荐模型，能够稳定带来性能增益，效果超越已有的最优基线模型，为大语言模型赋能生成式推荐的表示学习环节提供了可复用的新方案。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Generative Archetype-Grounded Item Representations for Sequential Recommendation"
+      ],
+      "continuity_from_date": "2026-06-08"
+    }
+  }
+}
