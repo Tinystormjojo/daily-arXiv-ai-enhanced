@@ -1,0 +1,83 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 3,
+  "jsonl_output_line_count": 3,
+  "total_papers_before_filter": 3,
+  "all_papers_inventory": [
+    {
+      "id": "2606.13001",
+      "title": "CFALR: Collaborative Filtering-Augmented Large Language Model for Personalized Fashion Outfit Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2606.13610",
+      "title": "One Polluted Page Is Enough: Evaluating Web Content Pollution in Generative Recommenders",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2606.13140",
+      "title": "MIDSim: Simulating Multi-Channel Information Diffusion in Social Media with LLM-Powered Multi-Agent System",
+      "primary_category": "cs.SI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "本次cs.AI领域收录的生成式推荐相关研究，延续了生成式推荐逐步走向实用化的整体发展脉络，但和此前侧重场景拓展与落地方案构建的研究方向不同，本次研究聚焦于生成式推荐落地过程中被忽视的安全风险问题，针对搜索增强型生成式推荐这一主流架构，系统性评估了其面对网页内容污染攻击的脆弱性。这类攻击包括平台中的虚假评论、刻意设计的引流推广网页等，会误导推荐系统输出不符合用户真实需求的结果，本次工作专门构建了名为FORGE的基准测试集用于该类风险的测试，对多个不同大语言模型支撑的生成式推荐系统完成了漏洞验证，同时还评估了现有常见防御策略的实际防护效果。\n\n此前该领域的近期研究主要围绕生成式推荐向学术搜索、精准农业等专业垂直场景的拓展展开，核心关注点是验证技术在新场景的可用性，本次研究反映出生成式推荐领域的新发展趋势：随着生成式推荐技术落地进程加快，领域研究的关注点已经从“能否适配新场景落地”逐步延伸到“落地后能否稳定安全运行”，安全风险评估与防御相关研究开始得到更多关注，补充了生成式推荐实用化发展过程中关键的研究维度。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "One Polluted Page Is Enough: Evaluating Web Content Pollution in Generative Recommenders"
+      ],
+      "continuity_from_date": "2026-06-08"
+    },
+    "cs.CL": {
+      "summary": "延续cs.CL领域生成式推荐依托大语言模型演进、聚焦落地场景痛点的整体研究趋势，相较于此前先后关注参数可扩展性、用户个性化建模与物品侧语义表示优化的研究脉络，本次收录的研究切入了此前少有关注的生成式推荐安全风险议题，聚焦当前主流的搜索增强型生成式推荐架构展开研究。\n\n该工作针对虚假测评、引流推广页这类网页内容污染问题，系统评估了生成式推荐器被内容污染误导的脆弱性，构建了名为FORGE的标准化测试基准，完成了对多款主流大语言模型的测试，还对现有各类防御策略的实际效果进行了验证，填补了生成式推荐安全评估方向的研究空白。\n\n这一新进展反映出生成式推荐领域的研究转向，随着核心性能与基础建模层面的研究逐步成熟，学界开始关注实用化落地阶段的安全与鲁棒性问题，研究方向从单一的性能提升拓展到系统全维度特性的评估与优化，为生成式推荐的落地应用补全了风险防控维度，也推动领域向更成熟的实用化方向发展。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "One Polluted Page Is Enough: Evaluating Web Content Pollution in Generative Recommenders"
+      ],
+      "continuity_from_date": "2026-06-09"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR分类下生成式推荐领域的最新研究延续了领域依托大语言模型升级推荐能力的整体趋势，相较于此前围绕通用推荐场景方法优化、基础设施质量管控的研究方向，本次收录的研究转向垂直消费场景的个性化推荐技术落地，探索传统经典推荐方法与大语言模型的融合创新路径。\n\n本次研究聚焦个性化时尚穿搭推荐这一细分实用需求，提出了协同过滤增强大语言模型的新框架CFALR。该框架充分结合了协同过滤对用户交互行为偏好的精准建模优势，以及大语言模型对时尚单品属性、穿搭场景逻辑的强语义理解能力，实现了两类方法的优势互补。\n\n该框架在公开基准数据集上的验证结果显示，其推荐性能优于现有基线模型，这一研究也反映出当前生成式推荐领域正逐步从通用方法、底层工具的系统性探索，向各垂直细分场景的落地应用延伸，混合融合的建模思路也为细分场景的生成式推荐技术开发提供了新的可行参考。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "CFALR: Collaborative Filtering-Augmented Large Language Model for Personalized Fashion Outfit Recommendation"
+      ],
+      "continuity_from_date": "2026-06-09"
+    },
+    "cs.SI": {
+      "summary": "在cs.SI分类下，以生成式技术为核心的研究正在向社交媒体信息传播模拟领域延伸，本次检索得到的相关研究是生成式方法与推荐传播逻辑结合的新探索，聚焦大语言模型赋能的多智能体建模，探索生成式框架对多渠道信息扩散过程的模拟能力。\n\n该研究提出了MIDSim框架，基于大语言模型构建多智能体模拟系统，能够同时刻画社交媒体中两类异质性扩散过程：一类是依托用户社交关系的自然扩散，另一类是依托平台推荐机制的算法扩散，弥补了以往模拟研究难以兼顾多渠道传播特性的不足。\n\n为验证框架有效性，研究构建了三个源自真实场景的信息扩散数据集开展对比实验，结果显示MIDSim在模拟真实宏观扩散现象的任务上性能优于多个主流基准模型，同时还具备生成符合真实用户行为特征的多样化评论的能力，为生成式方法支撑社会信息动态研究提供了可行的技术方案。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "MIDSim: Simulating Multi-Channel Information Diffusion in Social Media with LLM-Powered Multi-Agent System"
+      ],
+      "continuity_from_date": null
+    }
+  }
+}
