@@ -1,0 +1,101 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 6,
+  "jsonl_output_line_count": 6,
+  "total_papers_before_filter": 6,
+  "all_papers_inventory": [
+    {
+      "id": "2606.18897",
+      "title": "SAERec: Constructing Fine-grained Interpretable Intents Priors via Sparse Autoencoders for Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2606.18814",
+      "title": "LensKit-Auto",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2606.19218",
+      "title": "RECOM: A Validity Discrimination Tradeoff in Automatic Metrics for Open Ended Reddit Question Answering",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2606.18889",
+      "title": "Improving Medical Communication using Rubric-Guided Counterfactual Recommendations",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2606.19270",
+      "title": "Beyond Algorithms: Conceptual Innovation in Medical Imaging AI",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2606.18976",
+      "title": "CAPRA: Scaling Feedback on Software Architecture Deliverables with a Multi-Agent LLM System",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "延续此前cs.AI领域生成式推荐研究聚焦落地阶段可解释、可问责需求的整体趋势，本次收录的生成式推荐核心研究进一步从模型构造层面回应了领域对决策透明性的要求。不同于此前偏向算法审计的实证类偏差研究，本次收录的SAERec模型针对意图推荐场景，提出利用稀疏自动编码器从大语言模型文本嵌入中提取细粒度可解释意图，并将其作为先验引导推荐模型训练，在公开测试集上性能超越现有最优模型，同时实现了推荐决策的可解释性，将学界对可问责推荐的需求从实证评估层面推进到了核心模型改造层面，补齐了可解释推荐的技术缺口。\n\n本次cs.AI分类下还收录了一篇生成式个性化技术的交叉应用研究，将多代理大语言模型生成技术延伸到软件工程领域，构建了可规模化处理软件架构交付物反馈的CAPRA系统。该系统可自动完成交付物分析，生成符合格式要求的个性化LaTeX反馈，初步评估验证了其在学生架构报告反馈场景中的有效性，解决了传统人工反馈可扩展性不足的问题。\n\n整体来看，当前生成式推荐领域的发展延续了此前落地深化的核心脉络，同时呈现出两大新特征：一方面可解释性治理需求从问题识别走向技术实现，另一方面相关生成式个性化技术也不断向专业垂直领域渗透，进一步拓展了生成式AI的应用边界。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "SAERec: Constructing Fine-grained Interpretable Intents Priors via Sparse Autoencoders for Recommendation",
+        "CAPRA: Scaling Feedback on Software Architecture Deliverables with a Multi-Agent LLM System"
+      ],
+      "continuity_from_date": "2026-06-15"
+    },
+    "cs.CL": {
+      "summary": "本次cs.CL领域收录的生成式推荐相关研究，延续了该领域此前转向实用化落地与配套规范建设的整体趋势，相较于前一批次研究聚焦底层架构优化、落地场景公平性问责，本次两篇研究分别面向开放生成任务的评估规范完善、垂直领域场景化应用创新展开探索，进一步丰富了生成式推荐领域的研究维度。\n\n第一篇研究瞄准生成式推荐等开放生成任务性能验证的核心痛点，研究指出当前各类自动评估指标普遍存在有效性与判别能力的权衡：其中有效性指指标能否区分生成内容的真实语义对齐与表面词重叠，判别能力指指标能否为不同模型的性能做出准确排序。该研究构建了包含1.5万条真实社区回复的无污染RECOM评测数据集，验证发现包括LLM-as-judge在内的现有主流指标均无法同时在两个维度取得良好表现，进而提出需联合报告两个维度性能并引入明确随机基线的评估规范，填补了开放生成式推荐输出评估体系的短板，推动了领域评估标准的完善。\n\n另一篇研究探索了生成式推荐在垂直医疗场景的创新落地，针对远程中医患文本沟通的优化需求，提出了基于大语言模型的规则引导反事实推荐流水线。该方案可为医生的沟通文本推荐可解释的小幅风格调整，全程不改动原文核心医疗内容，最终实现提升患者正向反馈的目标，拓展了生成式推荐技术在医疗服务领域的应用场景，为垂直领域的个性化沟通优化提供了新的可落地方案。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "RECOM: A Validity Discrimination Tradeoff in Automatic Metrics for Open Ended Reddit Question Answering",
+        "Improving Medical Communication using Rubric-Guided Counterfactual Recommendations"
+      ],
+      "continuity_from_date": "2026-06-15"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR分类下生成式推荐领域的两篇最新研究，延续了此前大语言模型与传统推荐方法融合创新的核心方向，同时在算法创新和工具生态两个维度拓展了新的研究内容。不同于此前针对顺序推荐嵌入生成环节的基础优化，本次算法层面的研究SAERec进一步关注大语言模型推荐的可解释性短板，提出利用稀疏自动编码器从大模型文本嵌入中提取细粒度可解释意图，将其作为先验信息引导推荐建模，该方法在公开数据集上实现了超过现有最优模型的推荐性能，同时为生成式推荐提供了明确的可解释性支撑。\n\n另一项研究聚焦生成式推荐领域的工具普惠化建设，填补了此前研究中较少关注易用性工程建设的空白，完成了自动化推荐框架LensKit-Auto的版本适配与功能更新，大幅提升了框架的可用性，支持非专家用户针对目标数据集自动匹配合适的推荐算法与超参数组合，降低了中小研究者和普通开发者开展生成式推荐研究与应用的门槛。\n\n整体来看，当前生成式推荐领域除了持续推进核心算法的缺陷补全与性能优化外，也逐步延伸到可解释性提升、工具生态完善等支撑性方向，呈现出核心技术突破与配套能力建设并行推进的发展趋势。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "SAERec: Constructing Fine-grained Interpretable Intents Priors via Sparse Autoencoders for Recommendation",
+        "LensKit-Auto"
+      ],
+      "continuity_from_date": "2026-06-15"
+    },
+    "cs.LG": {
+      "summary": "本次cs.LG分类下生成式推荐方向本次收录到一篇跨领域关联的观点性研究，和此前该方向持续围绕生成式推荐系统自身技术迭代、落地风险治理展开探索的研究脉络不同，本次研究跳出推荐系统技术议题，转向生成式类AI落地垂直领域后的创新生态结构问题反思。\n\n该研究针对当前医学成像AI领域的创新评价体系提出核心反思，明确区分了算法创新与概念创新两类不同的创新贡献，指出现有领域评价体系存在明显的重算法技术创新、轻基础概念创新的结构性偏差；这种不平衡不仅会低估概念创新的长远价值，还会对领域的可持续发展产生负面作用，文章最后也从科研评价、项目资助等层面给出了促进两类创新平衡发展的行动建议。\n\n对比此前生成式推荐领域逐步从核心性能打磨向落地风险治理延伸的发展趋势，本次收录的研究反映出cs.LG领域内生成式AI相关研究已开始进一步拓展到整个科研创新生态层面的反思，跳出技术问题本身转向科研评价机制的讨论，也为包括生成式推荐在内的各类生成式AI细分领域的长期健康发展提供了值得参考的新视角。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Beyond Algorithms: Conceptual Innovation in Medical Imaging AI"
+      ],
+      "continuity_from_date": "2026-06-15"
+    }
+  }
+}
