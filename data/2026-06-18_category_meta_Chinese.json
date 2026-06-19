@@ -1,0 +1,84 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 3,
+  "jsonl_output_line_count": 3,
+  "total_papers_before_filter": 3,
+  "all_papers_inventory": [
+    {
+      "id": "2606.20554",
+      "title": "Structuring and Tokenizing Distributed User Interest Context for Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2606.20065",
+      "title": "Generative Engine Optimization at Scale: Measuring Brand Visibility Across AI Search Engines",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2606.19690",
+      "title": "Multi-Granular Attention-Driven Reinforcement Learning Framework for Web Intelligent Enhancement Systems",
+      "primary_category": "cs.LG"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "延续cs.AI领域生成式推荐研究落地深化的整体脉络，本次收录的研究聚焦生成式推荐框架本身的核心建模痛点，回应了领域对基础环节性能优化与可扩展性的需求。不同于此前一段时期研究侧重可解释性改造、偏差治理与跨领域应用拓展，本次收录的工作直指生成式推荐现有流程中项目分词、用户兴趣上下文建模两个基础环节存在的共性缺陷。\n\n该研究提出了结合统一图建模与语义分词的可扩展框架G2Rec，对分布式的用户兴趣上下文做结构化重构与适配的分词处理。无论是公开标准数据集上的离线测试，还是真实场景的在线部署验证，都证明该框架相较于现有方案具备明确性能优势，能够更精准地捕捉用户兴趣偏好，提升生成式推荐的整体效果。\n\n相较于此前总结中呈现的“可解释需求落地+垂直领域渗透”的发展特征，本次研究反映出领域发展的新动向：在应用层面的治理与拓展需求逐步得到技术回应后，学界开始重新聚焦生成式推荐核心流程的基础工程与建模问题，通过打磨底层框架的性能与可扩展性，为后续更大规模的产业落地筑牢基础。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Structuring and Tokenizing Distributed User Interest Context for Generative Recommendation"
+      ],
+      "continuity_from_date": "2026-06-17"
+    },
+    "cs.CL": {
+      "summary": "本次cs.CL领域收录的生成式推荐相关研究，延续了该领域此前转向实用化落地与产业相关议题探索的整体趋势，和前一批次聚焦生成式推荐评估规范建设、垂直医疗场景落地创新的方向不同，本次研究关注生成式搜索生态兴起后出现的全新研究问题。\n\n本次收录的研究聚焦生成式引擎优化（GEO）这一新兴议题，开展了大尺度实证研究，围绕不同梯队品牌在主流AI搜索引擎中的品牌可见性进行系统性测量，梳理了生成式搜索结果在来源引用、内容偏好层面的典型规律，还为该领域提供了可参考的基准数据与标准化实验方案。\n\n相较于过往研究多围绕生成式推荐本身的算法设计、性能评估或场景适配展开探索，本次研究跳出了技术研发本身，转向生成式推荐与生成式搜索技术落地后的产业生态问题研究，拓展了生成式推荐相关领域的研究维度，回应了AI生成搜索普及后品牌端提出的新需求。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Generative Engine Optimization at Scale: Measuring Brand Visibility Across AI Search Engines"
+      ],
+      "continuity_from_date": "2026-06-17"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR分类下生成式推荐领域的两篇最新研究，延续了此前核心技术突破与拓展方向建设并行的发展趋势，同时呈现出新的研究侧重。核心算法层面，不同于上一轮研究聚焦大语言模型推荐的可解释性短板改进，本次研究直指生成式推荐架构层面的基础问题，针对现有方案在项目分词、分布式用户兴趣上下文建模中的缺陷，提出了结合统一图建模与语义分词的可扩展框架G2Rec，在线部署测试与公开数据集实验均验证了该框架的性能优势，推进了生成式推荐的实际落地可用性。\n\n另一项研究则开辟了生成式推荐关联领域的新研究方向，打破了此前研究多集中于算法设计、工具生态建设的格局，面向AI搜索与生成式推荐商业化场景中的新兴需求，针对生成式引擎优化（GEO）开展了大尺度实证研究。该研究系统测量了不同层级品牌在主流AI搜索引擎中的可见性，梳理了生成式结果在来源引用、内容偏好上的核心规律，为该新兴子领域提供了基础基线数据与标准化实验方案，填补了相关产业导向实证研究的空白。\n\n整体来看，当前生成式推荐领域除了持续优化核心架构的性能与落地能力外，正不断向产业应用场景延伸，围绕生成式推荐与AI搜索带来的新商业需求拓展研究边界，呈现出技术迭代与产业探索同步推进的新特征。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Structuring and Tokenizing Distributed User Interest Context for Generative Recommendation",
+        "Generative Engine Optimization at Scale: Measuring Brand Visibility Across AI Search Engines"
+      ],
+      "continuity_from_date": "2026-06-17"
+    },
+    "cs.LG": {
+      "summary": "本次cs.LG分类下生成式推荐方向收录的研究回归具体落地场景的技术研发，和上一次转向科研创新生态反思的研究方向不同，延续了该方向早期围绕生成式推荐核心技术打磨与落地性能优化的脉络，针对Web智能增强场景下的个性化推荐需求展开技术创新。该研究针对Web场景数据异构、动态变化的核心痛点，提出多粒度注意力驱动的强化学习框架MGAR-WIES，通过整合语义图建模、多粒度注意力机制与自适应强化学习，实现对异质动态Web数据的有效处理，支撑精准的个性化Web推荐服务。\n\n对比此前的研究脉络，生成式推荐领域先后经历了核心性能打磨、落地风险治理，再延伸至科研生态层面的宏观反思，本次收录的研究体现出该领域在宏观反思之外，依然在推进面向具体垂直场景的技术迭代。实验结果显示该新框架准确率达到80%，性能优于现有主流方法，为Web场景下的生成式个性化推荐服务提供了新的可行技术方案，也反映出当前生成式推荐领域呈现出宏观生态反思与微观技术优化并行推进的发展趋势。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Multi-Granular Attention-Driven Reinforcement Learning Framework for Web Intelligent Enhancement Systems"
+      ],
+      "continuity_from_date": "2026-06-17"
+    }
+  }
+}
