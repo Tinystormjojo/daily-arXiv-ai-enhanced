@@ -1,0 +1,82 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 4,
+  "jsonl_output_line_count": 4,
+  "total_papers_before_filter": 4,
+  "all_papers_inventory": [
+    {
+      "id": "2606.24509",
+      "title": "A Fair Evaluation of Graph Foundation Models for Node Property Prediction",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2606.24747",
+      "title": "Scaling Laws for Task-Specific LLM Distillation",
+      "primary_category": "cs.AI"
+    },
+    {
+      "id": "2606.24370",
+      "title": "When Helpfulness Overrides Causal Caution: Context-Dependent Suppression and Recovery in LLMs",
+      "primary_category": "cs.AI"
+    },
+    {
+      "id": "2606.24104",
+      "title": "The impact of generative artificial intelligence on academic development of Chinese students in humanities and social sciences",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "延续cs.AI领域生成式推荐相关研究此前回归底层核心问题、打磨基础能力的脉络，本次收录的研究呈现出议题范围大幅拓展的新特征，研究对象不再局限于生成式推荐本身的建模与落地优化，延伸至通用生成式AI的基础评测、方法规律、机制解析与社会影响多个维度，为生成式推荐的后续发展提供了多层面的支撑。其中在基础架构评测方面，本次研究针对支撑图结构推荐任务的新兴图基础模型，开展了公平严格的标准化重评估，通过与强性能图神经网络基线的对照，厘清了不同图基础模型范式的实际性能边界，为生成式推荐领域后续引入图基础架构提供了可靠的基准参考。\n\n方法层面，本次研究围绕大模型落地的核心需求推进规律探索与机制解析：一方面针对任务特定大模型蒸馏梳理出清晰的缩放规律，以量化金融场景为验证对象，提出了可稳定蒸馏效果的混合思维链监督损失，配套发布了可复用的压缩决策框架，这类研究可为生成式推荐在资源受限产业场景中的模型压缩与性能维持提供成熟方法论；另一方面探究了大模型的行为逻辑，发现大模型在转向实用性咨询场景后，会为了满足有用性需求放弃因果审慎原则，研究还提出了可恢复该安全能力的简单方案，这类机制研究能够帮助提升生成式推荐输出内容的因果合理性与安全性。\n\n不同于此前研究始终聚焦技术维度的优化，本次收录的研究还新增了生成式AI社会影响的实证调查，通过对中国人文社科学生的大规模调研，清晰呈现了生成式AI融入该群体学术活动的使用模式、正反影响与现存挑战，提出的负责任整合方案也为高等教育场景下学术类生成式推荐工具的规范开发提供了决策参考。整体来看，本次研究反映出当前领域在打磨生成式推荐核心技术的基础上，开始同步拓展基础层研究与社会影响研究，呈现出技术、基础研究与社会议题多元协同发展的新趋势。",
+      "matched_count": 4,
+      "paper_count_in_bucket": 4,
+      "titles_in_category": [
+        "A Fair Evaluation of Graph Foundation Models for Node Property Prediction",
+        "Scaling Laws for Task-Specific LLM Distillation",
+        "When Helpfulness Overrides Causal Caution: Context-Dependent Suppression and Recovery in LLMs",
+        "The impact of generative artificial intelligence on academic development of Chinese students in humanities and social sciences"
+      ],
+      "continuity_from_date": "2026-06-18"
+    },
+    "cs.LG": {
+      "summary": "在cs.LG分类下的生成式推荐领域，此前已经形成技术探索与发展反思双向推进的格局，宏观反思也逐步从科研生态内部延伸到真实产业的影响评估层面。本次新收录的研究将反思视角聚焦到领域核心技术底座的规范性验证上，针对当前生成式推荐场景广泛应用的图基础模型，开展了统一基准下的公平性能评估，填补了该方向缺乏系统性中立比对的研究空白。\n\n该研究围绕节点属性预测这一图结构推荐任务的核心场景，对9种主流的近期图基础模型开展了严格的控制变量重新评估，并与多个性能成熟的强图神经网络基线进行横向对比，最终明确了不同图基础模型范式的实际性能边界，纠正了领域内部分对图基础模型性能增益的不合理预设。\n\n整体来看，不同于前次收录的研究聚焦大模型生成推荐的产业市场效应探索，本次研究回归基础技术层的可靠性校准，既延续了生成式推荐领域重视领域反思的发展脉络，也丰富了当前领域宏观反思的层次，为后续生成式推荐研究中合理选用、开发图基础模型提供了可信的基准参考。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "A Fair Evaluation of Graph Foundation Models for Node Property Prediction"
+      ],
+      "continuity_from_date": "2026-06-22"
+    },
+    "cs.SI": {
+      "summary": "在cs.SI分类下，此前围绕生成式推荐相关方向的研究聚焦生成式技术结合推荐传播逻辑的应用探索，以大语言模型赋能的多智能体社交媒体信息扩散模拟为核心主题。本次收录的研究转向支撑生成式推荐等图结构任务的基础模型评测方向，和此前的应用创新形成研究互补，聚焦节点属性预测这一图推荐场景的核心上游任务展开基准研究。\n\n该研究针对当前图基础模型（GFM）领域不同工作评测设置不统一、性能结论缺乏公允横向对比的问题，对9种近期提出的不同范式的图基础模型开展了统一、严格的重新评估，并将其性能与表现突出的传统图神经网络基线进行比对，最终厘清了不同GFM技术范式的性能优劣边界。\n\n不同于此前侧重下游应用方案构建的研究脉络，本次新收录的研究属于基础方法层的校准工作，其产出的公允性能结论能够为后续面向生成式推荐等社会计算场景开发适配的高性能图基础模型提供可靠参考，有助于推动该方向技术路线的理性发展。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "A Fair Evaluation of Graph Foundation Models for Node Property Prediction"
+      ],
+      "continuity_from_date": "2026-06-11"
+    }
+  }
+}
