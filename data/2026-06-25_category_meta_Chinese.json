@@ -1,0 +1,84 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 3,
+  "jsonl_output_line_count": 3,
+  "total_papers_before_filter": 3,
+  "all_papers_inventory": [
+    {
+      "id": "2606.27243",
+      "title": "NOVA: A Verification-Aware Agent Harness for Architecture Evolution in Industrial Recommender Systems",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2606.26859",
+      "title": "AgentX: Towards Agent-Driven Self-Iteration of Industrial Recommender Systems",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2606.27202",
+      "title": "Graph Neural Networks Applications Across Domains: All Insights You Need",
+      "primary_category": "cs.LG"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "延续cs.AI领域生成式推荐研究技术、基础研究与社会议题多元协同发展的既有脉络，本次新增研究聚焦生成式推荐工业落地的痛点场景，切入研发迭代全流程的自动化改造方向。本次收录的论文提出面向生产环境部署的多智能体系统AgentX，可实现工业推荐系统实验全流程的方案自主生成、代码实现、效果评估到迭代改进的完整闭环，打破了传统研发循环高度依赖人工工程师的局限，有望大幅提升产业场景下推荐系统的创新迭代效率。\n\n相较于此前该领域产业侧研究多聚焦模型本身的性能优化、压缩适配等核心建模问题，本次研究将视角延伸至生成式推荐落地后的全生命周期研发迭代环节，探索用多智能体自主能力替代人工完成完整研发循环，是生成式推荐向全流程自主化落地推进的新方向，进一步印证了领域研究从核心建模向外围落地支撑环节不断拓展的整体趋势。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "AgentX: Towards Agent-Driven Self-Iteration of Industrial Recommender Systems"
+      ],
+      "continuity_from_date": "2026-06-23"
+    },
+    "cs.CL": {
+      "summary": "本次cs.CL领域收录的生成式推荐相关研究，延续了此前面向产业落地实际需求探索的核心方向，不过和前一批次聚焦生成式推荐的产业生态外部影响的实证研究不同，本次研究转向了工业推荐系统自身研发迭代流程的智能化改造。\n\n本次收录的研究提出了可直接在生产环境部署的多智能体系统AgentX，该系统依托生成式能力实现了工业推荐系统实验全流程的自主完成，覆盖方案生成、代码实现、效果验证全环节，最终可以支撑推荐系统不依赖人工工程师的自迭代改进，切中了当前工业推荐研发创新效率偏低的核心痛点。\n\n这一探索代表了生成式推荐领域一个新的细分发展方向：相较于此前围绕生成式推荐带来的市场格局、公平性等产业生态问题的研究，该研究直接利用多智能体生成式技术重构推荐系统的研发循环，拓展了生成式技术赋能推荐系统全生命周期管理的应用场景，为工业推荐系统的自主升级提供了新的技术路径。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "AgentX: Towards Agent-Driven Self-Iteration of Industrial Recommender Systems"
+      ],
+      "continuity_from_date": "2026-06-22"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR分类下生成式推荐领域的最新研究，延续了此前领域向产业落地细节打磨、实际业务痛点深挖延伸的整体发展趋势，聚焦工业推荐系统研发与升级过程中高度依赖人工专家、成本高、效率低的共性痛点，集中探索了智能体驱动的推荐系统自动化迭代这一新兴方向。其中一项研究针对工业广告推荐系统人工架构升级成本高、现有自动化方案效果受限的问题，提出了验证感知的智能体框架NOVA，可实现架构演化流程的自动化，经真实工业部署与线上A/B测试验证，该方案可为推荐系统带来稳定的性能提升与效率增益。另一项研究则提出了可落地生产的多智能体系统AgentX，覆盖工业推荐实验从生成、实现到评估的全流程，实现了推荐系统的自主迭代改进，有望替代传统依赖人工的研发循环，提升推荐系统的技术创新效率。\n\n相较于上一轮研究聚焦模型资源压缩、评估工具链补全、商业影响实证等方向，本次两篇研究进一步将产业落地层面的探索向前推进：原有研究多围绕生成式推荐落地的基础条件建设展开，本次研究则直接切入工业推荐系统研发升级全流程的智能化改造，瞄准人工依赖这一长期制约工业推荐迭代效率的核心痛点，提出了可落地部署的成熟方案，拓展了生成式推荐产业应用研究的边界。\n\n整体来看，当前生成式推荐领域依然保持技术迭代响应产业需求的特征，在完成核心性能优化、配套工具建设等阶段性推进后，正进一步向研发全流程自主化的方向延伸，为生成式推荐在工业场景的规模化落地降本增效开辟了新的技术路径。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "NOVA: A Verification-Aware Agent Harness for Architecture Evolution in Industrial Recommender Systems",
+        "AgentX: Towards Agent-Driven Self-Iteration of Industrial Recommender Systems"
+      ],
+      "continuity_from_date": "2026-06-22"
+    },
+    "cs.LG": {
+      "summary": "在cs.LG分类下的生成式推荐领域，此前已形成重视核心技术底座梳理反思的发展脉络，前次研究聚焦生成式推荐所用图基础模型的性能可靠性校准，本次新收录的研究进一步将视角拓展到整个图神经网络（GNN）领域的系统性全景梳理，而GNN正是当前生成式推荐场景图结构建模的核心技术支撑。\n\n不同于前次研究针对特定推荐任务开展主流模型的控制变量比对，本次收录的综述从统一设计空间出发对整个GNN领域进行梳理，统一推导了谱方法与空间方法的公式体系，同时明确了GNN表达能力与Weisfeiler-Leman层次的对应关联，搭建了逻辑自洽的完整GNN技术认知框架。\n\n该综述进一步考察了GNN在12个不同应用领域的实际表现，通过跨领域横向对比，厘清了限制GNN落地应用的关键约束条件，能够为生成式推荐领域研究者选择适配的GNN方案、开发面向推荐场景的生成式图模型提供系统性的理论参考。它既延续了领域梳理技术基础、校正发展认知的已有脉络，也进一步完善了生成式推荐领域图建模技术的顶层认知，为后续技术迭代提供了清晰的参照框架。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Graph Neural Networks Applications Across Domains: All Insights You Need"
+      ],
+      "continuity_from_date": "2026-06-23"
+    }
+  }
+}
