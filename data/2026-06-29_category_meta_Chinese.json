@@ -1,0 +1,70 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 2,
+  "jsonl_output_line_count": 2,
+  "total_papers_before_filter": 2,
+  "all_papers_inventory": [
+    {
+      "id": "2606.29980",
+      "title": "Exploration and Online Transfer with Behavioral Foundation Models",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2606.29914",
+      "title": "MemDelta: Controlled Baselines and Hidden Confounds in Agent Memory Evaluation",
+      "primary_category": "cs.CL"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "延续cs.AI领域生成式推荐研究多元推进的既有脉络，此前研究已将领域重心从核心建模拓展到工业落地的全生命周期研发自动化环节，本次最新收录的研究则转向生成式大模型赋能推荐决策的基础能力探索，跳出了此前围绕产业落地流程改造的研究方向。\n\n该研究聚焦行为基础模型（BFM）在零样本场景下的在线迁移问题，针对推荐系统在线探索效率不足的共性痛点，提出直接利用BFM的生成能力构造探索策略，将问题建模为类老虎机的探索-利用问题，在线性奖励近似下推导得到了基于置信上界的求解方法，已在简单测试环境中验证了该方案的有效性。\n\n相较于此前偏向产业应用侧的研究成果，本次研究回归生成式推荐的底层基础能力建设，探索了生成式基础模型在推荐交互决策环节的适配路径，反映出当前领域同时推进底层技术突破与上层落地支撑的二元发展趋势，为后续生成式推荐的零样本泛化研究提供了新的思路。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Exploration and Online Transfer with Behavioral Foundation Models"
+      ],
+      "continuity_from_date": "2026-06-25"
+    },
+    "cs.CL": {
+      "summary": "cs.CL领域本次收录的生成式推荐相关研究，延续了此前关注生成式智能体技术赋能推荐系统研发的方向，但和前一批次聚焦重构推荐系统研发循环的应用探索不同，本次研究转向生成式推荐场景下智能体核心组件的评估方法规范性问题，填补了此前领域对基础评估环节关注不足的空白。\n\n本次收录的研究明确指出，当前面向生成式推荐场景开发的智能体记忆系统，其评估流程普遍存在未被发现的混淆变量，会干扰实验结论的可靠性，难以支撑有效技术迭代。为此研究提出了控制单一变量的MemDelta评估协议，通过设置可控基线的对照设计规范了智能体记忆的评估流程，依托该规范实验得到四项关键发现，厘清了现有评估体系的核心缺陷，同时为未来相关研究给出了可落地的改进方向。\n\n这一探索反映了生成式推荐领域的新兴发展趋势：在应用层技术探索逐步推进后，学界开始关注基础研究方法的规范性建设，相关成果能够帮助领域产出更严谨可靠的智能体记忆技术结论，为生成式推荐领域智能体技术的后续稳健落地提供了重要方法论支撑。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "MemDelta: Controlled Baselines and Hidden Confounds in Agent Memory Evaluation"
+      ],
+      "continuity_from_date": "2026-06-25"
+    },
+    "cs.LG": {
+      "summary": "在cs.LG分类下的生成式推荐领域，此前已形成梳理核心技术底座、校正领域发展认知的脉络，前次研究完成了生成式推荐核心支撑技术GNN的系统性顶层框架梳理。本次新收录的两篇研究跳出静态技术框架梳理的方向，转向生成式推荐落地所需的交互式决策、智能体模块的基础问题，分别从方法创新和评估范式两个维度推进领域发展。\n\n第一篇研究面向生成式推荐场景中用户行为建模的核心需求，聚焦行为基础模型在零样本交互式决策中的在线迁移难题，创新性提出利用行为基础模型本身生成探索策略，将该问题建模为类老虎机的探索-利用问题，在线性奖励近似下推导得到了基于置信上界的求解方法，最终在验证环境中证实了方法的有效性，为生成式推荐场景下的在线用户探索、冷启动推荐优化提供了新的技术思路。\n\n第二篇研究直指生成式交互推荐中智能体记忆模块评估的方法学缺陷，指出当前主流评估方案普遍存在隐藏混淆变量干扰结论可靠性的问题，由此提出了控制单一变量的MemDelta评估协议，通过对照实验得到了四项对领域有启发的关键发现，为后续相关研究的规范评估给出了改进方向。该研究延续了此前领域重视校正认知偏差、完善技术评估体系的发展脉络，为生成式推荐相关智能体模块的健康发展提供了方法学保障。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Exploration and Online Transfer with Behavioral Foundation Models",
+        "MemDelta: Controlled Baselines and Hidden Confounds in Agent Memory Evaluation"
+      ],
+      "continuity_from_date": "2026-06-25"
+    }
+  }
+}
