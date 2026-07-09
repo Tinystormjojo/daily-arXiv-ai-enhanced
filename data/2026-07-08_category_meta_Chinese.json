@@ -1,0 +1,81 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 4,
+  "jsonl_output_line_count": 4,
+  "total_papers_before_filter": 4,
+  "all_papers_inventory": [
+    {
+      "id": "2607.06963",
+      "title": "Large Language Models (LLMs) and Generative AI in Cybersecurity and Privacy: A Survey of Dual-Use Risks, AI-Generated Malware, Explainability, and Defensive Strategies",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2607.07304",
+      "title": "Nonlinear Bandit",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2607.07103",
+      "title": "A knowledge-augmented dataset of high-risk driving scenarios with LLM annotations for autonomous driving",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2607.06993",
+      "title": "Large Behavior Model: A Promptable Digital Twin of the Retail Customer",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "延续cs.AI领域生成式推荐相关技术向垂直细分领域渗透、场景落地创新与风险治理协同推进的整体脉络，相较于此前围绕生成式个性化应用的伦理边界与消费营销场景可行性的探索，本次收录的两篇研究进一步拓展了生成式技术的讨论范畴与落地深度，分别回应了大模型时代生成式技术落地的安全风险治理需求，以及零售场景个性化客户建模的技术升级需求。\n\n第一篇研究针对大语言模型与生成式AI在网络安全领域的双重用途开展系统性综述，梳理了超70份相关研究成果，既覆盖AI生成恶意软件等新型恶意利用风险，也整理了生成式AI赋能网络安全防御的技术路径与可解释性研究现状，最终提出了安全部署生成式大模型的可落地方向与研究路线图。该研究将生成式推荐领域此前对负责任创新、伦理风险的讨论延伸至具体的网络安全治理维度，填补了生成式技术在安全领域系统性风险梳理的空白，回应了各场景生成式技术落地对安全保障的核心需求。\n\n另一项研究聚焦零售个性化推荐场景的核心需求，提出面向零售客户的可提示大型行为模型LBM，构建了生成式零售客户数字孪生，从大规模零售交易数据中学习客户决策过程，在多个零售任务上性能优于前沿通用大语言模型，同时具备跨零售商、跨决策域的迁移能力。相较于此前生成式技术在消费者营销研究领域的可行性验证，该研究进一步深化了生成式技术在零售商业场景的落地，为零售领域生成式个性化推荐、客户行为模拟提供了可扩展的技术基础，延续了领域不断拓展垂直场景应用深度的发展趋势。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Large Language Models (LLMs) and Generative AI in Cybersecurity and Privacy: A Survey of Dual-Use Risks, AI-Generated Malware, Explainability, and Defensive Strategies",
+        "Large Behavior Model: A Promptable Digital Twin of the Retail Customer"
+      ],
+      "continuity_from_date": "2026-07-07"
+    },
+    "cs.CL": {
+      "summary": "本次cs.CL领域收录的生成式技术相关研究，与上一批次聚焦生成式推荐领域多语言低资源场景评估规范建设的研究方向存在明显差异，本次仅收录一篇交叉领域的综述性研究，聚焦大语言模型与生成式AI在网络安全隐私领域的应用与风险问题。\n\n该综述整合了超过70项国内外相关研究成果，系统梳理了生成式AI在网络安全领域的双重用途属性：既覆盖了利用生成式AI制造恶意软件、发起网络攻击这类新型安全风险，也总结了现有将生成式技术用于网络防御的实践路径，同时还对生成式安全应用中的可解释性问题进行了专项讨论，最终面向安全部署大语言模型提出了可操作的改进建议与清晰的未来研究路线图。\n\n从领域发展脉络来看，相较于此前生成式推荐领域围绕自身应用边界拓展完善基础评估体系的研究脉络，本次收录的交叉研究反映出cs.CL领域下生成式技术相关研究正持续向垂直应用领域的安全治理议题延伸，凸显了生成式技术规模化落地过程中风险防控与安全部署的重要研究价值，也为计算语言学与网络安全的交叉研究梳理了整合性的发展框架。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Large Language Models (LLMs) and Generative AI in Cybersecurity and Privacy: A Survey of Dual-Use Risks, AI-Generated Malware, Explainability, and Defensive Strategies"
+      ],
+      "continuity_from_date": "2026-07-02"
+    },
+    "cs.LG": {
+      "summary": "在cs.LG分类下的生成式推荐领域，前序研究已完成核心支撑技术框架梳理，围绕交互式决策优化、领域评估规范完善形成了清晰发展脉络，本次新收录的两篇研究进一步拓展了领域的研究边界，分别从基础决策方法升级与垂直场景数据基础设施建设两个维度，推进生成式推荐技术的跨场景落地。\n\n第一篇研究延续了前序关注生成式推荐交互式决策基础能力的发展方向，聚焦推荐场景中常见的不确定环境下决策难题，针对传统老虎机模型难以适配重尾噪声、分段常数上下文的局限，将广义线性老虎机框架拓展至一般非线性老虎机问题，提出了具备严格理论遗憾保证的高效算法，为生成式推荐场景下的在线用户兴趣探索、动态推荐决策提供了更鲁棒的方法与理论支撑。\n\n第二篇研究跳出了通用推荐场景的算法与方法学讨论，将大语言模型生成赋能的思路延伸至自动驾驶这一高风险垂直领域，面向风险感知自动驾驶智能体的开发评估需求，构建了整合多来源轨迹数据、带有LLM生成语义标注的知识增强高风险驾驶场景数据集K-Risk，填补了该领域标准化标注数据的空白，也为生成式技术赋能垂直领域决策推荐类智能体提供了新的基础支撑。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Nonlinear Bandit",
+        "A knowledge-augmented dataset of high-risk driving scenarios with LLM annotations for autonomous driving"
+      ],
+      "continuity_from_date": "2026-06-29"
+    }
+  }
+}
