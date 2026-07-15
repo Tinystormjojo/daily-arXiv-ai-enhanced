@@ -1,0 +1,55 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 1,
+  "jsonl_output_line_count": 1,
+  "total_papers_before_filter": 1,
+  "all_papers_inventory": [
+    {
+      "id": "2607.12281",
+      "title": "SlimPer: Make Personalization Model Slim and Smart",
+      "primary_category": "cs.IR"
+    }
+  ],
+  "categories": {
+    "cs.IR": {
+      "summary": "当前cs.IR分类下生成式推荐领域的研究，延续了此前聚焦工业落地痛点、推进全链路生成式推荐架构优化的核心趋势。与此前新增研究侧重补全全链路生成式改造中前端检索模块的技术空白不同，本次新增研究转向后端个性化排序阶段的工业效率痛点展开探索。\n\n现有工业个性化推荐系统多采用Transformer架构，普遍存在内存占用高、计算开销大的问题，既提升了部署成本，也难以支撑长用户行为历史建模，限制了推荐效果的提升空间。针对该痛点，本次研究提出SlimPer个性化排序框架，通过重新设计个性化排序任务实现了架构层面的计算与内存开销削减。\n\n该框架已在Instagram的Reels与Feed推荐场景完成部署落地，上线后实现了用户互动指标的提升，同时支持了对更长用户行为历史的建模，为生成式推荐时代工业大模型排序模块的效率优化提供了可落地的实践方案，进一步完善了全链路生成式推荐面向工业落地的技术布局。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "SlimPer: Make Personalization Model Slim and Smart"
+      ],
+      "continuity_from_date": "2026-07-09"
+    },
+    "cs.LG": {
+      "summary": "cs.LG分类下生成式推荐领域的前序研究已展现出从算法能力探索向行业落地可用性建设转向的趋势，此前研究聚焦落地阶段生成数据的决策对齐与可信性建设，本次新收录的研究则将视线投向工业推荐场景大模型架构落地的核心效率痛点。当前工业个性化推荐系统普遍采用Transformer架构，该架构存在显著的内存与计算开销过大的问题，制约了长用户行为历史建模等效果提升方向的落地，本次研究针对性提出SlimPer个性化排序框架，通过重新设计个性化排序任务从逻辑层面降低了计算与内存开销。\n\n该方法已完成实际业务部署验证，在Instagram的Reels与Feed内容场景落地后，不仅实现了用户互动量的提升，还突破了原有架构的资源限制，支持对更长跨度的用户行为历史进行建模，验证了效率优化方向不会牺牲推荐效果，反而能进一步赋能推荐效果提升的技术思路。\n\n对比此前聚焦数据层与决策层落地适配的研究，本次收录的研究拓展了当前生成式推荐落地阶段的研究维度，标志着在数据可信性建设之外，大参数个性化推荐模型自身的轻量优化也成为生成式推荐落地推进的重要方向，为大模型推荐架构在互联网内容平台的规模化部署提供了可行的技术路径。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "SlimPer: Make Personalization Model Slim and Smart"
+      ],
+      "continuity_from_date": "2026-07-13"
+    }
+  }
+}
