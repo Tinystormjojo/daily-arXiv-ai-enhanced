@@ -1,0 +1,122 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 12,
+  "jsonl_output_line_count": 12,
+  "total_papers_before_filter": 12,
+  "all_papers_inventory": [
+    {
+      "id": "2607.25901",
+      "title": "RecoReward: Recommender-Guided Multimodal Description Generation for Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.25823",
+      "title": "Hypothesis-Driven Shelf Generation for Personalised Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.25640",
+      "title": "LLM-as-a-Judge for Evaluating System Responses in Conversational Music Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.25346",
+      "title": "The Case Against Generation for Retrieval: Discriminative Language Models as Effective Retrievers",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.25344",
+      "title": "Reward Guided Decoding for Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.25339",
+      "title": "SPARC: Sequence-aware Progressive Attribute Routing and Compression Framework for Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.25329",
+      "title": "Grevo: A Unified Generative Recommendation Framework with Evolutionary Item Indexing",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.25216",
+      "title": "TopoGR: Revealing and Preserving Latent Structure of Semantic ID in Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.25209",
+      "title": "VaLiDRec: Variable-Length LLM-Aligned Semantic IDs for Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.25726",
+      "title": "Nudging Sustainable Choices through LLM-Generated Recommendation Explanations",
+      "primary_category": "cs.AI"
+    },
+    {
+      "id": "2607.25648",
+      "title": "Why Public Service AI Governance Frameworks Risk Failing in the Age of General-Purpose AI: Lessons from Policing",
+      "primary_category": "cs.AI"
+    },
+    {
+      "id": "2607.25471",
+      "title": "TRWH: A Text-Driven Random Walk Heterogeneous GNN for Semantic-Aware Sparse Recommendation",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "延续cs.AI领域生成式推荐兼顾技术优化与落地价值的研究脉络，相较于上一批研究侧重拓展生产端垂直应用场景，本次收录的研究核心聚焦消费侧生成式推荐的基础技术升级，语义ID机制优化成为该方向的热点议题。针对现有语义ID类生成式推荐存在的结构性缺陷，多篇工作围绕与大语言模型对齐的方向提出改进方案：TopoGR通过保留语义ID的拓扑结构解决了分词与生成环节的结构错配问题，VaLiDRec提出与LLM对齐的变长语义ID方案，破解了固定长度语义ID语义压缩过度、词表不对齐、推理低效的痛点，二者在基准测试中均实现了对现有方法的性能超越，后者还在冷启动场景与推理速度上获得显著提升；面向稀疏推荐这一经典难点，TRWH框架结合大语言模型生成文本特征与异构图随机游走增强，也实现了性能突破。\n\n除基础技术迭代外，本次研究也延续了生成式推荐领域关注社会价值与治理问题的趋势，拓展了新的研究维度。一篇研究聚焦可持续消费引导场景，通过两项随机对照人体试验验证了LLM生成推荐解释中不同可持续信息框架对用户选择的引导作用，揭示了不同消费卷入度场景下的干预效果差异，为利用生成式推荐推动可持续消费提供了实证依据；另一项研究则以警务公共服务场景为案例，分析了通用人工智能时代现有公共服务AI治理框架应对生成式推荐类应用的失效逻辑，提出了针对性改革方向，填补了公共领域生成式AI应用的治理研究缺口。\n\n从整体趋势来看，当前生成式推荐领域呈现出基础技术迭代与社会影响研究并行推进的特征：在技术层面，如何更好地适配大语言模型的能力与生态，成为生成式推荐基础优化的核心主线，语义ID等衔接机制的创新正在推动推荐性能与落地效率的双重提升；在研究范畴层面，该领域已经从单纯的性能优化、场景拓展延伸至公共价值引导与合规治理层面，反映出领域研究逐步成熟后对技术社会影响的系统性关注。",
+      "matched_count": 5,
+      "paper_count_in_bucket": 5,
+      "titles_in_category": [
+        "TopoGR: Revealing and Preserving Latent Structure of Semantic ID in Generative Recommendation",
+        "VaLiDRec: Variable-Length LLM-Aligned Semantic IDs for Generative Recommendation",
+        "Nudging Sustainable Choices through LLM-Generated Recommendation Explanations",
+        "Why Public Service AI Governance Frameworks Risk Failing in the Age of General-Purpose AI: Lessons from Policing",
+        "TRWH: A Text-Driven Random Walk Heterogeneous GNN for Semantic-Aware Sparse Recommendation"
+      ],
+      "continuity_from_date": "2026-07-27"
+    },
+    "cs.IR": {
+      "summary": "相较于此前生成式推荐研究拓展至工业工艺规划垂直领域的发展脉络，本次cs.IR分类下的这批生成式推荐论文，同时围绕核心技术优化与工业级落地实用化两大方向展开，覆盖了基础架构设计、解码策略优化、语义表示改进、多场景应用创新与评估方法规范多个维度，进一步推动生成式推荐从理论方法向业务落地渗透。核心技术层面，当前基于语义ID的生成式推荐是研究热点，这批工作集中针对该范式的各类痛点逐一突破：SPARC解决了静态语义ID缺乏上下文感知、异质用户属性压缩不合理的问题；Grevo、TopoGR分别针对语义ID训练不稳定、token化与生成过程结构不匹配的缺陷提出改进方案；VaLiDRec则通过设计与LLM对齐的变长语义ID，解决了固定长度ID语义压缩过度、推理低效的痛点，多个方案在公开基准与工业数据集上均超越了现有主流基线。\n\n落地实用化是这批研究最突出的趋势，多篇工作直接针对现有生成式方案落地的痛点给出解决方案：《Reward Guided Decoding for Generative Recommendation》提出RGD框架，无需重训练基础生成器即可将业务奖励注入解码过程，解决了原有解码偏向似然、与业务目标冲突的问题，目前已在快手平台落地；《The Case Against Generation for Retrieval》则反思了大规模生成式大模型检索推荐的部署成本问题，提出以LLM为表示骨干的判别式双塔检索框架，在公开基准与工业生产系统中均取得了有竞争力的性能，为工业检索推荐提供了高效低成本的替代方向。\n\n应用与评估层面，这批研究也拓展了生成式推荐的应用边界与方法规范：应用端已经延伸至多个消费互联网核心业务场景，RecoReward利用用户行为信号训练多模态大模型生成对推荐更友好的商品描述，假设驱动的个性化货架生成方案替代传统手工固定模板，实现了Spotify推荐主页推荐供给的个性化扩充，两类方案均通过在线A/B测试验证了效果；评估端则首次针对会话音乐推荐场景，实证检验了LLM-as-a-judge与人类专家判断的对齐性，为该评估方法的实际使用提供了可落地的实践指导。整体来看，当前生成式推荐延续了落地化的发展趋势，在核心技术持续迭代的同时，更加注重适配工业部署的成本与业务目标，应用场景也从垂直工业进一步拓展至大众互联网核心业务。",
+      "matched_count": 9,
+      "paper_count_in_bucket": 9,
+      "titles_in_category": [
+        "RecoReward: Recommender-Guided Multimodal Description Generation for Recommendation",
+        "Hypothesis-Driven Shelf Generation for Personalised Recommendation",
+        "LLM-as-a-Judge for Evaluating System Responses in Conversational Music Recommendation",
+        "The Case Against Generation for Retrieval: Discriminative Language Models as Effective Retrievers",
+        "Reward Guided Decoding for Generative Recommendation",
+        "SPARC: Sequence-aware Progressive Attribute Routing and Compression Framework for Generative Recommendation",
+        "Grevo: A Unified Generative Recommendation Framework with Evolutionary Item Indexing",
+        "TopoGR: Revealing and Preserving Latent Structure of Semantic ID in Generative Recommendation",
+        "VaLiDRec: Variable-Length LLM-Aligned Semantic IDs for Generative Recommendation"
+      ],
+      "continuity_from_date": "2026-07-27"
+    }
+  }
+}
