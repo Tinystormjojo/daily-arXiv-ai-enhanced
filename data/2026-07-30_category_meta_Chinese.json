@@ -1,0 +1,109 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 8,
+  "jsonl_output_line_count": 8,
+  "total_papers_before_filter": 8,
+  "all_papers_inventory": [
+    {
+      "id": "2607.27944",
+      "title": "Interpretable Representation via LLM-Driven Generative Disentanglement for Local-Life Service Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.27789",
+      "title": "From Understanding to Action: Feedback-Grounded Policy Discovery for Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.27760",
+      "title": "Hierarchical Latent Reasoning for LLM-based Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.27744",
+      "title": "ROCS: Request-Oriented Compute Sharing for Efficient Large-Scale Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.27682",
+      "title": "Restoring Collaborative Signals in Semantic-ID Generative Recommendation via Personalized Natural Language",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.27647",
+      "title": "LoopMemGR: From Behavior Logs to Evolving Memory for Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.27577",
+      "title": "Heterogeneous Ranking in Industrial-Scale Recommender Systems: A Case Study",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2607.28087",
+      "title": "Diversifying Personalized Research Ideation against AI-Induced Homogenization",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "本次cs.AI领域的生成式推荐研究延续了上一阶段围绕大语言模型适配优化、基础技术升级与价值拓展并行推进的整体脉络。相较于此前侧重语义ID机制的结构性改进，本次两篇聚焦LLM生成式推荐基础缺陷的工作进一步推进该方向发展：针对本地生活服务推荐中语义ID方案存在的语义纠缠、表示不可解释问题，研究者提出LLM驱动生成解耦的LGRID方法，在取得优于基线的推荐效果的同时，降低了语义ID碰撞率、提升了模型可解释性；另一项研究则针对现有LLM推荐推理环节的不足，提出分层隐式推理框架HiLaR，通过分层用户偏好建模与层感知强化优化提升推荐性能，进一步完善了LLM生成式推荐的技术体系。\n\n除核心性能优化外，本次研究新增了对大规模生成式推荐工程落地效率的关注，弥补了过往基础技术研究中对生产侧效率问题讨论的不足。针对大规模推荐推理中的冗余计算痛点，研究者提出面向请求的计算共享范式ROCS，通过跨候选共享请求侧计算减少冗余运算，能够在保持甚至提升推荐模型质量的前提下提升推理效率，目前该方案已经在大规模生产推荐系统中落地部署，为生成式推荐的工程落地提供了可行的效率优化路径。\n\n在研究范畴层面，本次研究延续了上一阶段关注生成式推荐负外部性、拓展应用边界的趋势，开辟了新的研究方向。针对生成式AI引发的科研方向同质化问题，研究者提出面向AI辅助个性化科研构思的去同质化方案DivAlign，能够在保证推荐内容对齐研究者需求的同时降低研究方向的冗余度，将生成式推荐的公共价值讨论延伸到科研生态治理领域，进一步拓展了生成式推荐的应用场景与研究维度。",
+      "matched_count": 4,
+      "paper_count_in_bucket": 4,
+      "titles_in_category": [
+        "Interpretable Representation via LLM-Driven Generative Disentanglement for Local-Life Service Recommendation",
+        "Hierarchical Latent Reasoning for LLM-based Recommendation",
+        "ROCS: Request-Oriented Compute Sharing for Efficient Large-Scale Recommendation",
+        "Diversifying Personalized Research Ideation against AI-Induced Homogenization"
+      ],
+      "continuity_from_date": "2026-07-28"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR分类下的生成式推荐论文，延续了此前围绕核心技术优化、工业落地实用化双向推进的发展脉络，继续聚焦基于大语言模型（LLM）与语义ID（SID）的生成式推荐这一热点方向，针对该范式的剩余痛点持续突破。相较于此前研究侧重优化语义ID本身的设计缺陷，本次工作进一步覆盖了表示、推理与信号缺失等多维度问题：针对SID框架存在的语义纠缠、可解释性不足问题，提出了LLM驱动的生成解耦表示方法LGRID，在提升推荐性能的同时降低SID碰撞率；针对现有SID生成推荐丢失协同信号的痛点，提出了基于个性化自然语言恢复缺失信号的框架，无需改动骨干模型、重训SID即可提升推荐精度；此外还针对LLM推荐的推理缺陷提出分层隐式推理框架HiLaR，针对传统生成式推荐仅利用用户行为历史、丢弃历史推荐反馈的缺陷提出闭环记忆框架LoopMemGR，多个方案在公开基准与工业数据集上均取得了优于基线的效果。\n\n在工业落地层面，本次研究延续了此前关注部署成本、适配业务目标的趋势，产出了多个经过大规模验证的工程化解决方案。针对生成式推荐中LLM存在的理解-动作鸿沟，研究者提出反馈驱动的智能体框架，通过分离意图与策略知识、基于反馈发现推荐策略，最终蒸馏得到可支持无LLM在线推理的轻量模型，离线与大规模在线A/B测试均验证了其有效性；面向大规模推荐的推理效率痛点，提出了面向请求的计算共享范式ROCS，通过跨候选共享请求端计算减少冗余，在保持甚至提升推荐质量的前提下提升推理效率，目前已经部署在大规模生产推荐系统中；针对工业级推荐流的异质排序问题，谷歌Discover的案例研究也提出了新的模型架构、可观测框架与评估指标，丰富了大规模生成式推荐落地的实践经验。\n\n整体来看，当前生成式推荐的发展进一步向工业级实用化倾斜，在基于LLM的主流技术路径上逐步补全了从表示、推理到工程部署全链路的缺陷。相较于此前侧重拓展应用场景、优化基础模块设计，本次研究更关注业务闭环构建、推理效率优化与已部署方案的痛点修补，多个方案已经完成生产落地验证，反映出生成式推荐正从方法创新阶段逐步走向稳定规模化部署的新阶段。",
+      "matched_count": 7,
+      "paper_count_in_bucket": 7,
+      "titles_in_category": [
+        "Interpretable Representation via LLM-Driven Generative Disentanglement for Local-Life Service Recommendation",
+        "From Understanding to Action: Feedback-Grounded Policy Discovery for Generative Recommendation",
+        "Hierarchical Latent Reasoning for LLM-based Recommendation",
+        "ROCS: Request-Oriented Compute Sharing for Efficient Large-Scale Recommendation",
+        "Restoring Collaborative Signals in Semantic-ID Generative Recommendation via Personalized Natural Language",
+        "LoopMemGR: From Behavior Logs to Evolving Memory for Generative Recommendation",
+        "Heterogeneous Ranking in Industrial-Scale Recommender Systems: A Case Study"
+      ],
+      "continuity_from_date": "2026-07-28"
+    },
+    "cs.LG": {
+      "summary": "当前cs.LG分类下生成式推荐领域的研究延续了此前聚焦落地支撑能力建设的整体趋势，本次收录的两篇研究围绕工业大规模推荐落地阶段的核心痛点展开探索，研究方向从此前聚焦的跨场景算法适配环节，进一步延伸到工程效率优化与业务级排序体系建设两大关键方向，更贴近大规模生产推荐系统的实际需求。\n\n第一篇研究针对大规模推荐推理中普遍存在的冗余计算问题，提出面向请求的计算共享范式ROCS，通过在不同候选项间共享请求侧的计算过程削减冗余运算，可在维持甚至提升模型推荐质量的前提下显著提升推理效率，目前该方案已经落地大规模生产推荐系统，为高并发场景下大参数量生成式推荐模型的部署提供了工程优化的可行路径。\n\n第二篇研究以Google Discover推荐流为实际案例，针对工业级推荐场景的异构排序问题，提出了HA-MoE异构混合专家模型，同时配套推出面向落地运维的LENS可观测框架与适配异构排序的DL-AUC评估指标，通过离线验证与在线A/B测试完整证明了整套方案的有效性。相较于此前填补算法选型自动化空白的研究，本次收录的工作均围绕真实工业生产场景的落地需求展开，进一步补全了生成式推荐落地全流程中工程效率优化与落地评估观测环节的技术空白，推动生成式推荐的落地支撑体系从算法适配层延伸到生产部署的全链条。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "ROCS: Request-Oriented Compute Sharing for Efficient Large-Scale Recommendation",
+        "Heterogeneous Ranking in Industrial-Scale Recommender Systems: A Case Study"
+      ],
+      "continuity_from_date": "2026-07-21"
+    }
+  }
+}
