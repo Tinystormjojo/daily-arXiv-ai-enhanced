@@ -1,0 +1,100 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 5,
+  "jsonl_output_line_count": 5,
+  "total_papers_before_filter": 5,
+  "all_papers_inventory": [
+    {
+      "id": "2608.12192",
+      "title": "How to Spend Your Oracle Budget: Practical Guidance for Protein Structure Prediction Models",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2608.11980",
+      "title": "HCGRec: Hint-Conditioned Generative Recommendation with Semantic IDs",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2608.11787",
+      "title": "GRPO for Financial Advice Generation: Outperforming Commercial LLMs under CATE Evaluation",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2608.11735",
+      "title": "Locating and Controlling Implicit Personalization in Large Language Models",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2608.11604",
+      "title": "Learning from Online User Feedback for Shopping Agents",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "本次cs.AI领域的生成式推荐研究延续了此前大语言模型适配优化、核心技术迭代与应用边界拓展的整体脉络。在基础技术层面，研究延续了上一阶段对语义ID生成式推荐框架的优化方向：在解决语义ID语义纠缠、可解释性不足问题的基础上，本次提出的HCGRec框架进一步突破了该类模型基于奖励后训练阶段的零奖励优化瓶颈，在序列推荐基准测试中取得显著性能提升，完善了语义ID生成式推荐的技术体系。\n\n在大模型驱动推荐的落地与可控性研究方面，本次研究推进了此前实践导向与负外部性关注的研究趋势。不同于此前侧重推理工程效率优化，本次提出的LOFA框架实现了电商购物推荐代理无需人工标注，直接从真实在线用户交互日志中学习，有效提升了推荐质量与用户满意度，为生成式推荐适配真实消费场景提供了可行的学习路径。针对大模型推荐中存在的隐式个性化输出偏移问题，本次研究进一步深化了对生成式推荐可控性的探索，定位了隐式输出偏移对应的内部激活信号，验证了移除信号抑制偏移的有效性，为可控生成式推荐提供了新的技术思路。\n\n在场景拓展与方法创新层面，本次研究进一步将生成式推荐相关方法延伸到更多垂直专业领域。面向金融建议生成任务，研究将强化学习方法GRPO引入生成式推荐微调，结合因果审计完成可信评估，最终模型实现了优于商业大模型的利润表现与更低下行风险，为专业领域生成式推荐的优化与评估提供了新范式；生成式推荐的资源分配思路还拓展到计算生物学领域，研究为蛋白质结构预测大模型的错误校正任务，系统 benchmark 了不同Oracle预算分配方案并给出可落地的实践指导，拓展了生成式推荐相关方法的跨领域应用空间。",
+      "matched_count": 5,
+      "paper_count_in_bucket": 5,
+      "titles_in_category": [
+        "How to Spend Your Oracle Budget: Practical Guidance for Protein Structure Prediction Models",
+        "HCGRec: Hint-Conditioned Generative Recommendation with Semantic IDs",
+        "GRPO for Financial Advice Generation: Outperforming Commercial LLMs under CATE Evaluation",
+        "Locating and Controlling Implicit Personalization in Large Language Models",
+        "Learning from Online User Feedback for Shopping Agents"
+      ],
+      "continuity_from_date": "2026-07-30"
+    },
+    "cs.CL": {
+      "summary": "当前cs.CL领域标注生成式推荐关键词的最新研究，延续了此前该方向跨场景拓展、聚焦大语言模型核心能力支撑的整体趋势，不同于上一批次聚焦语义不确定性估计这一共性基础问题的探索，本次两篇研究分别面向生成式推荐的垂直场景落地优化与核心个性化机制调控两个新方向展开工作。其中针对金融场景下的生成式金融建议推荐任务，有研究提出基于Group Relative Policy Optimization（GRPO）强化学习的大模型微调方案，设计了融合大模型自动评判与安全约束的奖励函数，还引入独立于评判模型的CATE因果审计完成模型评估。实验结果显示，微调后的开源大模型相比商业大模型能够带来更高的投资利润提升，同时控制更低的下行风险，也验证了因果审计可作为大模型自动评判的有效补充，为生成式推荐在高风险金融领域的落地提供了可靠的优化与评估方案。\n\n另一项研究聚焦生成式推荐的核心能力——个性化生成的可控性问题，针对大语言模型生成中普遍存在的隐式个性化偏移（即输出随隐式人口统计提示发生不必要偏移）问题，探索了该现象的大模型内部定位与控制方法。研究发现大模型内部存在可追踪输出变化的局部激活信号，通过移除该信号即可有效抑制不必要的隐式个性化影响，为生成式推荐实现可控、按需的个性化生成提供了基于模型内部机制调控的新思路。\n\n整体来看，相较于此前侧重共性基础能力建设的研究，本次最新研究进一步延伸了生成式推荐的研究边界，既体现出该领域向高价值垂直场景深耕落地的趋势，也反映出学界对生成式推荐个性化生成可控性的关注度不断提升，相关探索为后续大模型驱动的生成式推荐研究提供了垂直落地方法与机制层面的新参考。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "GRPO for Financial Advice Generation: Outperforming Commercial LLMs under CATE Evaluation",
+        "Locating and Controlling Implicit Personalization in Large Language Models"
+      ],
+      "continuity_from_date": "2026-07-20"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR分类下新增的生成式推荐论文，延续了此前围绕语义ID基生成式推荐突破技术痛点的研究脉络，深耕该主流范式未解决的优化问题。不同于此前研究多聚焦语义ID设计缺陷、协同信号缺失、表示推理偏差等基础模块层面的痛点，本次新增工作瞄准了生成式推荐基于奖励的后训练阶段长期被忽略的零奖励优化瓶颈，针对性提出了提示条件约束的HCGRec框架。\n\n该方案完成了对语义ID生成式推荐后训练流程的优化补全，在标准序列推荐公开基准上实现了显著的性能提升，进一步完善了语义ID生成式推荐的全链路技术能力。从领域发展趋势来看，本次工作呼应了生成式推荐领域一边推进工业落地、一边持续打磨核心方法缺陷的整体特征，在前期补全表示、推理、工程部署模块的基础上，进一步挖掘了训练流程环节的优化空间，延续了该领域逐步夯实技术基础、向稳定规模化部署推进的发展方向。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "HCGRec: Hint-Conditioned Generative Recommendation with Semantic IDs"
+      ],
+      "continuity_from_date": "2026-07-30"
+    },
+    "cs.LG": {
+      "summary": "相较于此前cs.LG领域生成式推荐研究聚焦传统工业推荐系统落地全链条技术建设的脉络，本次收录的最新研究进一步拓展了该领域的研究边界，将生成式大模型相关的方法与问题延伸到垂直领域生成任务、科学计算、基础模型机制分析等多个方向，体现了生成式推荐范式从通用推荐场景向多元化定制化生成任务渗透的新兴趋势。\n\n在垂直领域与跨领域生成任务的方法优化层面，本次研究覆盖了金融与科学两大典型场景：针对金融建议生成这类和用户需求匹配强绑定的生成式推荐任务，研究采用Group Relative Policy Optimization强化学习微调开源大模型，设计融合安全约束的奖励函数，还引入独立的CATE因果审计弥补大语言模型评判的偏差，最终模型效果超过商业大模型，为垂直领域生成式推荐任务的优化与评估提供了新的可行范式；针对蛋白质结构预测这类生成式科学研究任务，研究围绕有限引导预算的分配问题系统 benchmark了现有方法，为生成式基础模型的纠错调优给出了可落地的实践指引，拓展了生成式方法在科学发现领域的应用空间。\n\n在基础研究层面，本次新增了生成输出可控性方向的探索，填补了此前落地导向研究较少关注基础机制问题的缺口：研究针对大语言模型生成结果中存在的隐式个性化偏移问题，定位了模型内部可追踪输出变化的局部激活信号，验证了移除该信号即可有效抑制非预期隐式个性化的影响，为生成式推荐系统的公平性与可控性建设提供了机制层面的新支撑。",
+      "matched_count": 3,
+      "paper_count_in_bucket": 3,
+      "titles_in_category": [
+        "How to Spend Your Oracle Budget: Practical Guidance for Protein Structure Prediction Models",
+        "GRPO for Financial Advice Generation: Outperforming Commercial LLMs under CATE Evaluation",
+        "Locating and Controlling Implicit Personalization in Large Language Models"
+      ],
+      "continuity_from_date": "2026-07-30"
+    }
+  }
+}
