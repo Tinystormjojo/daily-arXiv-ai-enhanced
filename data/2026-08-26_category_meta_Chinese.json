@@ -1,0 +1,83 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 3,
+  "jsonl_output_line_count": 3,
+  "total_papers_before_filter": 3,
+  "all_papers_inventory": [
+    {
+      "id": "2608.25381",
+      "title": "MOTIF: Motivation-guided Topology Inference for Cold-start Multimodal Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2608.25343",
+      "title": "GUIDE: Generative Unsupervised Chinese Query Correction via Phonetic and Visual Shared-ID Encoding",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2608.25291",
+      "title": "InsightSR: Refining Symbolic Regression Search Spaces via Parallel Semantic and Structural LLM Guidance",
+      "primary_category": "cs.LG"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "本次cs.AI领域的生成式推荐相关研究延续了此前大语言模型赋能核心任务优化、拓展应用边界的整体脉络，与以往聚焦用户个性化推荐场景的研究方向不同，本次最新研究将生成式引导思路延伸到了科学计算领域的符号回归任务中，进一步拓展了生成式方法的应用场景。\n\n在技术路线层面，本次研究创新地将大语言模型的语义理解与结构生成能力引入符号回归的搜索过程，提出InsightSR框架，通过将LLM作为引导层集成到经典遗传编程引擎PySR中，从语义、结构两个互补维度渐进优化符号回归的搜索空间，搭配迭代反馈校正机制，解决了传统符号回归搜索效率低、拟合效果不佳的问题。该方法在多个公开基准测试中性能显著优于现有符号回归方法，验证了生成式大模型引导搜索类任务的有效性。\n\n这一进展反映出当前生成式推荐相关技术的外延正在不断拓展：除了传统消费、金融、生物信息等领域的推荐类任务，生成式引导思路也开始为符号回归这类基础科学计算任务提供新的优化路径，丰富了大语言模型赋能科学发现的技术选项。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "InsightSR: Refining Symbolic Regression Search Spaces via Parallel Semantic and Structural LLM Guidance"
+      ],
+      "continuity_from_date": "2026-08-12"
+    },
+    "cs.CL": {
+      "summary": "当前cs.CL领域与生成式推荐相关的最新研究，延续了此前领域内生成式技术面向真实业务场景落地深耕的整体趋势，与上一批次聚焦生成式推荐本身的垂直场景优化、个性化可控机制探索的方向不同，本次研究将生成式方法拓展到生成式推荐系统全链路的上游预处理环节，属于生成式技术赋能推荐全链路优化的新探索方向。\n\n本次研究针对中文推荐与搜索场景中，用户输入查询普遍存在拼写错误、且中文错误多为音近形近混淆的特点，提出了无监督生成式查询纠错框架GUIDE，采用混淆再澄清的生成范式，通过音形混淆字符共享ID编码同时建模中文错误的语音与字形特征，搭配时间衰减加权损失优化训练过程。实验结果显示，该模型在公开测试数据集与企业真实业务数据集上的性能均超过现有基线模型，且在线A/B测试也验证了该方法能够带来实际业务效果的提升。\n\n整体来看，这一研究拓展了生成式方法在推荐系统中的应用边界，说明生成式技术的应用不再局限于最终推荐内容的生成，还可以优化推荐全链路的前端环节，为中文场景下生成式推荐系统的输入预处理提供了有效的无监督落地方案，也为后续相关全链路优化研究提供了新的参考。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "GUIDE: Generative Unsupervised Chinese Query Correction via Phonetic and Visual Shared-ID Encoding"
+      ],
+      "continuity_from_date": "2026-08-12"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR分类下新增的生成式推荐论文，拓展了此前围绕语义ID基生成式推荐全链路优化的研究脉络，转向当前生成式推荐落地中亟待解决的冷启动多模态推荐场景痛点展开研究。不同于此前工作聚焦主流生成式推荐范式的模块与训练流程优化，本次工作针对冷启动这一实际业务中的长尾痛点探索新的技术方案。\n\n具体而言，该工作梳理了冷启动多模态推荐场景存在的三类核心问题，提出了动机引导拓扑推理框架MOTIF，通过引入动机引导机制优化多模态交互拓扑的推断过程，缓解冷启动场景下用户-物品交互数据不足带来的建模偏差。该方法在三个公开多模态推荐基准数据集上完成验证，相比多个主流基线方法均取得了显著性能提升，验证了动机引导拓扑推理思路在该场景下的有效性。\n\n从领域发展趋势来看，本次工作呼应了生成式推荐领域既打磨核心范式技术基础、又拓展落地场景边界的整体发展方向。在主流生成式推荐范式全链路逐步完善的当下，本次工作反映出学界开始更多转向冷启动等实际落地场景的细分痛点，推动生成式推荐技术覆盖更多复杂业务场景，延续了领域向实用化、规模化落地推进的整体脉络。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "MOTIF: Motivation-guided Topology Inference for Cold-start Multimodal Recommendation"
+      ],
+      "continuity_from_date": "2026-08-12"
+    },
+    "cs.LG": {
+      "summary": "承接此前cs.LG领域生成式推荐研究从通用推荐场景向科学计算等多元化领域渗透的发展脉络，本次更新的研究延续了这一趋势，进一步探索了大语言模型赋能传统科学计算任务的生成式优化路径，聚焦符号回归这一基础科学建模问题展开了方法创新。\n\n不同于此前生成式范式在科学领域的研究多以基准测试、方向适配为主的探索特征，本次收录的InsightSR框架做出了新的方法突破：它创新性地将大语言模型作为引导层集成到经典遗传编程符号回归工具PySR中，设计语义、结构互补的并行引导机制，结合迭代反馈校正渐进优化符号回归的搜索空间，有效缓解了传统符号回归搜索效率低、全局最优解难获取的痛点。\n\n该方法在多个公开基准测试上的性能显著优于现有同类符号回归方法，验证了生成式大语言模型的先验知识能够有效指导科学符号建模过程，进一步拓宽了生成式范式在科学发现领域的应用边界，为传统科学计算问题的升级改造提供了新的可行思路。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "InsightSR: Refining Symbolic Regression Search Spaces via Parallel Semantic and Structural LLM Guidance"
+      ],
+      "continuity_from_date": "2026-08-12"
+    }
+  }
+}
