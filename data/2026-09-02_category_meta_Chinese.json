@@ -1,0 +1,70 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 2,
+  "jsonl_output_line_count": 2,
+  "total_papers_before_filter": 2,
+  "all_papers_inventory": [
+    {
+      "id": "2609.02468",
+      "title": "DeepAffinity: Long-Term Aspect Preference Prediction in eCommerce using Small Language Models",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2609.02162",
+      "title": "GenCAR: Generative Counterfactual Alignment with Risk-Controlled Selection for Out-of-Distribution Recommendation",
+      "primary_category": "cs.IR"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "本次cs.AI领域的生成式推荐最新研究，承接了此前面向产业落地需求探索的脉络，与前一轮聚焦大语言模型能力基准构建、生成式推荐治理反思的研究方向不同，本次研究转向了小语言模型在细分推荐任务中的性能优化探索。\n\n针对电商场景中长期用户细分维度偏好预测的痛点，本次收录的研究提出了名为DeepAffinity的生成式推荐方案，该方法基于小语言模型构建，搭配结构化提示设计与专用预测头，针对品牌、尺寸、颜色等不同维度的长期用户偏好（即维度亲和度）开展预测。\n\n不同于此前研究多围绕通用大语言模型在生成式推荐中的应用与缺陷展开讨论，这项研究验证了任务定制化小语言模型的落地优势：实验结果显示，DeepAffinity的表现优于标准生成式微调方案，也胜过通用大语言模型，能够切实提升大型跨国电商平台的整体推荐质量，为资源约束下的生成式推荐产业落地提供了新的可行路径，填补了当前大模型主导的研究讨论中小模型定制方案的探索缺口。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "DeepAffinity: Long-Term Aspect Preference Prediction in eCommerce using Small Language Models"
+      ],
+      "continuity_from_date": "2026-09-01"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR分类下新增1篇生成式推荐方向研究，与此前聚焦生成式推荐全栈工业落地的研究脉络不同，本次工作聚焦生成式推荐领域中尚未充分解决的分布外（OOD）推荐算法问题，针对分布偏移场景下现有方法无法控制代理标签错误发现率的核心缺陷展开优化。\n\n该研究提出了名为GenCAR的生成式反事实对齐方法，将生成式建模与偏好锚定的反事实监督、风险控制型校准集合选择相结合，既借助生成式框架的表征能力建模复杂用户偏好，又从算法层面解决了OOD场景下代理标签噪声带来的性能损耗。研究不仅从理论上证明了GenCAR对错误发现率的控制能力，还在多个公开基准数据集上验证了该方法在OOD候选恢复任务上的性能提升。\n\n与此前完成亿级用户场景工业落地的全栈框架工作形成互补，本次工作拓展了生成式推荐在鲁棒性推荐场景的研究边界，为后续生成式推荐处理分布偏移问题提供了新的算法思路。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "GenCAR: Generative Counterfactual Alignment with Risk-Controlled Selection for Out-of-Distribution Recommendation"
+      ],
+      "continuity_from_date": "2026-09-01"
+    },
+    "cs.LG": {
+      "summary": "相较于此前cs.LG领域生成式推荐研究围绕大模型落地工程规范、合成数据隐私基础认知的方向拓展，本次更新的两篇研究转向真实推荐场景的具体落地痛点，分别从模型轻量化应用和分布外推荐鲁棒性两个方向进一步丰富了该领域的研究脉络。\n\n针对电商场景的长期用户方面偏好预测需求，第一篇研究提出了基于小语言模型的DeepAffinity方法，不同于当前生成式推荐偏向调用通用大模型的主流思路，该方法采用结构化提示设计搭配专用预测头，建模用户对品牌、尺寸、颜色等细分维度的长期偏好（即方面亲和度）。实验结果显示，该方法性能优于标准生成式微调方案，也胜过效果不佳的通用大语言模型，能够在大型跨国电商平台上有效提升推荐质量，为生成式推荐的轻量化落地提供了新路径。\n\n针对分布偏移场景下的分布外推荐问题，第二篇研究提出了生成式反事实对齐结合风险控制选择的GenCAR方法，弥补了现有生成式分布外推荐方法未能控制代理标签错误发现率的缺陷。该工作不仅从理论层面证明了方法对错误发现率的控制能力，还在多个公开基准数据集上验证了方法的有效性，显著提升了分布外候选推荐的恢复效果，为解决生成式推荐落地中的分布偏移问题提供了新的技术思路。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "DeepAffinity: Long-Term Aspect Preference Prediction in eCommerce using Small Language Models",
+        "GenCAR: Generative Counterfactual Alignment with Risk-Controlled Selection for Out-of-Distribution Recommendation"
+      ],
+      "continuity_from_date": "2026-09-01"
+    }
+  }
+}
