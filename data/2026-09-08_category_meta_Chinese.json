@@ -1,0 +1,74 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 3,
+  "jsonl_output_line_count": 3,
+  "total_papers_before_filter": 3,
+  "all_papers_inventory": [
+    {
+      "id": "2609.08941",
+      "title": "FINALLY: A Dataset Recommender System for Recommender-Systems Research",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2609.08364",
+      "title": "SentryLine: Evidence-Grounded Question Answering over Evolving Documents in Oncology Care",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2609.08248",
+      "title": "Agentic ML Exploration (A-MLE) for Ads Ranking",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "当前cs.AI领域的生成式推荐相关研究，延续了此前生成式大语言模型智能代理向专业垂直场景延伸、推进产业落地的整体趋势，本次研究进一步将该技术路线拓展到互联网广告推荐这一核心主流业务场景，针对工业界多广告排序模型的机器学习迭代流程高度依赖人工经验的痛点，提出了基于大语言模型的自主代理系统Agentic ML Exploration（A-MLE），实现了机器学习迭代全流程的自动化运行。\n\n与此前将大语言模型智能代理应用于网络安全专业决策、核心目标为解决大模型复杂推理缺陷的研究不同，本次探索聚焦推荐系统领域的研发环节痛点，是生成式推荐相关技术从终端推荐任务本身向推荐模型研发全流程自动化延伸的新尝试。该方案已完成真实工业部署，还在不同架构的大语言模型家族中完成了性能与能力验证，为生成式智能重构推荐业务的研发流程提供了宝贵的工业实践经验。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Agentic ML Exploration (A-MLE) for Ads Ranking"
+      ],
+      "continuity_from_date": "2026-09-03"
+    },
+    "cs.CL": {
+      "summary": "延续此前cs.CL领域生成式推荐研究从算法创新转向落地建设的整体趋势，本次收录的研究进一步推动生成式技术向高专业门槛的垂直场景延伸，跳出通用推荐领域的方法与规范讨论，聚焦肿瘤临床诊疗场景下基于动态更新指南的循证问答需求，这类需求本质属于面向医疗专业人员的决策支持类生成推荐服务。该研究不仅构建了领域内首个专家标注的标准化评测基准ASCOBENCH，填补了肿瘤动态指南问答领域缺乏公开评测资源的空白，还推出了专用的SentryLine生成式问答系统。\n\n相较于此前围绕通用生成式推荐可审计性完善规范体系的研究方向，本次研究转向垂直专业场景的专用工具与基准建设，回应了高风险医疗领域对生成结果循证依据准确性的核心要求。实验结果显示，SentryLine的性能不仅优于现有通用基线模型，还超过了美国临床肿瘤学会已有的官方指南助手，充分验证了面向场景专用设计的有效性。\n\n整体来看，本次研究反映出生成式推荐领域的落地推进正在从通用场景的规范搭建，逐步深入到各个对可靠性要求极高的专业细分领域，这类面向垂直领域的专用资源建设与系统开发，也成为生成式推荐研究落地延伸的新趋势。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "SentryLine: Evidence-Grounded Question Answering over Evolving Documents in Oncology Care"
+      ],
+      "continuity_from_date": "2026-09-03"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR分类下新增1篇生成式推荐方向研究，延续了此前该领域重视评估与研究基础设施建设的发展脉络，和此前同时覆盖算法创新与评估规范构建的成果不同，本次工作进一步聚焦推荐系统研究全流程的基础痛点，定向为推荐研究本身提供工具支持。\n\n本次新增工作提出了面向推荐系统研究的数据集推荐系统FINALLY，这是一款可在线访问的网页工具，核心功能是帮助研究者构建可配置的离线推荐系统评估数据集集合，解决了当前推荐领域研究中数据集筛选、配置成本较高的痛点。作者已通过对照实验验证了该工具的技术一致性与数据集推荐策略的有效性。\n\n在生成式推荐领域快速发展、相关研究数量持续增长的背景下，这类面向研究社区的基础设施类工作填补了领域专门数据集推荐工具的空白，能够降低研究门槛，提升不同研究间实验配置的可复用性与可比性，和此前的算法创新、评估规范类工作形成互补，进一步完善了生成式推荐领域的研究生态。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "FINALLY: A Dataset Recommender System for Recommender-Systems Research"
+      ],
+      "continuity_from_date": "2026-09-03"
+    }
+  }
+}
