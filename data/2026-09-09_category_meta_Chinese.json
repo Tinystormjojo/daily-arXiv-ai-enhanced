@@ -1,0 +1,46 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 1,
+  "jsonl_output_line_count": 1,
+  "total_papers_before_filter": 1,
+  "all_papers_inventory": [
+    {
+      "id": "2609.09878",
+      "title": "Purchase Advice and Observable Buyer Responses in Real AI Conversations",
+      "primary_category": "cs.IR"
+    }
+  ],
+  "categories": {
+    "cs.IR": {
+      "summary": "本次cs.IR分类下新增1篇生成式推荐领域的实证研究，延续了此前领域重视生成式推荐评估基础问题的核心脉络，但与此前聚焦研究基础设施建设、面向研究者提供工具支持的方向不同，本次工作转向真实产业落地场景的实践现状审计，直指当前生成式推荐效果研究的现实数据痛点。\n\n作者通过梳理317条真实商业AI对话助手的交互历史，系统分析了对话场景中生成式购买推荐与用户后续行为回应的分布特征，核心发现指出，现有可获取的真实场景数据中，AI生成的推荐内容本身具备很高的可观测性，但用户接收推荐后的实际购买决策回应可观测性严重不足，现有数据条件无法支撑对生成式AI推荐的说服效果开展总体统计推断或因果分析。\n\n这一发现填补了真实对话推荐场景现状描述的空白，和此前构建研究工具的基础设施类工作形成互补，既提示领域研究者注意真实场景数据存在的结构性偏差，也为后续生成式推荐评估体系建设、产业数据收集规范制定指明了需要优先解决的方向。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Purchase Advice and Observable Buyer Responses in Real AI Conversations"
+      ],
+      "continuity_from_date": "2026-09-08"
+    }
+  }
+}
