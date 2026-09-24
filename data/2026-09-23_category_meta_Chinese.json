@@ -1,0 +1,46 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 1,
+  "jsonl_output_line_count": 1,
+  "total_papers_before_filter": 1,
+  "all_papers_inventory": [
+    {
+      "id": "2609.27183",
+      "title": "When LLM-Based User Profiling Adds Value in Production Streaming Recommendation",
+      "primary_category": "cs.IR"
+    }
+  ],
+  "categories": {
+    "cs.IR": {
+      "summary": "本次cs.IR分类下生成式推荐领域新增1篇研究，延续了此前领域呈现的产业落地探索与基础研究夯实双线并行的发展脉络，研究焦点转向生产场景中LLM赋能方案的实际价值验证。该工作围绕业界普遍关心的“成本更高的LLM用户画像是否能带来额外推荐收益”这一核心问题，在真实生产级流式推荐数据集上，系统对比了聚合语义构建、LLM构建两类用户画像范式，结合有无时序解耦处理的四种组合方案，旨在明确LLM用户画像的价值边界与适用场景。\n\n和上一期聚焦开放权重生成式推荐方法可复现性、机制分析的基础研究不同，本次新工作直接回应生成式推荐落地阶段的具体痛点。此前领域的基础验证多围绕算法本身的性能与可靠性展开，本次工作则是在真实生产环境的流式推荐场景中检验大画像方案的实际增益，为业界是否需要在现有推荐系统中额外投入成本引入LLM构建用户画像提供了实证参考，进一步完善了生成式推荐领域从方法机制验证到落地决策支撑的研究链条。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "When LLM-Based User Profiling Adds Value in Production Streaming Recommendation"
+      ],
+      "continuity_from_date": "2026-09-17"
+    }
+  }
+}
