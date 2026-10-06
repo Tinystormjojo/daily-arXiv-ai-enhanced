@@ -1,0 +1,109 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 7,
+  "jsonl_output_line_count": 7,
+  "total_papers_before_filter": 7,
+  "all_papers_inventory": [
+    {
+      "id": "2610.06703",
+      "title": "Reading the Mood: Emotion-Guided Book-to-Music Recommendation via CGANs and LLMs",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.06590",
+      "title": "SPRIG: Semantic-ID-enhanced Paths for Knowledge Graph-based Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.05670",
+      "title": "Generate What You Can Trust: Content Credibility in Generative Recommenders",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.06751",
+      "title": "MatrixFormer: A Foundation Model for Matrix Completion",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2610.05994",
+      "title": "How (and How Not) to Use Data Augmentation in VLA Post-Training",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2610.05949",
+      "title": "Technical Report on the Turba Fertilizer Machine Learning Stack in Morocco",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2610.06549",
+      "title": "Proof-Grounded Patient-Specific Clinical Explanations from Knowledge-Graph Reasoning",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "cs.AI分类下本轮生成式推荐关联研究延续了此前“基础问题补全、可信落地深化”的核心发展脉络，分别在底层基础建模与垂直场景落地两个方向拓展了新的研究进展。在生成式推荐的核心基础任务层面，矩阵补全是支撑推荐内容生成的关键环节，以往方法多针对特定场景定制，跨领域泛化能力有限。本轮研究提出原生适配矩阵结构的预训练Transformer基础模型MatrixFormer，将通用预训练基础模型思路引入矩阵补全任务，可在多种不同领域的矩阵补全任务上实现有竞争力的零样本泛化性能，为生成式推荐的底层通用建模提供了新方案。\n\n在可信落地层面，本轮研究延续了此前关注生成式推荐可信治理的研究方向，将研究从通用框架构建推进到了高合规要求垂直领域的具体实现。不同于此前针对通用代理场景搭建治理概念框架的研究，本轮研究聚焦临床生成推荐场景对可解释、可审计性的硬性合规需求，提出了基于冻结临床知识图谱推理器的CKG临床解释引擎，无需下游训练即可生成可追溯、带来源的患者特异性临床解释与合规推荐，经大规模数据集验证具备稳定的可审计性，为高监管要求领域的生成式推荐落地提供了可行的技术路径。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "MatrixFormer: A Foundation Model for Matrix Completion",
+        "Proof-Grounded Patient-Specific Clinical Explanations from Knowledge-Graph Reasoning"
+      ],
+      "continuity_from_date": "2026-10-01"
+    },
+    "cs.CL": {
+      "summary": "延续cs.CL领域生成式推荐研究从算法创新到落地问题梳理、底层机制解析的发展脉络，本次新收录的研究聚焦具体场景化跨域生成式推荐任务，针对阅读场景下根据书籍情绪匹配适配背景音乐的需求，提出了情绪引导的两阶段跨域推荐框架SAGA-CDR。该研究结合条件生成对抗网络（CGAN）与大语言模型的优势，实现了书籍内容情绪特征到音乐推荐结果的有效映射，在公开数据集上验证了方法的性能优势，为情绪导向的跨模态跨域生成式推荐提供了新的技术方案。\n\n相较于此前研究围绕大模型生成系统从预训练数据评估到架构设计的全链路核心问题展开，本次收录的研究进一步将生成式推荐的应用边界拓展至细粒度情绪引导的个性化场景推荐，反映出领域在深耕全链路底层核心问题的同时，也在不断推动大语言模型赋能的生成式推荐向细分实际场景落地，丰富了大模型时代生成式推荐的研究维度。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Reading the Mood: Emotion-Guided Book-to-Music Recommendation via CGANs and LLMs"
+      ],
+      "continuity_from_date": "2026-09-30"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR分类下的三篇生成式推荐最新研究，延续了该领域此前同步推进基础方法打磨与应用场景拓展的均衡发展脉络，在深化核心模块优化的同时，也开拓了新的问题域与应用方向。针对基于知识图谱的生成式推荐路径推理优化问题，本次提出的SPRIG框架延续了此前领域对语义ID技术路线的探索，将内容衍生的语义ID整合进知识图谱路径推理过程，结合两类互补方法的优势，在实现更优推荐性能的同时，还压缩了参数量、降低了计算成本，进一步完善了基于语义ID的生成推荐技术体系。\n\n除了核心模块的深化优化，本次研究也探索了生成式推荐的细分应用场景与新的痛点问题。面向跨内容媒介的情绪匹配需求，研究提出了情绪引导的书转音乐跨域推荐框架SAGA-CDR，结合条件生成对抗网络与大语言模型捕捉跨领域内容的情绪一致性，为阅读场景下的背景音乐匹配需求提供了有效的生成式解决方案，拓展了生成式推荐在跨域跨模态场景的应用边界。\n\n值得注意的是，本次研究首次聚焦生成式推荐领域长期被忽视的内容可信度问题，提出了首个可信生成式推荐模型CreGR，通过可信度感知分词与不对称掩码概率缩减策略，在不损失推荐准确率的前提下有效提升了生成内容的可信度，开辟了生成式推荐可信性优化这一全新研究方向。整体来看，这批工作反映出生成式推荐领域正逐步从单纯追求性能提升，转向兼顾效率、效果、可信性与场景适配的多元发展阶段。",
+      "matched_count": 3,
+      "paper_count_in_bucket": 3,
+      "titles_in_category": [
+        "Reading the Mood: Emotion-Guided Book-to-Music Recommendation via CGANs and LLMs",
+        "SPRIG: Semantic-ID-enhanced Paths for Knowledge Graph-based Generative Recommendation",
+        "Generate What You Can Trust: Content Credibility in Generative Recommenders"
+      ],
+      "continuity_from_date": "2026-10-01"
+    },
+    "cs.LG": {
+      "summary": "本次cs.LG领域生成式推荐方向的收录研究，延续了此前领域向落地场景渗透、兼顾核心任务优化的成熟化发展脉络，进一步拓展了通用基础能力建设与更多异质性垂直场景的应用边界。不同于上一批次聚焦生成式推荐核心模块优化与医疗等专业领域落地的布局，本次研究在垂直场景落地层面覆盖了文化娱乐与农业生产两大全新方向：针对阅读场景中书籍匹配背景音乐的情绪跨域推荐需求，提出结合条件生成对抗网络与大语言模型的两阶段框架SAGA-CDR，实现了情绪引导的精准跨域推荐，在公开数据集上取得了更优性能；面向农业定点施肥推荐的工程落地需求，开发了可复用的开源三层机器学习栈Turba，解决了现有农业推荐系统可复用性差的痛点，提供了版本化数据集、离线可用作物模型等标准化工程方案。\n\n在生成式推荐依赖的核心基础任务层面，本次研究推出了面向矩阵补全的原生预训练基础模型MatrixFormer，突破了传统矩阵补全方法对特定领域的适配限制，实现了跨多领域矩阵补全任务的有竞争力零样本泛化，为推荐系统等依赖矩阵补全的各类任务提供了新的通用基础模型方案。此外，本次还包含一项针对大模型后训练阶段数据增强方法的系统研究，厘清了视觉-语言-动作模型后训练中有效与无效的增强策略，提升了模型的分布外泛化能力，其结论也可为生成式推荐大模型的微调后训练环节提供重要的实践参考。",
+      "matched_count": 4,
+      "paper_count_in_bucket": 4,
+      "titles_in_category": [
+        "Reading the Mood: Emotion-Guided Book-to-Music Recommendation via CGANs and LLMs",
+        "MatrixFormer: A Foundation Model for Matrix Completion",
+        "How (and How Not) to Use Data Augmentation in VLA Post-Training",
+        "Technical Report on the Turba Fertilizer Machine Learning Stack in Morocco"
+      ],
+      "continuity_from_date": "2026-10-01"
+    }
+  }
+}
