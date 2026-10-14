@@ -1,0 +1,81 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 4,
+  "jsonl_output_line_count": 4,
+  "total_papers_before_filter": 4,
+  "all_papers_inventory": [
+    {
+      "id": "2610.18309",
+      "title": "Prompt or Policy? Optimizing Physician Slate Presentations with LLM User Simulators",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2610.17771",
+      "title": "Many Right Answers, One Training Example: Removing Responder Noise from GRPO for LLM Recommenders",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2610.18434",
+      "title": "Convergence-Rate-Guided Algorithm Design of Expected Improvement for Continuous Simulation Optimization",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2610.17856",
+      "title": "MMTA: Benchmarking Multimodal Temporal Analysis with Time Series, Text, and Vision",
+      "primary_category": "cs.LG"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "当前cs.AI分类下的生成式推荐关联研究，在延续此前“基础问题优化、可信落地深化”发展脉络的基础上，新增了面向多模态大语言模型赋能生成式推荐的基础研究设施建设方向。本次收录的研究聚焦支撑时序类生成式推荐任务的多模态时序分析问题，针对该领域缺乏统一多模态测试基准的研究空白，构建了整合时间序列、文本、视觉三种模态数据的MMTA基准，填补了相关领域的基础建设缺口。\n\n该研究基于新建基准对现有主流多模态大语言模型开展了统一性能测评，发现当前模型在处理跨模态时序任务时普遍存在明显的性能瓶颈，这一结论也反映出，目前生成式推荐领域所依赖的多模态大语言模型基础能力仍有待针对性优化。基于测试发现的问题，研究进一步提出了改进后的TimeOmni-v模型，通过实验验证了MMTA基准对方法迭代的指导价值，为后续多模态增强生成式推荐的相关研究提供了标准化测试工具与明确的改进方向。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "MMTA: Benchmarking Multimodal Temporal Analysis with Time Series, Text, and Vision"
+      ],
+      "continuity_from_date": "2026-10-06"
+    },
+    "cs.CL": {
+      "summary": "延续此前cs.CL领域生成式推荐转向大语言模型核心方法优化的研究脉络，本次两篇研究进一步下沉到训练流程缺陷修正与垂域场景落地优化两个方向，拓展了该方向的研究边界。第一篇研究聚焦医疗场景下的医师推荐列表展示优化，针对固定排序医师列表生成病例匹配的短摘要帮助患者对比选择，创新性地利用大语言模型用户模拟器完成离线优化，对比了提示级优化GEPA、参数级GRPO策略优化以及二者组合的效果，验证了组合方案能实现最高的模拟转化率，为生成式推荐在垂域推荐交互环节的落地提供了实践参考。\n\n不同于此前研究关注大语言模型推荐的推理能力增强，本次研究针对当前生成式推荐训练中广泛使用的GRPO算法存在的共性问题展开优化：第二篇研究指出GRPO训练大语言模型推荐器时存在响应者噪声问题，即单训练样本对应多个有效正确回答时会产生训练干扰，据此提出ReMaRk方法，通过联合奖励所有有效回答修正训练目标。实验结果显示，该方法在多个骨干模型与公开数据集上都实现了更快的训练收敛，大幅减少了训练所需的GPU时间，同时性能不低于甚至优于原有方法Rank-GRPO。\n\n整体来看，相较于此前通过结构化记忆增强推荐推理性能的研究方向，本次两篇研究一个聚焦落地场景的效果优化，一个解决主流训练算法的效率缺陷，既填补了GRPO训练流程中的方法空白，提升了生成式推荐的训练经济性，也验证了多维度优化组合在垂域场景中的应用价值，推动生成式推荐从通用性能提升向落地可用方向演进。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Prompt or Policy? Optimizing Physician Slate Presentations with LLM User Simulators",
+        "Many Right Answers, One Training Example: Removing Responder Noise from GRPO for LLM Recommenders"
+      ],
+      "continuity_from_date": "2026-10-08"
+    },
+    "cs.LG": {
+      "summary": "本次cs.LG领域生成式推荐方向的研究，相较于此前批次聚焦生成式推荐自身训练-推理差异适配的流程优化，呈现出向底层方法论支撑、跨模态任务基础设施构建拓展的新趋势。\n\n其中一项研究面向生成式推荐离线仿真评估、参数调优环节常用的连续仿真优化问题，针对未知异方差仿真噪声场景下现有方法缺乏理论保障的缺陷，提出了收敛速率引导的期望改进算法设计方案，基于随机克里金框架优化了方法的三个核心组件，还首次给出了该类方法的简单遗憾理论保证，为生成式推荐的离线优化环节提供了更可靠的底层方法支撑。\n\n另一项研究则响应生成式推荐融合多模态时序信息的发展需求，构建了覆盖时间序列、文本、视觉三模态的多模态时序分析基准MMTA。该工作通过测试现有多模态大语言模型在该基准上的性能，明确了当前方法的核心瓶颈，还据此提出了针对性改进模型TimeOmni-v，验证了基准的有效性，为多模态生成式推荐的后续研究提供了标准化的评估基础。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Convergence-Rate-Guided Algorithm Design of Expected Improvement for Continuous Simulation Optimization",
+        "MMTA: Benchmarking Multimodal Temporal Analysis with Time Series, Text, and Vision"
+      ],
+      "continuity_from_date": "2026-10-07"
+    }
+  }
+}
