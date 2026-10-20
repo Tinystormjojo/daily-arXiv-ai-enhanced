@@ -1,0 +1,109 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 7,
+  "jsonl_output_line_count": 7,
+  "total_papers_before_filter": 7,
+  "all_papers_inventory": [
+    {
+      "id": "2610.26831",
+      "title": "AGR: Agentic Generative Retrieval with Tool-Augmented Search",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.26035",
+      "title": "Decision4Rec: A Jev-Inspired Framework of Decision Models on Knowledge and Active Graphs for Multi-Agent Recommender Systems",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.25805",
+      "title": "OneChord: Distill What You Rank, Recommend in One Pass",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.25748",
+      "title": "MAPS: A Multi-Agent Personalized Script-Driven Video Advertising System Enhanced by Reinforcement Learning",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.26595",
+      "title": "Concerns in Benchmarking Jailbreaks: An Empirical Study of Attack Success Rates",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2610.26185",
+      "title": "MoveBench: A Rubric-Based Benchmark for Evaluating Large Language Models in Sports and Health Coaching",
+      "primary_category": "cs.AI"
+    },
+    {
+      "id": "2610.25843",
+      "title": "A Cue's Hidden Price: Auditing Seller Influence on AI Shoppers",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "本次cs.AI分类下的生成式推荐关联研究延续了此前聚焦落地场景需求的发展脉络，同时拓展了原有的研究维度。在核心方法创新层面，针对多智能体生成推荐这一细分场景，研究提出了启发自Jev决策模型的Decision4Rec模块化开放框架，将决策语言模型与知识图谱、多智能体候选生成、残差排序机制相结合，在多个公开推荐数据集上取得了超越现有基准模型的性能，为多智能体推荐研究提供了可扩展的基础架构支持。\n\n除了算法与架构创新，本次收录的研究更多聚焦生成式推荐与大语言模型推荐落地过程中此前被忽略的评估、风险与基准建设问题：针对电商场景中卖家内容干扰AI购物推荐决策的问题，研究提出了价格等价审计方法，可比传统选择率审计更精准地量化卖家操纵行为对推荐结果的影响，相关基准数据集与工具已开源，为生成式推荐的合规性风险审计提供了新支撑；针对垂直领域的生成式指导与推荐需求，研究构建了首个面向运动健康指导的基于评分规则的专用基准MoveBench，测试发现现有大语言模型在领域关键需求上存在显著性能缺口，为垂直场景生成推荐的评估提供了标准依据；针对大模型安全评估的基准建设问题，研究实证揭示了越狱攻击常用的攻击成功率指标受评估流程、采样策略等多种因素干扰，甚至会引发攻击方法排名反转，为包括推荐场景在内的大语言模型应用安全评估规范提供了明确的实践建议。\n\n相较于此前总结中生成式推荐研究重心偏向算法效率、可控性优化的发展趋势，本次收录的研究显示，领域正在进一步向落地全链条支撑拓展，研究范畴从算法本身的性能、成本优化，延伸到开放框架搭建、安全风险审计、领域基准与评估规范建设，反映出生成式推荐进入落地深化阶段后，配套支撑体系的完善正在成为领域新的核心研究增长点。",
+      "matched_count": 4,
+      "paper_count_in_bucket": 4,
+      "titles_in_category": [
+        "Decision4Rec: A Jev-Inspired Framework of Decision Models on Knowledge and Active Graphs for Multi-Agent Recommender Systems",
+        "Concerns in Benchmarking Jailbreaks: An Empirical Study of Attack Success Rates",
+        "MoveBench: A Rubric-Based Benchmark for Evaluating Large Language Models in Sports and Health Coaching",
+        "A Cue's Hidden Price: Auditing Seller Influence on AI Shoppers"
+      ],
+      "continuity_from_date": "2026-10-15"
+    },
+    "cs.CL": {
+      "summary": "延续cs.CL领域生成式推荐围绕大语言模型展开核心方法优化的研究脉络，相较于此前聚焦训练流程缺陷修正与垂域场景落地优化的方向，本次新增研究进一步将生成式推荐拓展至多智能体推荐系统这一细分场景，探索大语言模型决策能力在多主体推荐任务中的应用。\n\n这项研究提出了Decision4Rec框架，这是一个受Jev启发的模块化开放框架，核心思路是将决策语言模型应用于多智能体推荐系统，通过融合知识图谱建模关联信息、多智能体机制生成候选项目、残差排序优化结果三个模块完成推荐流程。在多个公开推荐数据集上的实验结果表明，该框架取得了优于现有基准模型的推荐效果。\n\n该研究跳出了此前对生成式推荐训练效率、落地效果的优化讨论，从框架设计层面为多智能体场景下的生成式推荐提供了新的解决方案，进一步拓展了大语言模型赋能生成式推荐的研究边界。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Decision4Rec: A Jev-Inspired Framework of Decision Models on Knowledge and Active Graphs for Multi-Agent Recommender Systems"
+      ],
+      "continuity_from_date": "2026-10-13"
+    },
+    "cs.IR": {
+      "summary": "当前cs.IR领域的生成式推荐延续了此前“通用场景痛点打磨+垂直场景定制落地”的双线发展脉络，本次收录的最新研究在延续这一脉络的同时，呈现出多智能体架构与大模型工具赋能的新兴发展趋势。多篇工作围绕大语言模型能力融入生成式推荐展开创新：针对现有生成式检索难以高效利用异质特征的痛点，提出工具增强的智能体生成检索范式AGR，可在层级语义ID生成过程中自适应获取所需特征，并通过线上A/B测试验证了效果；面向多智能体推荐系统，提出Jev启发的模块化开放框架Decision4Rec，将决策语言模型与知识图谱、活性图结合，取得了优于基准模型的性能；面向视频广告推荐这一垂直产业场景，还提出强化学习增强的多智能体个性化脚本驱动系统MAPS，解决了传统检索范式个性化粒度不足的问题，在快手广告平台完成了有效性验证。\n\n在通用推荐场景的落地效率优化方面，本次研究延续了此前关注推理成本与部署效率的方向，和上一批次针对多目标推荐优化推理延迟的思路一脉相承。本次提出的OneChord推荐框架遵循“提炼你所排序内容”的训练原则，实现了单遍推理生成推荐结果，在多个公开Amazon数据集上同时实现了排序性能提升与推理加速，进一步推进了轻量高效生成式推荐的落地。\n\n整体来看，相较于此前研究，本次成果既延续了对生成式推荐落地核心痛点的持续打磨，也清晰体现出大模型时代生成式推荐的新发展特征：多智能体协同、工具增强等结合大语言模型能力的架构创新成为新的研究热点，且超过半数成果完成了产业级线上验证，反映出生成式推荐正从算法创新逐步走向规模化产业落地。",
+      "matched_count": 4,
+      "paper_count_in_bucket": 4,
+      "titles_in_category": [
+        "AGR: Agentic Generative Retrieval with Tool-Augmented Search",
+        "Decision4Rec: A Jev-Inspired Framework of Decision Models on Knowledge and Active Graphs for Multi-Agent Recommender Systems",
+        "OneChord: Distill What You Rank, Recommend in One Pass",
+        "MAPS: A Multi-Agent Personalized Script-Driven Video Advertising System Enhanced by Reinforcement Learning"
+      ],
+      "continuity_from_date": "2026-10-15"
+    },
+    "cs.LG": {
+      "summary": "本次cs.LG领域生成式推荐方向的最新研究，延续了领域从算法创新向落地全链路支撑延伸的整体趋势，但不同于前一阶段聚焦大规模生成式推荐模型硬件适配优化的研究主题，本次收录的研究转而关注落地环节中核心的安全评估可靠性问题。当前生成式推荐系统大多依托大语言模型构建，大模型的越狱风险防控与安全评估是生成式推荐上线前的必备环节，相关评测基准的可靠性直接决定了安全防护方案选型的准确性。\n\n本次研究针对越狱评估中通用的攻击成功率（ASR）指标开展实证分析，发现ASR结果会受评估流程、评估器类型、尝试次数排列方式、采样策略等多种因素的显著影响，甚至会引发不同攻击防护方法的排名反转，还揭示了重复采样会暴露模型残留不安全行为的易被忽略的安全问题，最终针对越狱攻击基准测试提出了明确的规范化实践建议。\n\n这一研究方向的转向反映出，生成式推荐领域在完成算法迭代、工程性能优化等阶段的探索后，开始进一步向落地全链路的规范评估环节延伸，填补了大模型生成式推荐安全评测体系可靠性层面的研究空白，为产业界生成式推荐的安全合规上线提供了可参考的评测规范。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Concerns in Benchmarking Jailbreaks: An Empirical Study of Attack Success Rates"
+      ],
+      "continuity_from_date": "2026-10-15"
+    }
+  }
+}
