@@ -1,0 +1,114 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 8,
+  "jsonl_output_line_count": 8,
+  "total_papers_before_filter": 8,
+  "all_papers_inventory": [
+    {
+      "id": "2610.34700",
+      "title": "DPE-Rec: Diversity-Preserving and Efficient Diffusion Language Model Recommendation for Bundle Construction",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.34673",
+      "title": "Agent Memory as Recommendation: Recommender-System Design for Long-Term Memory of LLM Agents",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.35671",
+      "title": "Evaluating DeepSeek V4.1 Flash-1017 for loss of control and harmful manipulation risks",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2610.35262",
+      "title": "Conversational Generalized Linear Bandits with Hybrid Feedback",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2610.35163",
+      "title": "Sequential versus fully conditional specification for tree-based synthesis of health data",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2610.35704",
+      "title": "Explainable Multimodal AI Approach to Reduce Unnecessary Breast Biopsies",
+      "primary_category": "cs.AI"
+    },
+    {
+      "id": "2610.35218",
+      "title": "MuSID-KD: Multigranularity Knowledge Distillation for Generative Recommendation with Semantic IDs",
+      "primary_category": "cs.AI"
+    },
+    {
+      "id": "2610.34938",
+      "title": "How Do Coding-Agent Harnesses Self-Evolve? An Empirical Study of Retrospective Adaptation",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "本次cs.AI分类下的生成式推荐相关研究，延续了此前领域跳出传统物品推荐任务边界、向大模型基础能力侧延伸的整体脉络，首次实现了推荐范式向大语言模型智能体核心组件设计的深度迁移。相关研究直接将LLM智能体的长期记忆选择问题建模为预算约束下的石板推荐任务，提出完全无需调用LLM的AgentMemRec推荐式记忆选择框架，最终效果与服务效率均显著优于现有主流LLM智能体记忆系统，为智能体长期记忆管理这一长期存在的痛点提供了完全脱离原生大模型调用的新解法。\n\n在生成式推荐本身的落地工程优化方向上，本次研究给出了针对性的细分技术方案，填补了此前语义ID类生成式推荐推理成本过高的落地短板。针对这类生成式推荐方案多步解码导致推理开销大的普遍痛点，新提出的多粒度知识蒸馏框架MuSID-KD无需修改轻量级学生模型的在线推理架构，即可同时实现对教师模型前缀边际分布、项目两两排序效果的更优对齐，在几乎不提升线上推理延迟的前提下大幅提升生成式推荐的结果精度，为生成式推荐的大规模工业部署提供了可行路径。\n\n本次研究同时拓展了生成式推荐的跨界场景应用与能力实证边界，和此前侧重风险挖掘、基础能力验证的脉络形成有效补充。一方面相关研究将可解释生成式多模态推荐思路落地到临床辅助决策场景，针对已被推荐进行乳腺活检的BI-RADS 4、5类患者预测肿瘤良性结果，在1632例自有数据集上取得0.72的AUC性能，表现远优于仅用图像或仅用文本的单模态基线，具备直接减少不必要乳腺活检的临床实用价值。另一方面针对编码智能体自主推荐运行harness改进方案的自演化过程开展实证，发现仅少数生成的改动可有效减少后续任务的重复工作，其余大部分改动甚至会提升无关任务的运行负担，直接证明当前大模型自主生成的推荐类迭代决策存在显著的泛化局限性，为后续智能体自演化系统的设计避坑提供了实证参考。",
+      "matched_count": 4,
+      "paper_count_in_bucket": 4,
+      "titles_in_category": [
+        "Agent Memory as Recommendation: Recommender-System Design for Long-Term Memory of LLM Agents",
+        "Explainable Multimodal AI Approach to Reduce Unnecessary Breast Biopsies",
+        "MuSID-KD: Multigranularity Knowledge Distillation for Generative Recommendation with Semantic IDs",
+        "How Do Coding-Agent Harnesses Self-Evolve? An Empirical Study of Retrospective Adaptation"
+      ],
+      "continuity_from_date": "2026-10-22"
+    },
+    "cs.CL": {
+      "summary": "本批次cs.CL领域生成式推荐相关研究在前期检索模块基础机制诊断的研究脉络之上，进一步拓展了生成式推荐技术的落地适配场景，突破了传统推荐系统面向用户消费内容输出的固有边界。其中第一项研究创新性地将LLM智能体的长期记忆动态选择问题转化为预算约束下的石板推荐任务，提出完全无需调用大模型的轻量框架AgentMemRec，在记忆召回准确率和系统服务效率两个维度均大幅优于现有主流LLM智能体记忆方案，为大模型类应用的资源调度优化提供了生成式推荐的全新落地范式。\n\n不同于此前生成式推荐领域大多围绕性能提升、机制纠错展开的研究导向，本批次首次将推荐关联系统的全链路安全风险治理纳入讨论范畴。相关评测工作针对当前高能力开源大模型的系统性安全风险评估缺口，遵循欧盟通用AI行为准则与AEF-1评测标准，对DeepSeek V4.1 Flash-1017开展了覆盖34项基准的独立第三方安全校验，重点排查失控与有害操纵类风险。\n\n该研究通过和多款主流闭源模型、DeepSeek历史版本的横向对比梳理出的大模型安全表现特征，以及最终提出的三项大模型安全治理核心建议，也为依托大模型基座搭建的生成式推荐系统建立内容输出风险防控机制提供了合规参考，补齐了此前该领域研究中对安全落地准则讨论不足的短板。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Agent Memory as Recommendation: Recommender-System Design for Long-Term Memory of LLM Agents",
+        "Evaluating DeepSeek V4.1 Flash-1017 for loss of control and harmful manipulation risks"
+      ],
+      "continuity_from_date": "2026-10-22"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR领域收录的生成式推荐相关研究，延续了此前“以落地痛点为核心、算法创新支撑产业适配”的发展主线，同时跳出此前聚焦推荐系统内部检索、推理、评估环节优化的路径，向大模型相关的交叉场景拓展，呈现出技术边界持续外延的新特征。\n其中面向推荐包构建场景，新提出的DPE-Rec框架针对直接将扩散语言模型迁移至该任务时普遍存在的生成多样性不足、多令牌解码质量下降的核心缺陷，完成了多样性保留机制与高效推理模块的协同设计，在多个公开基准上实现平均63%的推荐性能提升，其快速版本的平均推理速度更是比现有主流生成式推荐方案快25.6倍，有效解决了扩散类生成推荐技术长期难以兼顾效果与落地效率的共性瓶颈。\n另一项研究则打破了生成式推荐此前主要服务用户侧消费场景的局限，将大语言模型智能体的长期记忆选择问题直接建模为预算约束下的石板推荐任务，提出无需任何额外LLM调用的AgentMemRec推荐式记忆选择框架，最终在多个评测集上实现了优于现有主流LLM智能体记忆系统的效果与服务效率，为大模型智能体的长期记忆管理提供了全新的技术思路。\n整体来看，不同于此前研究聚焦生成式推荐本身核心链路补短板的定位，本次两篇成果分别实现了扩散生成推荐的场景化落地适配、推荐范式向大模型基础设施层的跨界复用，标志着生成式推荐技术的应用边界正持续向大模型生态的更多细分场景渗透延伸。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "DPE-Rec: Diversity-Preserving and Efficient Diffusion Language Model Recommendation for Bundle Construction",
+        "Agent Memory as Recommendation: Recommender-System Design for Long-Term Memory of LLM Agents"
+      ],
+      "continuity_from_date": "2026-10-22"
+    },
+    "cs.LG": {
+      "summary": "当前cs.LG分类下的生成式推荐相关研究，延续了此前从通用核心模块创新向垂直产业场景落地适配演进的整体趋势，本次收录的两项工作进一步跳出了此前聚焦检索匹配环节优化的研究路径，向生成式推荐全链路的边缘配套环节拓展探索。\n\n第一项研究面向会话式生成推荐的动态决策痛点，针对传统广义线性多臂老虎机框架仅支持单一类反馈信号的局限，设计了同时融合物品绝对奖励、关键术语相对比较两类异构反馈的HyConUCB算法，推导得到了优于传统方法的理论后悔上界，在合成数据集与真实场景数据集上均验证了算法的性能增益，为生成式推荐场景下的冷启动探索、动态用户意图实时捕捉提供了新的可行范式。\n\n第二项工作瞄准高隐私敏感场景下生成式推荐的训练数据合规痛点，以医疗健康场景的数据合成需求为研究对象，系统对比了基于决策树的生成合成框架下，序贯规范与完全条件规范两种主流条件分布组合方式的隐私风险-数据效用权衡表现，明确两类方案不存在通用的优劣差异，且分别存在变量顺序敏感、超参数冗余计算成本过高的差异化缺陷，为医疗等高合规要求场景的生成式推荐训练数据制备提供了清晰的选型依据。\n\n从整体领域发展脉络来看，本次新增的两项研究不再局限于推荐匹配核心逻辑的迭代，开始覆盖交互式动态决策机制、合规训练数据支撑两大此前未被重点讨论的落地配套环节，标志着生成式推荐的产业探索正从核心功能性能优化阶段，逐步转向全链路工程化配套补全的更深层次落地阶段。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Conversational Generalized Linear Bandits with Hybrid Feedback",
+        "Sequential versus fully conditional specification for tree-based synthesis of health data"
+      ],
+      "continuity_from_date": "2026-10-22"
+    }
+  }
+}
