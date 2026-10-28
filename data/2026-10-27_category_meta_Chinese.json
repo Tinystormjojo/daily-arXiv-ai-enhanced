@@ -1,0 +1,159 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 15,
+  "jsonl_output_line_count": 14,
+  "total_papers_before_filter": 15,
+  "all_papers_inventory": [
+    {
+      "id": "2610.37584",
+      "title": "REGER: Modeling inter-item Relations with Semantic IDs for Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.37286",
+      "title": "LESSRec: Level-Specific History Modeling for Semantic ID-Based Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.37280",
+      "title": "Modeling Preference Dependencies with Directed Acyclic Graphs for Narrative-Driven Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.37228",
+      "title": "AutoRSE: Evaluating LLM Agents as Recommendation Engineers for Self-Evolving Recommender Systems",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.37005",
+      "title": "Compote: Collapse-Resistant Multiple Hypothesis Learning For Sequential Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.36973",
+      "title": "KL-MOPD: Discrepancy-Aware Multi-Objective On-Policy Distillation for Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.36958",
+      "title": "PailitaoMMSearch2.0 Technical Report: Scaling Generative Retrieval to Unified End-to-End Multimodal Search",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.36954",
+      "title": "When Diffusion Recommenders Stop Sampling: Preserving Generative Diversity",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.36890",
+      "title": "Latent Residual Reasoning for Ranking in Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.36836",
+      "title": "DuTri: Dual-Branch Modeling with Triadic Factorization for Multimodal Multi-Scenario Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.36763",
+      "title": "The Vocabulary Is Already Here: Adapting Pretrained Interpretable Features for Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2610.36990",
+      "title": "The State and Fate of Multilingual, Contextual Evaluation in the NLP World",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2610.36937",
+      "title": "JevRec: Linguistic Encoding with Jev-like Decision Modeling for LLM-based Generative Recommendation",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2610.36941",
+      "title": "Algorithmic Monoculture in Machine Learning-based Site-Specific Fertilizer Recommendation",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2610.37281",
+      "title": "RPSD: Retrieval-Privileged On-Policy Self-Distillation with Optimal Transport",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "本次cs.AI分类下的生成式推荐相关研究，延续了此前领域重点攻坚语义ID方案短板、推进技术落地的整体脉络，在语义ID的原生设计层面实现了两项差异化创新。其一为REGER统一框架，首次将物品间显式关系完整融入语义预训练、历史编码、语义ID生成全流程，结合分层偏好分解理论与判别式教师蒸馏策略，在真实数据集上实现了对现有生成推荐基线的一致性能提升；其二为API框架，直接复用预训练稀疏自编码器输出的带人类可解释语义标注的特征索引作为语义ID词汇表，完全省去了过往方案额外训练定制词汇表的开销，可在紧凑token预算下保障物品区分度，同时原生支持可解释检索，进一步补齐了此前语义ID生成推荐方案构建成本高、可解释性不足的遗留缺陷。\n\n相关研究同时拓展了生成式推荐蒸馏优化的范式边界，跳出此前蒸馏方案仅聚焦前缀边际分布、物品两两排序对齐的设计局限。本次提出的RPSD框架针对大模型生成式序列推荐强化学习后训练阶段长期存在的信用盲优化、协同盲监督两大缺陷，首次将在线策略自蒸馏引入序列推荐任务，融合时间感知最优传输机制把跨用户行为作为特权信号完成检索特权在线策略自蒸馏，在多个真实数据集上取得当前最优的推荐性能，为序列生成推荐的后训练优化提供了全新的技术路径。\n\n不同于过往研究仅为生成式推荐工业部署提供可行性方案，本次收录的PailitaoMMSearch2.0技术报告首次完成了生成式检索向统一端到端多模态电商搜索的规模化生产落地。该框架从数据、意图、场景三个维度完成系统性缩放优化后已在淘宝拍立淘业务上线，线上受控A/B测试验证核心业务指标取得统计显著提升，为生成式推荐技术支撑亿级用户规模的复杂多模态搜索场景提供了可复用的完整工程实践参考。",
+      "matched_count": 4,
+      "paper_count_in_bucket": 4,
+      "titles_in_category": [
+        "REGER: Modeling inter-item Relations with Semantic IDs for Generative Recommendation",
+        "PailitaoMMSearch2.0 Technical Report: Scaling Generative Retrieval to Unified End-to-End Multimodal Search",
+        "The Vocabulary Is Already Here: Adapting Pretrained Interpretable Features for Generative Recommendation",
+        "RPSD: Retrieval-Privileged On-Policy Self-Distillation with Optimal Transport"
+      ],
+      "continuity_from_date": "2026-10-26"
+    },
+    "cs.CL": {
+      "summary": "当前cs.CL领域生成式推荐相关研究在前期轻量落地框架探索、全链路安全治理的研究脉络之上，本批次新增成果进一步从核心机制优化、复杂意图适配两个维度推进技术落地性，同时配套补充了多语言NLP评测生态的系统性审计结论，为跨语言场景下的生成式推荐后续迭代筑牢底层支撑。\n面向生成式推荐的效率-性能权衡痛点，本次新提出的JevRec框架跳出了传统固定长度语义标识符的设计局限，采用频率自适应变长语义标识符编码结合类Jev决策建模思路，同步解决了热门物品计算效率不足、长尾物品语义表征偏差的两难问题，在推荐效果全面超越现有SOTA基线的同时，训练与推理开销也低于当前主流方案，延续了此前领域对生成式推荐落地资源调度优化的探索方向。\n另一项叙事驱动推荐研究则拓展了生成式推荐对非结构化用户意图的适配边界，其提出的PDG-F框架将用户的开放式叙事偏好请求解析为有向无环偏好依赖图，通过有向路径检索获取开放域候选证据、拓扑路径排序输出最终结果，多域实验验证其表现显著优于各类对比方案。\n本批次同步发布的多语言NLP评测系统性审计工作覆盖219种语言、242个数据集，从覆盖度、代表性、严谨性三个维度揭露了现有多语言大模型评测生态的系统性缺陷，给出了下一代原生多语言评测框架的可落地构建方案，也为后续跨语言生成式推荐场景的评测体系搭建提供了权威参考，补齐了此前该领域多语言适配方向的研究空白。",
+      "matched_count": 3,
+      "paper_count_in_bucket": 3,
+      "titles_in_category": [
+        "Modeling Preference Dependencies with Directed Acyclic Graphs for Narrative-Driven Recommendation",
+        "The State and Fate of Multilingual, Contextual Evaluation in the NLP World",
+        "JevRec: Linguistic Encoding with Jev-like Decision Modeling for LLM-based Generative Recommendation"
+      ],
+      "continuity_from_date": "2026-10-26"
+    },
+    "cs.IR": {
+      "summary": "本轮cs.IR领域收录的生成式推荐相关研究，延续了此前“锚定落地痛点、算法创新支撑产业适配”的核心发展主线，相较于前期侧重将生成推荐范式向大模型生态跨界复用的特征，本轮研究集中于生成式推荐核心技术链路的系统性补短板，多条细分技术路线同时出现密集的创新与落地成果。\n\n语义ID生成推荐范式是本轮最突出的聚焦方向，先后涌现REGER、LESSRec、API三项关联工作，分别从物品间显式关系注入语义预训练全流程、过滤层级历史token的冗余干扰、直接复用预训练可解释特征搭建语义ID词汇表三个维度逐层优化，既实现了效果与推理效率的同步提升，也大幅降低了语义ID范式的额外训练成本，强化了推荐结果的可解释性。除此之外，本轮研究还针对生成式推荐各环节的共性缺陷产出了多个针对性解决方案：KL-MOPD方法解决传统多目标蒸馏的token层级难度不平衡、跨目标不一致问题，几乎无额外训练开销即可实现全场景性能提升；隐式残差推理框架Refiner打破了原有生成推荐单次直接预测排序的范式，满足细粒度打分需求；Compote、DARTS两类框架则分别破解了序列推荐多头多兴趣架构、扩散推荐场景下的采样坍缩痛点，在保留生成多样性的同时不损失排序精度。\n\n本轮研究进一步拓展了生成式技术的场景适配边界，既提出将用户非结构化叙事请求解析为偏好依赖有向无环图的叙事驱动推荐框架PDG-F，也通过双分支三因子分解的DuTri框架实现了多模态多场景推荐的效果跃升，更有PailitaoMMSearch2.0完成生成式检索向端到端统一多模态电商搜索的落地转化，已部署于淘宝拍立淘场景并取得核心业务指标的统计显著提升。\n\n本轮还首次针对大模型驱动的推荐系统工程师智能体开展大规模实证研究，提出的AutoRSE标准化评估框架证实现有该类代理可自主优化推荐骨干模型实现平均16.1%的性能提升，同时也明确了当前代理仅擅长工程层面调优、无法实现原创算法创新的核心局限，为生成式推荐向自演进系统方向发展划定了核心待突破的研究边界。",
+      "matched_count": 11,
+      "paper_count_in_bucket": 11,
+      "titles_in_category": [
+        "REGER: Modeling inter-item Relations with Semantic IDs for Generative Recommendation",
+        "LESSRec: Level-Specific History Modeling for Semantic ID-Based Recommendation",
+        "Modeling Preference Dependencies with Directed Acyclic Graphs for Narrative-Driven Recommendation",
+        "AutoRSE: Evaluating LLM Agents as Recommendation Engineers for Self-Evolving Recommender Systems",
+        "Compote: Collapse-Resistant Multiple Hypothesis Learning For Sequential Recommendation",
+        "KL-MOPD: Discrepancy-Aware Multi-Objective On-Policy Distillation for Generative Recommendation",
+        "PailitaoMMSearch2.0 Technical Report: Scaling Generative Retrieval to Unified End-to-End Multimodal Search",
+        "When Diffusion Recommenders Stop Sampling: Preserving Generative Diversity",
+        "Latent Residual Reasoning for Ranking in Generative Recommendation",
+        "DuTri: Dual-Branch Modeling with Triadic Factorization for Multimodal Multi-Scenario Recommendation",
+        "The Vocabulary Is Already Here: Adapting Pretrained Interpretable Features for Generative Recommendation"
+      ],
+      "continuity_from_date": "2026-10-26"
+    },
+    "cs.LG": {
+      "summary": "当前cs.LG分类下的生成式推荐相关研究，延续了此前从通用核心模块创新向全链路工程化配套、垂直产业场景深度适配演进的整体趋势，新收录的两项工作进一步拓展了此前的研究边界，分别从基础架构缺陷破解、跨主体系统性风险治理两个未被充分关注的维度产出了创新性成果。\n\n其中Compote框架聚焦序列类生成推荐长期面临的多头多兴趣架构头部坍缩痛点，设计了具备退火训练目标的抗坍缩多假设学习范式，可驱动多组兴趣表征自动向差异化的商品类目区域专精，在保持贝叶斯最优排序能力的前提下从根源上规避传统多兴趣架构的坍缩问题，在Amazon Reviews 2023的三个基准任务上性能全面超过现有强基线，为生成式多兴趣推荐的长期性能瓶颈突破提供了可行的新路径。\n\n另一项研究则将生成式推荐的评估场景从通用互联网领域拓展到智慧农业垂直赛道，首次针对机器学习驱动的定点施肥推荐场景的算法单一化问题展开系统性分析，搭建了关联多农场推荐误差的全域系统性风险分析框架，验证了在控制个体预测损失上限的前提下推行适度模型多样化策略，可大幅降低全域农业系统的模拟社会损失。该工作跳出了过往生成式推荐评估仅聚焦单用户、单场景局部指标的惯性思路，首次将算法生态采纳架构、跨场景误差依赖关系明确为系统级评估的核心变量，为后续高社会价值场景下的生成式推荐落地的风险防控提供了全新的研究视角。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Compote: Collapse-Resistant Multiple Hypothesis Learning For Sequential Recommendation",
+        "Algorithmic Monoculture in Machine Learning-based Site-Specific Fertilizer Recommendation"
+      ],
+      "continuity_from_date": "2026-10-26"
+    }
+  }
+}
