@@ -1,0 +1,124 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 9,
+  "jsonl_output_line_count": 9,
+  "total_papers_before_filter": 9,
+  "all_papers_inventory": [
+    {
+      "id": "2611.04775",
+      "title": "Learning to Rank Explanations for Recommendation with Language Models",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.04720",
+      "title": "OneTrans-GSR: A Generative Slate Ranking Paradigm Unifying Reranking and Mix-Ranking with One Autoregressive Transformer",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.04715",
+      "title": "ZeroGR: Filtering-First Constrained Decoding for Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.04662",
+      "title": "SPADE: Spatiotemporal Preference Alignment and Diversity Enhancement for Local Search",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.04459",
+      "title": "$τ$-Rec-Books: A Disclosure-Controlled Benchmark for Requirement Elicitation in Agentic Recommender Systems",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.04225",
+      "title": "IntentGEO: Intent-aware Generative Engine Optimization for Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.04140",
+      "title": "IDs That Mean Something: A Hands-On Tutorial on Semantic IDs for Recommender Systems",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.04393",
+      "title": "Voluntary Servitude: Weaponized Safety Warning Mechanisms for Controlling AI Agents",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2611.05222",
+      "title": "Fairness Metrics based on the AUC in Clinical Predictive AI",
+      "primary_category": "cs.LG"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "本次cs.AI分类下的生成式推荐相关研究延续了此前领域聚焦短板攻坚、支撑产业落地的整体脉络，跳出了过往性能优化、场景延伸、工程落地的常规探索方向，首次将研究边界拓展至智能体推荐子领域的基准体系补全环节。新提出的τ-Rec-Books是首个披露程度可控的智能体推荐系统需求引导评测基准，在固定用户初始请求的前提下差异化设置不同的需求披露规则，可精准量化现有AI推荐智能体主动挖掘用户潜在需求的能力，研究团队同步公开了完整数据集、任务生成工具、模拟用户环境和全量测试迹线，填补了该细分方向长期缺乏标准化测试基准的空白。\n\n在落地优化方向，本次研究提出的IntentGEO框架针对性解决了大语言模型驱动推荐场景下生成引擎优化任务长期存在的提示漂移痛点，设计了意图感知的评估体系与锚定元优化AMO方法，跨10种用户意图状态、4个领域的实验结果显示其性能大幅超越现有基线，适配后在商用闭源助手豆包上也取得最优表现，将此前生成式推荐的提示优化探索从通用场景推进到了全意图覆盖的产业可用阶段。\n\n本次研究还首次补充了生成式推荐相关的大模型智能体原生安全与合规评估的全新视角。一方面公开了名为“自愿奴役”的新型LLM智能体隐蔽攻击范式，其可利用智能体自身的避害安全对齐逻辑诱导其自主做出攻击者期望的推荐类决策，无需植入可被现有检测器识别的显式注入指令，研究同时配套提出了无需模型重训练的轻量防御方案，回应了生成式推荐规模化部署中新凸显的隐蔽安全风险；另一篇针对临床预测AI公平性评估的专项研究，系统性厘清了8种AUC衍生公平性指标的适用边界，给出了临床类高监管场景下的模型公平性评估规范，也为后续生成式推荐向医疗等强约束垂直领域延伸提供了合规评估的可参考范式。",
+      "matched_count": 4,
+      "paper_count_in_bucket": 4,
+      "titles_in_category": [
+        "$τ$-Rec-Books: A Disclosure-Controlled Benchmark for Requirement Elicitation in Agentic Recommender Systems",
+        "IntentGEO: Intent-aware Generative Engine Optimization for Recommendation",
+        "Voluntary Servitude: Weaponized Safety Warning Mechanisms for Controlling AI Agents",
+        "Fairness Metrics based on the AUC in Clinical Predictive AI"
+      ],
+      "continuity_from_date": "2026-10-29"
+    },
+    "cs.CL": {
+      "summary": "当前cs.CL领域生成式推荐相关研究在前期完成轻量落地框架探索、复杂非结构化意图适配、跨语言评测生态补全的基础上，本次新收录的两项成果跳出此前聚焦推荐效果与计算效率优化的主流路径，首次向智能体生成式推荐系统的交互环节评测、原生安全风险治理两个新兴方向延伸，拓展了领域研究的覆盖边界。\n\n本次公开的τ-Rec-Books基准是业界首个披露程度可控的智能体推荐系统需求引导评测工具，不同于过往生成式推荐评测普遍以最终推荐结果匹配度为核心指标的设计逻辑，该基准将用户基础请求设为固定变量，通过差异化设置不同等级的需求披露规则，可精准量化测试现有AI推荐智能体主动挖掘用户隐性需求的能力，其配套开源的完整数据集、任务生成工具、模拟用户环境和全量测试结果迹线，直接填补了当前智能体推荐多轮交互环节评测工具缺失的行业空白。\n\n另一项针对大语言模型智能体隐蔽攻击的研究，也为生成式推荐系统的全链路安全治理补充了此前未被覆盖的风险维度。该研究提出的“自愿奴役”新型攻击范式无需植入可被现有常规检测器识别的显式注入指令，仅调用智能体自身内置的避害安全对齐逻辑，即可诱导其自主输出符合攻击者预期的决策，目前已验证该攻击对多类主流大模型、生产级浏览器智能体均具备有效性，研究团队同步推出的无需模型重训练的轻量防御方案，也为当前大规模落地的生成式推荐系统规避恶意内容引导、保障推荐结果中立合规提供了低成本的可行应对路径。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "$τ$-Rec-Books: A Disclosure-Controlled Benchmark for Requirement Elicitation in Agentic Recommender Systems",
+        "Voluntary Servitude: Weaponized Safety Warning Mechanisms for Controlling AI Agents"
+      ],
+      "continuity_from_date": "2026-10-27"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR领域新收录的生成式推荐相关研究，延续了此前锚定超大规模商用落地诉求的发展主线，相较于前序研究集中攻坚语义ID路由优化、稀疏注意力加速、自演进机制落地的技术方向，这批工作进一步向生成推荐全链路的冗余算力削峰、细分边界场景适配、公共支撑体系补全的方向延伸，所有技术创新均通过公开数据集或工业场景测试验证，实用性指向明确。\n\n在核心技术提效层面，这批工作针对性破解了此前多阶段生成推荐系统的遗留痛点。ZeroGR提出过滤优先的生成式推荐约束解码范式，一改传统先打分后过滤的流程设计，在几乎不损失推荐质量的前提下最高将管道处理速度提升9.9倍，大幅降低GPU索引内存占用，解决了大量算力浪费在无效候选的行业共性问题；OneTrans-GSR则采用单个自回归Transformer统一覆盖推荐系统的重排序、混合排序全阶段，通过列表级奖励引导的强化学习完成优化，上线后核心业务指标显著提升的同时端到端延迟明显下降，为生成式列表排序的轻量部署提供了全新范式。此外相关探索还延伸到推荐解释优化、大模型生成引擎优化等此前较少覆盖的细分方向：LMStaR框架将个性化推荐解释排序转化为密集检索问题，通过多正例对比学习联合优化双编码器，在三个公开基准上大幅超过现有最优基线；IntentGEO针对性解决大模型推荐场景下的提示漂移问题，提出的锚定元优化方法跨10种用户意图、4个领域均表现出显著优势，适配后在商用闭源助手上也取得最优效果。\n\n在场景拓展与公共基础设施建设层面，这批工作进一步补全了生成式推荐的能力边界和生态支撑。针对本地服务APP首页主动查询推荐的开放集生成场景，SPADE端到端框架协同兼顾偏好对齐、细粒度时空匹配、长尾意图覆盖、输出多样性多项目标，在离线生产数据集和线上A/B测试中均取得显著业务增益。新发布的τ-Rec-Books是首个披露程度可控的智能体推荐系统需求引导评测基准，可量化测试AI推荐智能体主动挖掘用户需求的能力，完整配套数据集、任务生成工具、模拟环境全部公开。同期上线的语义ID实操教程系统梳理了从传统整数ID到语义ID的技术演进路径，覆盖多模态、冷启动、跨域推荐的落地方案并配套全流程实操资源，大幅降低了行业落地前沿生成式推荐技术的门槛。",
+      "matched_count": 7,
+      "paper_count_in_bucket": 7,
+      "titles_in_category": [
+        "Learning to Rank Explanations for Recommendation with Language Models",
+        "OneTrans-GSR: A Generative Slate Ranking Paradigm Unifying Reranking and Mix-Ranking with One Autoregressive Transformer",
+        "ZeroGR: Filtering-First Constrained Decoding for Generative Recommendation",
+        "SPADE: Spatiotemporal Preference Alignment and Diversity Enhancement for Local Search",
+        "$τ$-Rec-Books: A Disclosure-Controlled Benchmark for Requirement Elicitation in Agentic Recommender Systems",
+        "IntentGEO: Intent-aware Generative Engine Optimization for Recommendation",
+        "IDs That Mean Something: A Hands-On Tutorial on Semantic IDs for Recommender Systems"
+      ],
+      "continuity_from_date": "2026-10-29"
+    },
+    "cs.LG": {
+      "summary": "当前cs.LG分类下生成式推荐相关研究延续了此前从通用核心模块创新向全链路工程化配套、垂直高价值场景深度适配演进的整体趋势，本次新收录的两项工作进一步将研究边界拓展至生成式推荐系统的底层依托组件安全攻防、高监管垂直场景可信评估两大此前未被充分关注的交叉方向，对现有研究形成了有效补充。\n\n第一项工作提出了名为“自愿奴役”的新型大语言模型智能体隐蔽攻击范式，不同于传统可被现有检测机制识别的显式注入攻击，该方法仅利用智能体自身内置的安全对齐避害逻辑，就可诱导其自主输出攻击者期望的决策，在多类主流基础大模型、生产级浏览器智能体上的有效性均得到验证，配套提出的无需模型重训练的轻量防御方案，可直接为以大语言模型为核心推理载体的生成式推荐系统补齐隐蔽攻击风险的防控短板，填补了生成式推荐智能体对抗安全研究的细分空白。\n\n第二项研究针对临床预测AI公平性评估中长期存在的AUC类指标误用问题，系统性梳理了8种现有AUC衍生公平性指标的定义、特性与适用边界，依托住院死亡风险预测基准模型EuroSCORE II完成多组对照模拟实验，最终明确了临床场景下AI公平性评估的规范化指标选择标准。该研究形成的严谨评估框架，可为后续医疗领域的生成式诊疗路径推荐、个性化用药推荐等生成式推荐落地场景的可信评估体系搭建提供可直接复用的方法论参考，为生成式推荐向医疗这类高监管、高社会影响场景的合规落地筑牢了评估层的基础。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Voluntary Servitude: Weaponized Safety Warning Mechanisms for Controlling AI Agents",
+        "Fairness Metrics based on the AUC in Clinical Predictive AI"
+      ],
+      "continuity_from_date": "2026-10-27"
+    }
+  }
+}
