@@ -1,0 +1,109 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 6,
+  "jsonl_output_line_count": 6,
+  "total_papers_before_filter": 6,
+  "all_papers_inventory": [
+    {
+      "id": "2611.07591",
+      "title": "Beyond Independent Predictions: Learning the Browsing Journey for Sequence-Level Re-ranking",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.07425",
+      "title": "BRIDGE: Bridging the Semantic Quantization Gap for Generative Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.07866",
+      "title": "Do Recommenders Need to Think in Words? Latent Reasoning for Efficient LLM-Based Recommendation",
+      "primary_category": "cs.CL"
+    },
+    {
+      "id": "2611.08487",
+      "title": "User Embeddings are Superpositions of Interpretable Behavioral Modes",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2611.08428",
+      "title": "The Power of Meta Access in the Software of the Future --- Demonstrated on LLM Chat UIs and Chat AI",
+      "primary_category": "cs.AI"
+    },
+    {
+      "id": "2611.07614",
+      "title": "The Popular Get More Popular: Auditing Brand Bias in Generative Search",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "本次cs.AI分类下的生成式推荐相关研究延续此前领域聚焦产业落地痛点攻坚、完善技术与规则支撑体系的整体脉络，跳出了此前集中于动态偏好适配算法优化、垂直消费场景落地的研究路径，从交互架构革新、生成结果公平性审计两个全新维度补充了领域此前尚未覆盖的研究缺口。\n\n其中一项研究跳出生成式推荐算法参数调优的常规思路，面向LLM聊天交互界面提出元访问分层框架，为AI助手提供受权限管控的界面全状态结构化视图，将传统仅承担内容输出功能的聊天窗口升级为覆盖用户全工作空间的控制层，在不损失用户控制权的前提下大幅拓展了智能体对接推荐任务、执行后续联动操作的能力。研究团队基于Meta Chat原型验证了该设计的可行性，同时系统梳理了落地阶段存在的接地性不足、隐私泄露、提示注入、用户信任缺失等风险点，为后续生成式推荐从单纯内容推送向端到端任务代理延伸提供了架构层面的可行方案。\n\n另一项研究针对生成式搜索这类典型生成式推荐场景的公平性问题开展系统性审计，首次明确量化验证了生成系统的品牌领域马太效应：头部品牌被生成结果引用的频次可达普通品牌的1.4~2.8倍，同时证实这类由LLM预训练参数记忆形成的品牌准入壁垒无法通过常规内容优化手段突破，直接打破了此前业界普遍认为中小品牌可通过常规运营提升生成式推荐曝光量的认知误区，相关实测结论也为后续生成式推荐的公平性监管规则制定提供了关键的数据支撑。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "The Power of Meta Access in the Software of the Future --- Demonstrated on LLM Chat UIs and Chat AI",
+        "The Popular Get More Popular: Auditing Brand Bias in Generative Search"
+      ],
+      "continuity_from_date": "2026-11-04"
+    },
+    "cs.CL": {
+      "summary": "继此前cs.CL领域生成式推荐相关研究先后完成轻量落地框架探索、复杂非结构化意图适配、跨语言评测生态补全的基础积累后，上一轮收录成果跳出聚焦效果与效率优化的主流路径，首次向智能体生成推荐的交互环节评测、原生安全风险治理两大新兴方向延伸，进一步拓宽了领域的研究边界。本次新收录的成果重新锚定LLM生成推荐规模化落地的核心性能痛点，从全新技术维度攻坚推理效率与推荐精度的平衡难题。\n\n该研究提出了名为LatentRec的高效LLM生成推荐框架，完全摒弃过往方案普遍要求推理阶段生成显式链式思维文本的固有设计，仅依靠训练阶段施加的隐式分步监督机制，就可以完整保留原显式链式思维方法的全部推荐精度。在三项公开亚马逊推荐基准上的实测结果显示，该框架相较现有CoT蒸馏基线实现了4.0%-5.0%的HR@10相对提升，同时推理延迟大幅降低18.3倍。\n\n这一成果打破了此前行业普遍认为显式链式思维输出是保障LLM生成推荐精度必要条件的固有认知，为高并发工业场景下的生成式推荐部署提供了兼顾效果与效率的高性价比技术方案，也进一步完善了领域同时覆盖前沿方向探索、落地痛点攻坚的完整研究布局。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Do Recommenders Need to Think in Words? Latent Reasoning for Efficient LLM-Based Recommendation"
+      ],
+      "continuity_from_date": "2026-11-03"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR领域新收录的生成式推荐相关研究，延续了此前锚定工业级商用落地诉求的发展主线，在前序工作先后完成序列推荐个性化隐推理调度、生成式检索物品表征结构创新的基础上，进一步下沉到序列级重排序偏差修正、生成式推荐底层语义量化短板这两个此前未被充分覆盖的基础环节，所有研究成果均同时完成公开基准验证与头部电商场景的全流量上线测试，性能增益可直接转化为平台业务收益。\n面向序列重排序环节的研究打破了长期以来工业场景序列重排评估器普遍采用独立行为建模的固有范式，针对性解决了独立建模带来的评估结果偏差问题，提出的即插即用ICE框架通过显式建模用户浏览过程中展示-曝光-点击的全流程关联特征，精准捕捉同一会话内序列行为的相互依赖关系，该框架在淘宝平台全流量部署后，实现了用户点击量与平台营收的双重显著提升，补全了序列级重排序环节的评估逻辑缺陷。\n面向生成式推荐底层范式的BRIDGE框架，跳出了此前同类研究普遍聚焦上层路由、表征结构优化的惯性思路，首次针对性攻坚基于RQ-VAE生成语义ID召回物品范式中长期被忽视的语义量化缺口瓶颈，从三个维度系统性填补语义对齐偏差，在公开电商推荐基准与大规模工业线上A/B测试中均取得明显性能提升，为生成式召回底层范式的可靠性优化提供了全新的技术切入路径。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Beyond Independent Predictions: Learning the Browsing Journey for Sequence-Level Re-ranking",
+        "BRIDGE: Bridging the Semantic Quantization Gap for Generative Recommendation"
+      ],
+      "continuity_from_date": "2026-11-04"
+    },
+    "cs.LG": {
+      "summary": "本次cs.LG分类下生成式推荐相关研究延续了此前向全链路工程化配套演进的整体趋势，在前序工作已经覆盖生成式检索效果效率平衡、大模型推理集群调优、动态偏好漂移适配等落地核心问题的基础上，本次新收录的工作进一步瞄准生成式推荐系统普遍已经大量部署的用户嵌入模块的可解释性增强需求，为工业级生成式推荐的用户运营、合规审计场景提供无侵入的改造路径。\n\n该研究提出了全新的用户嵌入解构思路，论证现有各类预训练用户嵌入本质上都是若干语义独立的可解释行为模式的稀疏叠加，仅通过稀疏自编码器等稀疏字典学习方法，即可从任意上游输出的用户嵌入中还原出对应的独立行为模式，整套框架完全后验且模型无关，不需要对已经上线部署的上游用户嵌入系统做任何修改。\n\n不同于此前多数需要改动原有生成式推荐训练管线才能实现用户表征可解释的方案，该框架即使面对完全没有经过文本数据训练的用户嵌入，也能自动为提取出的行为模式生成自然语言语义命名，直接支撑零样本受众检索和用户群体特征刻画能力。这一进展补齐了此前生成式推荐落地配套体系中用户侧表征无侵入可解释改造的空白，可大幅降低存量生成式推荐系统的功能迭代成本，适配广告定向、用户运营、算法合规审计等多类工业场景的刚需。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "User Embeddings are Superpositions of Interpretable Behavioral Modes"
+      ],
+      "continuity_from_date": "2026-11-04"
+    },
+    "cs.SI": {
+      "summary": "此前cs.SI分类下的生成式推荐相关研究已经形成了从用户行为规律实证、内部偏好漂移治理、算法鲁棒性优化到冷启动落地技术开发的完整脉络，本次新收录的研究跳出了此前聚焦生成推荐系统本身性能优化的视角，向生成式分发生态的外部性公平性审计方向延伸，进一步拓展了该领域的研究边界。\n\n本次公开的研究以与生成式推荐技术同源、场景高度关联的主流生成式搜索引擎为审计对象，系统性排查其输出结果中的品牌偏差问题，识别出品牌流行度偏差、品牌熟悉度偏差两类核心现象，量化证实生成类信息分发机制会显著强化“富者愈富”的马太效应：头部品牌在生成结果中的被引用频次可达平均水平的1.4~2.8倍，且由大模型预训练阶段的参数记忆形成的市场准入壁垒，无法通过传统商家常用的常规内容优化手段突破。\n\n不同于过往研究多聚焦生成推荐场景内用户侧的感知偏差治理，本次新成果首次从产业竞争公平性维度给出了生成式分发系统系统性偏差的量化实证结论，补足了此前生成式推荐生态公平性研究中商业品牌维度的证据缺口，也为后续生成式推荐、生成搜索场景下的公平性规制设计提供了可参照的实测依据。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "The Popular Get More Popular: Auditing Brand Bias in Generative Search"
+      ],
+      "continuity_from_date": "2026-11-04"
+    }
+  }
+}
