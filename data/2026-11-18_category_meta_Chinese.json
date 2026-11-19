@@ -1,0 +1,94 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 6,
+  "jsonl_output_line_count": 6,
+  "total_papers_before_filter": 6,
+  "all_papers_inventory": [
+    {
+      "id": "2611.24757",
+      "title": "Variance-Optimal Counterfactual Policy Design for Sample-Efficient Online A/B Testing",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.24006",
+      "title": "MARS Technical Report",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.23969",
+      "title": "ReflectRec: Cycle-Consistency Preference Verification for LLM-based Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.23710",
+      "title": "CONCORD-Rec: Catalog-Conditioned Modality Utility for Semantic-ID Diffusion Recommendation",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.24426",
+      "title": "DyNA-Mixer: Decoupling Time and Topology for Scalable Dynamic Node Affinity Prediction",
+      "primary_category": "cs.LG"
+    },
+    {
+      "id": "2611.24342",
+      "title": "Exploring Daily Emotional Well-Being through Personalized Data Analysis",
+      "primary_category": "cs.LG"
+    }
+  ],
+  "categories": {
+    "cs.CL": {
+      "summary": "cs.CL领域的生成式推荐研究延续了此前面向实际场景挖掘未覆盖需求的核心导向，在已搭建完成的覆盖算法迭代、故障规避、合规验证的全链路工业化落地支撑体系基础上，进一步向内挖掘LLM推荐内部推理链路的优化空间，推出了针对性的偏好校验新框架。\n\n和过往研究要么聚焦生成结果分发、要么关注生成后用户编辑行为预判的切入角度不同，最新提出的ReflectRec框架首次将循环一致性校验逻辑引入LLM生成推荐的思维链偏好生成环节，通过偏好-用户历史往返校验机制直接校正大模型输出的偏好推理偏差，同时打破了生成式推荐与传统协同过滤机制相互割裂的常规设计思路，引入相似用户的未来交互行为作为协同增强信号。\n\n实验结果显示该框架在多个公开推荐数据集上的表现大幅超越现有同类CoT类LLM推荐基线，标志着领域研究开始从“校验最终输出”向“核验中间推理过程”的方向延伸，进一步补全了现有生成式推荐体系在推理链路自洽性层面的能力缺口，也为后续跨范式融合不同推荐技术的优势提供了新的研究思路。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "ReflectRec: Cycle-Consistency Preference Verification for LLM-based Recommendation"
+      ],
+      "continuity_from_date": "2026-11-16"
+    },
+    "cs.IR": {
+      "summary": "本次cs.IR领域收录的生成推荐方向相关研究，延续了此前领域锚定工业级落地、攻坚全链路细粒度短板的核心主线，在前期已完成核心算法突破、检索加速理论补全的基础上，进一步将研究覆盖范围从单模块算法优化延伸到全链路编排、评估体系支撑的更广维度，逐步搭建出更完整的生成推荐落地技术栈。\n\n此前领域研究多聚焦生成推荐单个环节的算法性能优化，本次新收录的成果首次实现了多阶段推荐全流水线的全局个性化编排：提出的多阶段智能体推荐系统MARS，通过微调小尺寸大模型生成逐用户的自定义流水线配置，经三阶段安全的离线+半离线训练后，在淘宝5个千万日活规模的线上场景完成两周验证，在全部核心业务指标正向提升的同时进一步压低了平均服务延迟，突破了此前各推荐阶段单独调优无法实现全局最优的瓶颈。\n\n针对两类主流生成推荐技术路径的原生缺陷，本次研究也补充了新的优化范式：面向大语言模型推荐的思维链偏好质量不可控问题，ReflectRec设计了偏好-用户历史往返校验的循环一致性偏好验证机制，同时引入相似用户未来交互作为协同信号，在多个公开数据集上性能大幅超越现有CoT类LLM推荐基线；面向多模态扩散生成推荐的错误传播问题，CONCORD-Rec提出目录条件模态效用框架，针对性解决模态缺失、退化、语义冲突引发的精度损失问题，在显著提升推荐指标的同时大幅压缩了推理延迟。\n\n不同于此前配套支撑研究集中在检索加速环节的特点，本次研究还将优化触角延伸到生成推荐的线上验证环节：提出的方差最优反事实策略设计框架联合优化动作采样规则和处理效应估计的控制变量，可大幅提升在线A/B测试的样本效率，从业者仅需更少的在线流量即可得到可靠的部署决策，为后续迭代速度快、依赖大流量验证的生成推荐方案进一步降低了落地试错成本。",
+      "matched_count": 4,
+      "paper_count_in_bucket": 4,
+      "titles_in_category": [
+        "Variance-Optimal Counterfactual Policy Design for Sample-Efficient Online A/B Testing",
+        "MARS Technical Report",
+        "ReflectRec: Cycle-Consistency Preference Verification for LLM-based Recommendation",
+        "CONCORD-Rec: Catalog-Conditioned Modality Utility for Semantic-ID Diffusion Recommendation"
+      ],
+      "continuity_from_date": "2026-11-12"
+    },
+    "cs.LG": {
+      "summary": "本次cs.LG分类下与生成式推荐落地支撑相关的系列研究，在前期完成向量检索底层核心模块的效率优化补全基础上，进一步将技术覆盖边界向生成式推荐业务全生命周期延伸，瞄准此前尚未被充分覆盖的上线验证、用户偏好个性化建模、大规模动态交互表征三类落地短板形成针对性突破，延续了该领域面向工业实用化构建全链路配套体系的演进主线。\n\n其中针对生成式推荐新策略迭代快、试错成本高的典型痛点，本次收录的第一篇研究提出的方差最优反事实策略设计框架，通过联合优化动作采样规则与处理效应估计控制变量，实现了样本效率大幅提升的在线A/B测试能力，从业者仅需占用远小于传统方案的在线流量就能得到统计可靠的部署决策，能够有效降低生成式新策略上线验证过程中的流量损耗与不必要的用户体验扰动。\n\n其余两项工作分别从用户侧表征与交互图计算层面补充了生成式推荐的底层技术选项：面向用户偏好动态捕捉的需求，个性化日常情绪幸福感研究证实通用分析模型难以有效捕捉个体层面的情绪动态差异，为生成式推荐体系中用户侧的个性化偏好建模分支提供了实证依据，可有效规避通用化偏好表征带来的生成内容匹配偏差问题；而DyNA-Mixer框架通过解耦时序演化建模与拓扑协同结构建模，在保障动态节点亲和性预测精度的前提下大幅提升了大规模动态图上全候选排序的计算效率，为超大规模场景下的实时生成式推荐召回排序环节提供了低开销的高性能方案。",
+      "matched_count": 3,
+      "paper_count_in_bucket": 3,
+      "titles_in_category": [
+        "Variance-Optimal Counterfactual Policy Design for Sample-Efficient Online A/B Testing",
+        "DyNA-Mixer: Decoupling Time and Topology for Scalable Dynamic Node Affinity Prediction",
+        "Exploring Daily Emotional Well-Being through Personalized Data Analysis"
+      ],
+      "continuity_from_date": "2026-11-12"
+    }
+  }
+}
