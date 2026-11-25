@@ -1,0 +1,90 @@
+{
+  "keywords": [
+    "generative recommendation"
+  ],
+  "keyword_match_mode": "all_words",
+  "keyword_match_mode_note": "phrase=整句连续子串(最严); all_words=短语内每个词都出现(默认); any_word=短语内任一词出现",
+  "language": "Chinese",
+  "categories_meta_buckets": "论文按 arXiv 标签与 CATEGORIES 的交集分桶；JSONL 中 categories[0] 为「CATEGORIES 顺序下首个命中标签」（与 arXiv 声明顺序可能不同）；每主分区最多保留 10 条。",
+  "categories_env_order": [
+    "cs.IR",
+    "cs.CL",
+    "cs.LG",
+    "cs.AI",
+    "cs.SI"
+  ],
+  "categories_env": [
+    "cs.AI",
+    "cs.CL",
+    "cs.IR",
+    "cs.LG",
+    "cs.SI"
+  ],
+  "aggregate_revision": 2,
+  "stats_note": "unique_papers_in_input：进入本脚本时的 JSONL 行数（去重后）。jsonl_output_line_count：写回 *_AI_enhanced_*.jsonl 的行数（按主分区每区最多 10 篇）。各 categories.*.titles_in_category：该分区 meta 桶内当日全部相关论文，不是输出 JSONL；同一篇可因多标签出现在多个分区，故各分区 paper_count 之和可能大于 unique_papers_in_input。",
+  "unique_papers_in_input": 4,
+  "jsonl_output_line_count": 4,
+  "total_papers_before_filter": 4,
+  "all_papers_inventory": [
+    {
+      "id": "2611.33036",
+      "title": "Towards Realistic Evaluation of Uncertainty Quantification for LLM-Based Recommender Systems",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.32855",
+      "title": "Speculative Decoding for Semantic-ID-Based Generative Recommendations",
+      "primary_category": "cs.IR"
+    },
+    {
+      "id": "2611.32848",
+      "title": "Measurement Artifacts in Trustworthiness Evaluations of Quantized Small Language Models",
+      "primary_category": "cs.AI"
+    },
+    {
+      "id": "2611.32247",
+      "title": "Refining and Aligning Clinical Reasoning with Health Guidelines via Formal Constraints",
+      "primary_category": "cs.AI"
+    }
+  ],
+  "categories": {
+    "cs.AI": {
+      "summary": "本次cs.AI分类下的生成式推荐相关研究延续了此前领域向产业落地侧倾斜、技术能力向垂直公共决策场景溢出的整体演进脉络，跳出了前序阶段聚焦推荐主链路性能优化、推理成本压缩的讨论范畴，进一步向生成式智能的评估可靠性、垂直专业场景的规则对齐两个更细分的落地支撑方向延伸，补充了此前领域未覆盖的低资源小模型可信评估、医疗专业生成推理的技术缺口。\n\n其中针对生成式推荐端侧低资源部署的可信性核验空白，最新研究首次系统性披露了参数量低于20亿的量化小语言模型可信度评估流程中普遍存在的测量伪影问题，证实评估工具与量化操作的交互误差会扭曲甚至反向呈现量化操作对模型可信度的实际影响。该工作通过多模型对照实验量化了四类常见测量选择引入的评估偏差，配套公开了标注数据集并提出了压缩小模型可信度评估的规范建议，可为后续端侧部署的轻量化生成式推荐模型的可信效果核验提供统一基准，填补了此前领域小模型部署后效果评估的规则空白。\n\n另一项研究延续了此前生成式推荐领域成熟的RAG技术向垂直专业场景迁移的趋势，针对传统医疗生成推理易偏离临床规范的痛点提出可解释框架VerClin。该框架通过将健康指南转化为可执行知识、搭载四值确定性推理器、多专科适用性筛选和带形式约束的指导合成流程，实现与官方健康指南严格对齐的临床推理，可识别触发信号较弱的高风险临床建议，在多个医疗评测基准上性能超过直接生成和Top-5 RAG基线，为后续医疗类垂直场景的生成式推荐服务合规落地提供了可复用的形式约束对齐技术路径。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Measurement Artifacts in Trustworthiness Evaluations of Quantized Small Language Models",
+        "Refining and Aligning Clinical Reasoning with Health Guidelines via Formal Constraints"
+      ],
+      "continuity_from_date": "2026-11-23"
+    },
+    "cs.CL": {
+      "summary": "当前cs.CL领域的生成式推荐研究延续了此前围绕全链路鲁棒性、可量化评估持续深耕的发展脉络，在已完成上游生成搜索引擎模块固有波动特性补盲、给出生成输出非确定性适配测量规范的基础上，本次收录的研究进一步将标准化评估的覆盖范围延伸到了LLM推荐系统的不确定性量化核心模块，完善了整个生成推荐稳定性评估体系的核心中间环节。\n\n不同于此前相关研究多聚焦生成结果波动规律统计与查询预算校准的切入思路，本次新研究直击行业内长期存在的不同异构不确定性量化方法难以公平对比的共性痛点，专门搭建了固定排序的统一评估基准，在4个公开推荐数据集、2类不同的LLM骨干架构上，对共计8类异构不确定性量化信号作为记录级监测器的实际表现开展了大样本统一对照测试，最终得到了三项具备参考价值的关键实证结论。\n\n该工作打破了过往生成式推荐领域不确定性量化相关实验评估规则不统一、结果可比性差的行业现状，为LLM生成推荐系统的不确定性量化环节提供了标准化的评估框架，也为后续工业场景下生成推荐的输出误差校准、内容风险实时监测、商业归因效果测算等落地需求提供了新的实证支撑依据。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Towards Realistic Evaluation of Uncertainty Quantification for LLM-Based Recommender Systems"
+      ],
+      "continuity_from_date": "2026-11-23"
+    },
+    "cs.IR": {
+      "summary": "cs.IR领域生成推荐方向的最新研究延续了此前面向工业级落地搭建完整技术栈的核心主线，在前序完成生成推荐公平性治理、广义生成引擎效果审计规范等前期积累的基础上，进一步向LLM基推荐系统的可信性评估、生成式推荐专属推理优化两个细分方向延伸，补全现有技术链路此前缺失的底层实证依据和性能优化方案。\n本次新上线的第一项研究跳出了过往生成推荐评估多聚焦最终输出效果的路径，专门针对LLM推荐系统中各类不确定性量化方法无法公平对比的行业痛点，搭建了固定排序的统一评估基准，覆盖4类推荐数据集、2种不同LLM骨干，对8类异构不确定性量化信号作为记录级监测器开展了全维度对照实验，输出的三项关键实证结论为LLM推荐系统的运行态可信监测、低置信结果兜底等功能提供了标准化测试框架，进一步把生成推荐的评估规范从面向第三方审计的外部规则，下沉到了系统内部运行状态的可量化度量层面。\n另一项研究则首次将推测解码技术适配到语义ID范式的生成式推荐场景，针对性解决了原有约束束搜索推理效率低、无法保证输出结果为精确Top-K的普遍缺陷，提出的SIDECAR框架通过近似草稿候选生成、树注意力单次打分和分支定界回退的创新设计，可在大幅减少模型调用次数的同时认证输出是否为精确Top-K结果，还能给出输出和理论最优结果的偏差边界，支持质量感知的动态提前终止，从推理效率维度大幅降低了生成式推荐大规模线上部署的算力门槛，为该类技术的工业化落地提供了核心性能优化路径。",
+      "matched_count": 2,
+      "paper_count_in_bucket": 2,
+      "titles_in_category": [
+        "Towards Realistic Evaluation of Uncertainty Quantification for LLM-Based Recommender Systems",
+        "Speculative Decoding for Semantic-ID-Based Generative Recommendations"
+      ],
+      "continuity_from_date": "2026-11-23"
+    },
+    "cs.LG": {
+      "summary": "本次cs.LG分类下的生成式推荐相关研究，延续了此前领域面向工业实用化搭建全链路配套体系的核心演进主线，在已完成个性化偏好建模、大规模动态交互表征、全页级生成重排序等核心落地短板突破的基础上，进一步将研究视角从性能效果优化下沉到系统底层可靠性评估这一此前未被充分覆盖的维度。\n\n本次新收录的工作瞄准现有基于大语言模型的生成式推荐系统中，各类异构不确定性量化方法缺乏统一公平对比规则的行业痛点，搭建了标准化的固定排序基准框架，在4个公开推荐数据集、两类不同的LLM骨干架构上，对8类异质性不确定性量化信号作为记录级监测器的实际性能开展了统一对照评估，最终输出了三项可复现的关键实证观察结论。\n\n该研究提供的标准化评估范式刚好补全了生成式推荐全链路落地体系中可靠性验证环节的空缺，与此前已落地的各类效果优化模块形成互补，可为后续生成式推荐系统的风险前置干预、置信度自适应调优提供统一的度量标尺，进一步提升该类技术大规模工业部署的稳定性与可控性。",
+      "matched_count": 1,
+      "paper_count_in_bucket": 1,
+      "titles_in_category": [
+        "Towards Realistic Evaluation of Uncertainty Quantification for LLM-Based Recommender Systems"
+      ],
+      "continuity_from_date": "2026-11-19"
+    }
+  }
+}
